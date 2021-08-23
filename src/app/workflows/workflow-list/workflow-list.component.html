@@ -1,0 +1,34 @@
+<div>
+    <h4>Workflow Management</h4>
+</div>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th scope="col" class="col-1">Key</th>
+            <th scope="col" class="col-9">Name</th>
+            <th scope="col" class="col-2 text-end">
+                <button type="button" class="btn btn-primary btn-sm" routerLink="editor">
+                    <i class="fa fa-plus"></i> New Workflow
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td class="text-end">
+                <a href="#" routerLink="editor" [queryParams]="{id:[item.id]}"><i class="fa fa-edit"></i></a>
+                <a href="#" class="text-danger mx-2"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ngb-pagination 
+    [collectionSize]="collectionSize" 
+    [(page)]="page" 
+    [maxSize]="5" 
+    [boundaryLinks]="true"
+    [pageSize]="10" 
+    class="d-flex justify-content-end">
+</ngb-pagination>
