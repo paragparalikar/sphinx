@@ -1,0 +1,38 @@
+<div>
+    <h4>Forms Management</h4>
+</div>
+<div *ngFor="let alert of alerts">
+    <div class="alert alert-dismissible fade show" [ngClass]="alert.type">
+        {{alert.text}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+<<p-table [columns]="yourColumnArray" [value]="yourDataArray">
+    <ng-template pTemplate="caption">
+        your caption template
+</ng-template>
+    <ng-template pTemplate="header" let-yourColumnArrayVaraible>
+        <tr>
+            <th *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+                {{yourColumnVaraible.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-yourRowVaraible let-yourColumnArrayVaraible="columns">
+        <tr>
+            <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+            {{yourRowVaraible[yourColumnVaraible.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
+        <tr>
+            <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+                {{yourColumnVaraible.header}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        your summary template
+    </ng-template>
+</p-table>
