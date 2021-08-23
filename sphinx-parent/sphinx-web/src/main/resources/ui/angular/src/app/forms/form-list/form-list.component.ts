@@ -17,32 +17,11 @@ export class FormListComponent implements OnInit, OnDestroy {
   collectionSize: number = 0;
   page: number = 1;
   items: Form[] = [];
-  dtTrigger: Subject<any> = new Subject<any>();
-  dtOptions: DataTables.Settings = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      processing: true,
-      serverSide: true,
-      ajax: (params, callback) => {
-        console.log(params);
-        callback({
-          recordsTotal: 0,
-          data:[]
-        });
-      },
-      columns:[
-        {data: "id"},
-        {data: "name"},
-        {data: "latestVersion"},
-        {data: "activeVersion"}
-      ]
-  };
-
-
+  
   constructor(private formService: FormService, private confirmationService: ConfirmationService) { }
 
   ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
+    
   }
 
   ngOnInit(): void {
