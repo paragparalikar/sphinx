@@ -13,7 +13,7 @@ export class FormService {
   forms: Form[] = [];
 
   constructor(private httpClient: HttpClient) { 
-    forms.items.forEach(form => this.forms.push(form));
+    forms.content.forEach(form => this.forms.push(form));
   }
 
   findAll(): Observable<Page<Form>> {

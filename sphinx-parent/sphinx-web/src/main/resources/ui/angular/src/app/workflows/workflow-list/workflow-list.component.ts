@@ -18,8 +18,8 @@ export class WorkflowListComponent implements OnInit {
   ngOnInit(): void {
     this.workflowService.findAll().subscribe(
       page => {
-        this.items = page.items;
-        this.collectionSize = page.collectionSize;
+        this.items = page.content;
+        this.collectionSize = page.numberOfElements;
         this.page = 1;
       }
     );

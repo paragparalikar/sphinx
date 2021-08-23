@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormioModule } from '@formio/angular';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationModule } from '../shared/confirmation/confirmation.module';
+import { TableModule } from 'primeng/table';
 
 const routes: Routes = [
   {path: '', component: FormListComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
     NgbModule,
     FormioModule,
     FormsModule,
+    TableModule,
     ConfirmationModule,
     RouterModule.forChild(routes)
   ]

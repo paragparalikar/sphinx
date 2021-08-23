@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Alert } from 'src/app/shared/alert';
 import { Confirmation } from 'src/app/shared/confirmation/confirmation.model';
 import { ConfirmationService } from 'src/app/shared/confirmation/confirmation.service';
@@ -10,23 +11,49 @@ import { FormService } from '../form.service';
   templateUrl: './form-list.component.html',
   styleUrls: ['./form-list.component.css']
 })
-export class FormListComponent implements OnInit {
+export class FormListComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
   collectionSize: number = 0;
   page: number = 1;
   items: Form[] = [];
+  dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions: DataTables.Settings = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      processing: true,
+      serverSide: true,
+      ajax: (params, callback) => {
+        console.log(params);
+        callback({
+          recordsTotal: 0,
+          data:[]
+        });
+      },
+      columns:[
+        {data: "id"},
+        {data: "name"},
+        {data: "latestVersion"},
+        {data: "activeVersion"}
+      ]
+  };
+
 
   constructor(private formService: FormService, private confirmationService: ConfirmationService) { }
 
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
   ngOnInit(): void {
-    this.formService.findAll().subscribe(
-      page => {
-        this.items = page.items;
-        this.collectionSize = page.collectionSize;
-        this.page = 1;
-      }
-    );
+    // this.formService.findAll().subscribe(
+    //   page => {
+    //     this.items = page.content;
+    //     this.collectionSize = page.numberOfElements;
+    //     this.page = 1;
+    //     this.dtTrigger.next();
+    //   }
+    // );
   }
 
   delete(form: Form) {

@@ -1,35 +1,55 @@
 {
-    "collectionSize": 25,
-    "items": [
+    "numberOfElements": 25,
+    "content": [
         {
             "id": 1,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Access request for XYZ system"
         },{
             "id": 2,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Access request for LDAP"
         },{
             "id": 3,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Valar Morghulis"
         },{
             "id": 4,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Rains of Castamier"
         },{
             "id": 5,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "One doesn't just walk into Mordor"
         },{
             "id": 6,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "All father Odin, grant me access to Valhalla"
         },{
             "id": 7,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "No one will know God of many faces"
         },{
             "id": 8,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Three questions of Sphinx"
         },{
             "id": 9,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Cerberus spotted"
         },{
             "id": 10,
+            "latestVersion": 5,
+            "activeVersion": 3,
             "name": "Let me in"
         }
     ]

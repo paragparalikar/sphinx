@@ -7,39 +7,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
-<table class="table table-striped mt-3">
-    <thead>
+<<p-table [columns]="yourColumnArray" [value]="yourDataArray">
+    <ng-template pTemplate="caption">
+        your caption template
+</ng-template>
+    <ng-template pTemplate="header" let-yourColumnArrayVaraible>
         <tr>
-            <th scope="col" class="col-1">Key</th>
-            <th scope="col" class="col-9">Name</th>
-            <th scope="col" class="col-2 text-end">
-                <button type="button" class="btn btn-primary btn-sm" routerLink="editor">
-                    <i class="fa fa-plus"></i> New Form
-                </button>
+            <th *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+                {{yourColumnVaraible.header}}
             </th>
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let item of items">
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td class="text-end">
-                <button class="btn btn-sm btn-warning" routerLink="editor" [queryParams]="{id:[item.id]}">
-                    <i class="fa fa-edit"></i>
-                </button>
-                <button class="btn btn-sm btn-danger mx-2" (click)="delete(item)">
-                    <i class="fa fa-trash"></i>
-                </button>
+    </ng-template>
+    <ng-template pTemplate="body" let-yourRowVaraible let-yourColumnArrayVaraible="columns">
+        <tr>
+            <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+            {{yourRowVaraible[yourColumnVaraible.field]}}
             </td>
         </tr>
-    </tbody>
-</table>
-<ngb-pagination 
-    [collectionSize]="collectionSize" 
-    [(page)]="page" 
-    [maxSize]="5" 
-    [boundaryLinks]="true"
-    [pageSize]="10" 
-    class="d-flex justify-content-end">
-</ngb-pagination>
-<app-confirmation></app-confirmation>
+    </ng-template>
+    <ng-template pTemplate="footer" let-yourColumnArrayVaraible>
+        <tr>
+            <td *ngFor="let yourColumnVaraible of yourColumnArrayVaraible">
+                {{yourColumnVaraible.header}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        your summary template
+    </ng-template>
+</p-table>
