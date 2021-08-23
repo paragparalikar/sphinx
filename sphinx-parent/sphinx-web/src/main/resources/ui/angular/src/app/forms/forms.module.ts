@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormListComponent } from './form-list/form-list.component';
 import { FormEditorComponent } from './form-editor/form-editor.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormioModule } from '@formio/angular';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationModule } from '../shared/confirmation/confirmation.module';
 import { TableModule } from 'primeng/table';
@@ -19,7 +18,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     NgbModule,
-    FormioModule,
     FormsModule,
     TableModule,
     ConfirmationModule,

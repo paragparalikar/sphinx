@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { Alert } from 'src/app/shared/alert';
 import { Confirmation } from 'src/app/shared/confirmation/confirmation.model';
@@ -14,14 +15,15 @@ import { FormService } from '../form.service';
 export class FormListComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
-  collectionSize: number = 0;
-  page: number = 1;
   items: Form[] = [];
+  loading: boolean = true;
+  numberOfElements: number = 0;
+  
   
   constructor(private formService: FormService, private confirmationService: ConfirmationService) { }
 
   ngOnDestroy(): void {
-    
+
   }
 
   ngOnInit(): void {
@@ -33,6 +35,10 @@ export class FormListComponent implements OnInit, OnDestroy {
     //     this.dtTrigger.next();
     //   }
     // );
+  }
+
+  load(event: LazyLoadEvent){
+    console.log(event);
   }
 
   delete(form: Form) {

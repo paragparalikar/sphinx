@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertsPosition } from '@formio/angular/types/alerts-position';
 import { FormBuilder } from 'formiojs';
 import { Alert } from 'src/app/shared/alert';
 import { Form } from '../form.model';
