@@ -34,6 +34,7 @@ export class FormEditorComponent implements OnInit {
           this.formService.findById(params.id).subscribe(form => {
             this.form = form;
             this.title = `Edit Form ${form.name}`;
+            this.formBuilder!.setForm(this.form);
           });
         } else {
           this.form = {};

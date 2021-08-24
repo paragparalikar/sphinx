@@ -13,7 +13,7 @@ import { FormService } from '../form.service';
 export class FormListComponent implements OnInit, OnDestroy {
 
   page: Page<Form> = {
-    numberOfElements: 0,
+    totalElements: 0,
     content: []
   };
   loading: boolean = true;
