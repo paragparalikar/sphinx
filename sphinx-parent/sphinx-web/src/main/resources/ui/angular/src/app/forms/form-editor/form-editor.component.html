@@ -1,12 +1,6 @@
 <div>
     <h4>{{title}}</h4>
 </div>
-<div *ngFor="let alert of alerts">
-    <div class="alert alert-dismissible fade show" [ngClass]="alert.type">
-        {{alert.text}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
 <p-toolbar>
     <div class="p-inputgroup">
         <span class="p-inputgroup-addon">Name</span>

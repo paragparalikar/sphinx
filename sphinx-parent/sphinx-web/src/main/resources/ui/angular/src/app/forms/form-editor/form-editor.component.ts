@@ -17,7 +17,6 @@ export class FormEditorComponent implements OnInit {
   @ViewChild("formBuilderElement", {read: ElementRef, static: true})
   private formBuilderElement?: ElementRef;
 
-  alerts: Alert[] = [];
   form: Form = {};
   formBuilder?: FormBuilder;
   title: string = 'Create New Form';

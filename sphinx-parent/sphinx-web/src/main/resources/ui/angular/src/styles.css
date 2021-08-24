@@ -1,6 +1,10 @@
 body, .p-component {
     font-size: 12px;
 }
+.p-datatable .p-datatable-tbody > tr > td,
+.p-datatable .p-datatable-thead > tr > th {
+  padding: 0.35rem;
+}
 
 .builder-sidebar .btn {
     min-width: 100% !important; 
