@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from 'formiojs';
+import { MessageService } from 'primeng/api';
 import { Alert } from 'src/app/shared/alert';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
@@ -21,7 +22,10 @@ export class FormEditorComponent implements OnInit {
   formBuilder?: FormBuilder;
   title: string = 'Create New Form';
     
-  constructor(private formService: FormService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private formService: FormService, 
+    private activatedRoute: ActivatedRoute,
+    private messageSerivce: MessageService) { }
 
   ngOnInit(): void {
 
@@ -61,9 +65,10 @@ export class FormEditorComponent implements OnInit {
   save(){
     if(this.form.name && this.form.components && 0 < this.form.components.length){
       this.formService.save(this.form).subscribe(
-        response => this.alerts.push({
-          type: 'alert-success',
-          text: "Form has been saved successfully"
+        response => this.messageSerivce.add({
+          severity: "success",
+          summary: "Saved",
+          detail: `Form "${this.form.name}" has been saved successfully`
         })
       );
     }

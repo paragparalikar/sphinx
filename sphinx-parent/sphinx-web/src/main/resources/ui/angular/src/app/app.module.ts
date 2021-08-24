@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,7 @@ import { ConfirmationService } from 'primeng/api';
     TableModule
   ],
   providers: [
+    MessageService,
     ConfirmationService
   ],
   bootstrap: [AppComponent]

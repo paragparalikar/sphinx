@@ -9,8 +9,9 @@ import { ConfirmationModule } from '../shared/confirmation/confirmation.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import {ToolbarModule} from 'primeng/toolbar';
-import { ChipsModule } from 'primeng/chips';
+import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { InputTextModule } from 'primeng/inputtext';
 
 const routes: Routes = [
   {path: '', component: FormListComponent},
@@ -26,7 +27,8 @@ const routes: Routes = [
     TableModule,
     ButtonModule,
     ToolbarModule,
-    ChipsModule,
+    ToastModule,
+    InputTextModule,
     ConfirmPopupModule,
     RouterModule.forChild(routes)
   ]
