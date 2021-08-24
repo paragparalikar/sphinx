@@ -1,5 +1,5 @@
-body {
-    font-size: 0.876rem;
+body, .p-component {
+    font-size: 12px;
 }
 
 .builder-sidebar .btn {

@@ -7,22 +7,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
-<p-table [value]="items" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
-    [rows]="10" [totalRecords]="numberOfElements" [loading]="loading" [showCurrentPageReport]="true" 
+<p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
+    [rows]="10" [totalRecords]="page.numberOfElements" [loading]="loading" [showCurrentPageReport]="true" 
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
-    [globalFilterFields]="['id','name','latestVersion','activeVersion']">
+    [globalFilterFields]="['id','name']">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="latestVersion">Latest Version <p-sortIcon field="latestVersion"></p-sortIcon></th>
-            <th pSortableColumn="activeVersion">Active Version <p-sortIcon field="activeVersion"></p-sortIcon></th>
-        </tr>
-        <tr>
-            <th><p-columnFilter type="numeric" field="id"></p-columnFilter></th>
-            <th><p-columnFilter type="text" field="name"></p-columnFilter></th>
-            <th><p-columnFilter type="numeric" field="latestVersion"></p-columnFilter></th>
-            <th><p-columnFilter type="numeric" field="activeVersion"></p-columnFilter></th>
+            <th pSortableColumn="id">
+                ID <p-sortIcon field="id"></p-sortIcon> <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="name">
+                Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="latestVersion">
+                Latest Version <p-sortIcon field="latestVersion"></p-sortIcon>
+            </th>
+            <th pSortableColumn="activeVersion">
+                Active Version <p-sortIcon field="activeVersion"></p-sortIcon>
+            </th>
+            <th class="text-end">
+                <p-button label="New Form" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
@@ -31,6 +36,11 @@
             <td>{{item.name}}</td>
             <td>{{item.latestVersion}}</td>
             <td>{{item.activeVersion}}</td>
+            <td class="text-end">
+                <p-button icon="pi pi-edit" class="p-button-warning p-button-rounded" routerLink="editor" [queryParams]="{id: item.id}"></p-button>
+                <p-button icon="pi pi-times" class="p-button-danger p-button-rounded" (click)="delete($event, item)"></p-button>
+                <p-confirmPopup [key]="item.id" ></p-confirmPopup>
+            </td>
         </tr>
     </ng-template>
 </p-table>

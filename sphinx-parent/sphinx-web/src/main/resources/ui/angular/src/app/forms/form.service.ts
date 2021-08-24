@@ -1,39 +1,38 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../shared/page.model';
 import { Form } from './form.model';
-import * as forms from 'src/assets/forms.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
 
-  forms: Form[] = [];
+  private url = 'http://localhost:8080/forms';
+  private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-  constructor(private httpClient: HttpClient) { 
+  constructor(private httpClient: HttpClient) {}
 
-  }
-
-  findAll(): Observable<Page<Form>> {
-    const page = new Page(this.forms.length, this.forms);
-    return new Observable(subscriber => subscriber.next(page));
+  findAll(params: any): Observable<Page<Form>> {
+    const pageRequest = JSON.stringify(params);
+    return this.httpClient.post<Page<Form>>(`${this.url}/pages`, pageRequest, this.options);
   }
 
   save(form: Form): Observable<Form> {
-    this.forms.push(form);
-    return new Observable(subscriber => subscriber.next(form));
+    if(form.id){
+      return this.httpClient.put(`${this.url}`, form);
+    } else {
+      return this.httpClient.post(`${this.url}`, form);
+    }
   }
 
   findById(id: number): Observable<Form> {
-    const form = this.forms.find(form => id == form.id);
-    return new Observable(subscriber => subscriber.next(form));
+    return this.httpClient.get<Form>(`${this.url}/${id}`);
   }
 
   deleteById(id: number): Observable<any> {
-    this.forms = this.forms.filter(form => id != form.id);
-    return new Observable(subscriber => subscriber.next());
+    return this.httpClient.delete(`${this.url}/${id}`);
   }
 
 }

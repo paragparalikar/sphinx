@@ -1,9 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
-import { Subject } from 'rxjs';
+import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { Alert } from 'src/app/shared/alert';
-import { Confirmation } from 'src/app/shared/confirmation/confirmation.model';
-import { ConfirmationService } from 'src/app/shared/confirmation/confirmation.service';
+import { Page } from 'src/app/shared/page.model';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
 
@@ -15,49 +13,49 @@ import { FormService } from '../form.service';
 export class FormListComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
-  items: Form[] = [];
+  page: Page<Form> = {
+    numberOfElements: 0,
+    content: []
+  };
   loading: boolean = true;
-  numberOfElements: number = 0;
-  
-  
-  constructor(private formService: FormService, private confirmationService: ConfirmationService) { }
+    
+  constructor(
+    private formService: FormService, 
+    private confirmationService: ConfirmationService) { }
 
   ngOnDestroy(): void {
 
   }
 
   ngOnInit(): void {
-    // this.formService.findAll().subscribe(
-    //   page => {
-    //     this.items = page.content;
-    //     this.collectionSize = page.numberOfElements;
-    //     this.page = 1;
-    //     this.dtTrigger.next();
-    //   }
-    // );
+    
   }
 
   load(event: LazyLoadEvent){
-    console.log(event);
+    const that = this;
+    this.loading = true;
+    this.formService.findAll(event).subscribe(
+      page => {
+        that.page = page;
+        that.loading = false;
+      }
+    );
   }
 
-  delete(form: Form) {
-    if (form && form.id) {
-      const confirmation = new Confirmation();
-      confirmation.title = "Please Confirm !";
-      confirmation.message = "Are you sure you want to delete form " + form.name + " ?";
-      confirmation.yesFn = () => {
-        this.formService.deleteById(form!.id!).subscribe(
-          resonse => {
-            this.alerts.push({
-              type: 'alert-success',
-              text: "Form has been deleted successfully"
-            });
-          }
-        );
-      };
-      this.confirmationService.confirm(confirmation);
-    }
+  delete(event: any, form: Form) {
+    this.confirmationService.confirm({
+      message: `Are you sure you want to delete form "${form.name}" ?`,
+      key: String(form.id),
+      icon: "pi pi-exclamation-triangle",
+      acceptIcon: 'pi pi-trash',
+      acceptLabel: "Delete",
+      acceptButtonStyleClass: 'btn btn-danger',
+      rejectLabel: "Cancel",
+      rejectIcon: "pi pi-times",
+      rejectButtonStyleClass: "btn btn-secondary",  
+      target: event.target,
+      closeOnEscape: true
+    });
   }
 
 }

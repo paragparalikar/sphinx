@@ -1,3 +1,4 @@
-export class Page<T> {
-    constructor(public numberOfElements: number, public content: T[]){}
+export interface Page<T> {
+    content: T[];
+    numberOfElements: number;
 }
