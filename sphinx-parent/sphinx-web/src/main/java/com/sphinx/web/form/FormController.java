@@ -1,8 +1,11 @@
-package com.sphinx.web;
+package com.sphinx.web.form;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,29 +29,37 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*")
 public class FormController {
 
+	private final FormMapper formMapper;
 	private final FormService formService;
 	private final SearchBuilder searchBuilder;
 
 	@PostMapping("/pages")
-	public Page<Form> findAll(@RequestBody String pageRequest){
+	public Page<FormDTO> findAll(@RequestBody String pageRequest){
 		final PrimengQueries<Form> primengQueries = searchBuilder.process(pageRequest, Form.class, "id", "name");
-		return formService.findAll(primengQueries.getSpec(), primengQueries.getPageQuery());
+		final Page<Form> page = formService.findAll(primengQueries.getSpec(), primengQueries.getPageQuery());
+		final List<FormDTO> dtos = formMapper.entitiesToDTOs(page.getContent());
+		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
 	}
 	
 	@GetMapping("/{id}")
-	public Form findById(@PathVariable final Long id) {
-		return formService.findById(id);
+	public FormDetailsDTO findById(@PathVariable final Long id) {
+		final Form form = formService.findById(id);
+		return null == form ? null : formMapper.entityToDTO(form);
 	}
 	
 	@PostMapping
-	public Form create(@Valid @RequestBody final Form form) {
-		return formService.save(form);
+	public FormDetailsDTO create(@Valid @RequestBody final FormDetailsDTO dto) {
+		final Form entity = formMapper.dtoToEntity(dto);
+		final Form managed = formService.save(entity);
+		return formMapper.entityToDTO(managed);
 	}
-	
+
 	@PutMapping
-	public Form update(@RequestBody final Form form) {
-		return formService.save(form);
-	}
+	public FormDetailsDTO update(@Valid @RequestBody final FormDetailsDTO dto) {
+		final Form entity = formMapper.dtoToEntity(dto);
+		final Form managed = formService.save(entity);
+		return formMapper.entityToDTO(managed);
+	} 
 	
 	@DeleteMapping("/{id}")
 	public void deleteById(@PathVariable final Long id) {
