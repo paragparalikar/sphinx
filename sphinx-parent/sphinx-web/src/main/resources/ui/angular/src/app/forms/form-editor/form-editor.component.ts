@@ -28,9 +28,13 @@ export class FormEditorComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(
       params => {
         if(params.id){
-          this.formService.findById(params.id).subscribe(form => this.form = form);
+          this.formService.findById(params.id).subscribe(form => {
+            this.form = form;
+            this.title = `Edit Form ${form.name}`;
+          });
         } else {
           this.form = {};
+          this.title = "Create New Form";
         }
       }
     );

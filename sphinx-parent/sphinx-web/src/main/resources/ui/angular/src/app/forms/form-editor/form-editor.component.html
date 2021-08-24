@@ -7,26 +7,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
-<form class="row mt-3">
-    <label for="name" class="col-2 col-form-label">
-        <h6>Form Name</h6>
-    </label>
-    <div class="col-9">
-        <input type="text" id="name" name="name" class="form-control" required [(ngModel)]="form.name" #name="ngModel"
-            minlength="3">
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert-danger">
-            <div *ngIf="name.errors?.required">
-                Please provide a name for the form.
-            </div>
-            <div *ngIf="name.errors?.minlength">
-                Name must be at least 3 characters long.
-            </div>
-        </div>
-    </div>
-    <div class="col-1 text-end">
-        <button type="button" class="btn btn-primary mr0" (click)="save()">
-            <i class="fa fa-save"></i>
+<p-toolbar>
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">Name</span>
+        <input type="text" id="name" name="name" pInputText style="width: 500px;"
+        [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="255">
+        <button type="button" class="p-inputgroup-addon btn-primary" (click)="save()">
+            <i class="p-button-icon fa fa-save"></i>
         </button>
     </div>
-</form>
-<div #formBuilderElement class="form-group mt-3"></div>
+</p-toolbar>
+<div #formBuilderElement class="my-3"></div>

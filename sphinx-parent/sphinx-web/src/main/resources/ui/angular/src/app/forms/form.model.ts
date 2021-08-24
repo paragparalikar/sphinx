@@ -4,5 +4,5 @@ export interface Form {
     name?: string;
     latestVersion?: number;
     activeVersion?: number;
-    components?: [];
+    components?: any[] | string;
 }

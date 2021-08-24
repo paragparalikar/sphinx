@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { ConfirmationModule } from '../shared/confirmation/confirmation.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import {ToolbarModule} from 'primeng/toolbar';
+import { ChipsModule } from 'primeng/chips';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 const routes: Routes = [
@@ -23,6 +25,8 @@ const routes: Routes = [
     FormsModule,
     TableModule,
     ButtonModule,
+    ToolbarModule,
+    ChipsModule,
     ConfirmPopupModule,
     RouterModule.forChild(routes)
   ]
