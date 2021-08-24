@@ -1,5 +1,7 @@
 package com.sphinx.web;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +41,7 @@ public class FormController {
 	}
 	
 	@PostMapping
-	public Form create(@RequestBody final Form form) {
+	public Form create(@Valid @RequestBody final Form form) {
 		return formService.save(form);
 	}
 	

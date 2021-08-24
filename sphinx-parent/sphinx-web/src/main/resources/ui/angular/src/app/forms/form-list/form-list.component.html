@@ -1,5 +1,5 @@
-<div>
-    <h4>Forms Management</h4>
+<div class="page-title" >
+    Forms Management
 </div>
 <p-toast></p-toast>
 <p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true"
@@ -14,12 +14,6 @@
             <th pSortableColumn="name">
                 Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
             </th>
-            <th pSortableColumn="latestVersion">
-                Latest Version <p-sortIcon field="latestVersion"></p-sortIcon>
-            </th>
-            <th pSortableColumn="activeVersion">
-                Active Version <p-sortIcon field="activeVersion"></p-sortIcon>
-            </th>
             <th class="text-end p-py-1">
                 <p-button label="New Form" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
             </th>
@@ -29,8 +23,6 @@
         <tr>
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.latestVersion}}</td>
-            <td>{{item.activeVersion}}</td>
             <td class="text-end">
                 <button class="btn btn-warning btn-sm">
                     <i class="fa fa-edit" routerLink="editor" [queryParams]="{id: item.id}"  ></i>

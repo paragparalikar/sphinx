@@ -1,3 +1,7 @@
 spring:
+  h2:
+    console: 
+      path: /h2
+      enabled: true
   jpa:
     open-in-view: false
