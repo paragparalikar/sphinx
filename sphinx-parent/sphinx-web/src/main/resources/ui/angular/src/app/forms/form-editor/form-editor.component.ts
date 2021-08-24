@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@an
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from 'formiojs';
 import { MessageService } from 'primeng/api';
-import { Alert } from 'src/app/shared/alert';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
 

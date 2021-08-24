@@ -5,7 +5,6 @@ import { FormListComponent } from './form-list/form-list.component';
 import { FormEditorComponent } from './form-editor/form-editor.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { ConfirmationModule } from '../shared/confirmation/confirmation.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import {ToolbarModule} from 'primeng/toolbar';

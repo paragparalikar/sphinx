@@ -1,41 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Page } from 'src/app/shared/page.model';
-import { Form } from '../form.model';
-import { FormService } from '../form.service';
+import { AccessRequest } from '../access-request.model';
+import { AccessRequestService } from '../access-request.service';
 
 @Component({
-  selector: 'app-form-list',
-  templateUrl: './form-list.component.html',
-  styleUrls: ['./form-list.component.css']
+  selector: 'app-access-request-list',
+  templateUrl: './access-request-list.component.html',
+  styleUrls: ['./access-request-list.component.css']
 })
-export class FormListComponent implements OnInit, OnDestroy {
+export class AccessRequestListComponent implements OnInit {
 
-  page: Page<Form> = {
-    totalElements: 0,
-    content: []
+  page: Page<AccessRequest> = {
+    content: [],
+    totalElements: 0
   };
   loading: boolean = true;
   lazyLoadEvent?: LazyLoadEvent;
-    
+
   constructor(
-    private formService: FormService,
+    private accessRequestService: AccessRequestService,
     private messageSerivce: MessageService, 
     private confirmationService: ConfirmationService) { }
 
-  ngOnDestroy(): void {
-
-  }
-
   ngOnInit(): void {
-    
   }
 
   load(event: LazyLoadEvent){
     const that = this;
     this.loading = true;
     this.lazyLoadEvent = event;
-    this.formService.findAll(event).subscribe(
+    this.accessRequestService.findAll(event).subscribe(
       page => {
         that.page = page;
         that.loading = false;
@@ -43,31 +38,30 @@ export class FormListComponent implements OnInit, OnDestroy {
     );
   }
 
-  delete(event: any, form: Form) {
+  cancel(event: any, request: AccessRequest) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to delete form "${form.name}" ?`,
+      message: `Are you sure you want to cancel request "${request.id}" ?`,
       icon: "pi pi-exclamation-triangle",
       acceptIcon: 'pi pi-trash',
-      acceptLabel: "Delete",
+      acceptLabel: "Yes",
       acceptButtonStyleClass: 'btn btn-danger',
-      rejectLabel: "Cancel",
+      rejectLabel: "No",
       rejectIcon: "pi pi-times",
       rejectButtonStyleClass: "btn btn-plain",  
       target: event.target,
       closeOnEscape: true,
       accept: () => {
-        this.formService.deleteById(form.id!).subscribe(
+        this.accessRequestService.deleteById(request.id!).subscribe(
           response => {
             this.load(this.lazyLoadEvent!);
             this.messageSerivce.add({
               severity: "success",
-              summary: "Deleted",
-              detail: `Form "${form.name}" has been deleted successfully`
+              summary: "Cancelled",
+              detail: `Request "${request.id}" has been deleted successfully`
             });
           }
         );
       }
     });
   }
-
 }

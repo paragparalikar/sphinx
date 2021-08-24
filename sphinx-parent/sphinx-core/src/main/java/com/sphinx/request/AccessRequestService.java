@@ -26,7 +26,11 @@ public class AccessRequestService {
 		return accessRequestRepository.findById(id).orElse(null);
 	}
 	
-	public void deleteById(@NonNull Long id) {
-		accessRequestRepository.deleteById(id);
+	public void cancelById(@NonNull Long id) {
+		final AccessRequest accessRequest = findById(id);
+		if(null != accessRequest) {
+			accessRequest.setStatus(AccessRequestStatus.CANCELLED);
+			accessRequestRepository.save(accessRequest);
+		}
 	}
 }

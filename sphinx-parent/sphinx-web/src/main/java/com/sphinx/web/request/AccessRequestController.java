@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/access-requests")
+@RequestMapping("/requests")
 public class AccessRequestController {
 	
 	private final SearchBuilder searchBuilder;
@@ -62,8 +62,8 @@ public class AccessRequestController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable final Long id) {
-		accessRequestService.deleteById(id);
+	public void cancel(@PathVariable final Long id) {
+		accessRequestService.cancelById(id);
 	}
 	
 }
