@@ -1,6 +1,4 @@
-<div class="page-title" >
-    My Requests
-</div>
+<div class="page-title" >My Requests</div>
 <p-toast></p-toast>
 <p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true"
     [rows]="10" [totalRecords]="page.totalElements" [loading]="loading" [showCurrentPageReport]="true" 
@@ -24,7 +22,7 @@
                 Updated <p-sortIcon field="updateTimestamp"></p-sortIcon> <p-columnFilter type="text" field="updateTimestamp" display="menu"></p-columnFilter>
             </th>
             <th class="text-end p-py-1">
-                <p-button label="New Form" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
+                <p-button label="New Request" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
             </th>
         </tr>
     </ng-template>

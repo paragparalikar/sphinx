@@ -6,6 +6,9 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sphinx.form.Form;
@@ -32,6 +36,13 @@ public class FormController {
 	private final FormMapper formMapper;
 	private final FormService formService;
 	private final SearchBuilder searchBuilder;
+	
+	@GetMapping(params = "q")
+	public List<FormDTO> findSuggestions(@RequestParam("q") final String query){
+		final Pageable pageable = PageRequest.of(0, 10, Sort.by("name"));
+		final List<Form> forms = formService.findSuggestions(query, pageable);
+		return formMapper.entitiesToDTOs(forms);
+	}
 
 	@PostMapping("/pages")
 	public Page<FormDTO> findAll(@RequestBody String pageRequest){

@@ -15,6 +15,10 @@ export class FormService {
 
   constructor(private httpClient: HttpClient) {}
 
+  findSuggestions(query: string): Observable<Form[]> {
+    return this.httpClient.get<Form[]>(`${this.url}?q=${query}`);
+  }
+
   findAll(params: any): Observable<Page<Form>> {
     const pageRequest = JSON.stringify(params);
     return this.httpClient.post<Page<Form>>(`${this.url}/pages`, pageRequest, this.options).pipe(

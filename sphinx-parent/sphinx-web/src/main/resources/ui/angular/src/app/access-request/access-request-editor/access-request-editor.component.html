@@ -1,1 +1,31 @@
-<p>access-request-editor works!</p>
+<div class="page-title">{{title}}</div>
+<p-toast></p-toast>
+<div class="p-fluid">
+    <div class="field w-full">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">Users</span>
+            <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
+                [suggestions]="userSuggestions" (completeMethod)="suggestUsers($event)" [multiple]="true"
+                [(ngModel)]="users" [forceSelection]="true" class="w-full">
+                <ng-template let-user pTemplate="item">
+                    <i class="fa fa-user"></i> {{user.lastName}}, {{user.firstName}} {{user.middleName}}
+                </ng-template>
+                <ng-template let-user pTemplate="selectedItem">
+                    <i class="fa fa-user"></i> {{user.lastName}}, {{user.firstName}} {{user.middleName}}
+                </ng-template>
+            </p-autoComplete>
+        </div>
+    </div>
+    <div class="field w-full">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">Form</span>
+            <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
+                [suggestions]="formSuggestions" (completeMethod)="suggestForms($event)"
+                [(ngModel)]="form" [forceSelection]="true" class="w-full importent-text" field="name">
+                <ng-template let-form pTemplate="item">
+                    <i class="fa fa-wpforms"></i> {{form.name}}
+                </ng-template>
+            </p-autoComplete>
+        </div>
+    </div>
+</div>

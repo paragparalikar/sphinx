@@ -9,10 +9,13 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: '', component: AccessRequestListComponent},
-  {path: '/editor', component: AccessRequestEditorComponent}
+  {path: 'editor', component: AccessRequestEditorComponent}
 ];
 
 @NgModule({
@@ -26,8 +29,11 @@ const routes: Routes = [
     ButtonModule,
     ToolbarModule,
     ToastModule,
+    CardModule,
+    FormsModule,
     InputTextModule,
     ConfirmPopupModule,
+    AutoCompleteModule,
     RouterModule.forChild(routes)
   ]
 })

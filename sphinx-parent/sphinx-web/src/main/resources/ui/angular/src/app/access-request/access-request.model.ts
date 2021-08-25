@@ -5,8 +5,8 @@ import { User } from "../user/user.model";
 export interface AccessRequest {
 
     id?: number;
-    form: Form;
-    status: string;
+    form?: Form;
+    status?: string;
     createTimestamp?: Date;
     updateTimestamp?: Date;
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,7 +19,7 @@ public class UserService {
 	
 	public List<User> findSuggestions(final String text){
 		if(!StringUtils.hasText(text)) return Collections.emptyList();
-		final Pageable pageable = PageRequest.ofSize(10);
+		final Pageable pageable = PageRequest.of(0, 10, Sort.by("lastName", "firstName", "middleName"));
 		final String lowerCasePattern = "%" + text.trim().toLowerCase() + "%";
 		return userRepository.findSuggestions(lowerCasePattern, pageable);
 	}
