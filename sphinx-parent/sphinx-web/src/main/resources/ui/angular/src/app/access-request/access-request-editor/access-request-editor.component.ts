@@ -7,6 +7,7 @@ import { UserService } from 'src/app/user/user.service';
 import { AccessRequest } from '../access-request.model';
 import { AccessRequestService } from '../access-request.service';
 import { Formio } from 'formiojs';
+import { NavigationService } from 'src/app/shared/navigation.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class AccessRequestEditorComponent implements OnInit {
   @ViewChild("formRendererElement", {read: ElementRef, static: true})
   private formRendererElement?: ElementRef;
 
+  form?: any;
   title: string = "New Request";
   request: AccessRequest = {};
   userSuggestions: User[] = [];
@@ -28,6 +30,7 @@ export class AccessRequestEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private formService: FormService,
+    private navigationService: NavigationService,
     private accessRequestService: AccessRequestService) { }
 
   ngOnInit(): void {
@@ -37,7 +40,7 @@ export class AccessRequestEditorComponent implements OnInit {
           this.accessRequestService.findById(params.id).subscribe(
             accessRequest => {
               this.request = accessRequest;
-              Formio.createForm(this.formRendererElement!.nativeElement, this.request!.form!);
+              this.render();
             }
           );
         }
@@ -60,9 +63,26 @@ export class AccessRequestEditorComponent implements OnInit {
   onFormSelect(event: any){
     this.formService.findById(event.id).subscribe(
       form => {
-        Formio.createForm(this.formRendererElement!.nativeElement, form);
+        this.request.form = form;
+        this.render();
       }
     );
   }
 
+  render(){
+    Formio.createForm(this.formRendererElement!.nativeElement, this.request!.form!).then(
+      form => {
+        this.form = form;
+      }
+    );
+  }
+
+  back(){
+    this.navigationService.back();
+  }
+
+  submit(){
+    console.log(this.form._data);
+    this.request.payload = JSON.stringify(this.form._data);
+  }
 }

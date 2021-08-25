@@ -6,7 +6,7 @@
             <span class="p-inputgroup-addon">Users</span>
             <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
                 [suggestions]="userSuggestions" (completeMethod)="suggestUsers($event)" [multiple]="true"
-                [(ngModel)]="request.users" [forceSelection]="true" class="w-full">
+                [(ngModel)]="request.users" [forceSelection]="true" class="w-full" [required]=true>
                 <ng-template let-user pTemplate="item">
                     <i class="fa fa-user"></i> {{user.lastName}}, {{user.firstName}} {{user.middleName}}
                 </ng-template>
@@ -22,7 +22,7 @@
             <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
                 [suggestions]="formSuggestions" (completeMethod)="suggestForms($event)"
                 [(ngModel)]="request.form" [forceSelection]="true" class="w-full importent-text" 
-                field="name" (onSelect)="onFormSelect($event)">
+                field="name" (onSelect)="onFormSelect($event)" [required]=true>
                 <ng-template let-form pTemplate="item">
                     <i class="fa fa-wpforms"></i> {{form.name}}
                 </ng-template>
@@ -31,3 +31,11 @@
     </div>
 </div>
 <div #formRendererElement class="my-3"></div>
+<div *ngIf="form" class="text-end">
+    <button type="button" class="btn btn-default" (click)="back()">
+        <i class="fa fa-times"></i> Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="submit()">
+        Submit
+    </button>
+</div>
