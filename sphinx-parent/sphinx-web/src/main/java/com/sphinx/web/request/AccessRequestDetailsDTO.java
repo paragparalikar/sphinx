@@ -2,11 +2,10 @@ package com.sphinx.web.request;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import com.sphinx.web.form.FormDetailsDTO;
 import com.sphinx.web.user.UserDTO;
 
 import lombok.Data;
@@ -20,9 +19,6 @@ public class AccessRequestDetailsDTO extends AccessRequestDTO {
 	private String payload;
 	
 	@NotEmpty
-	private List<UserDTO> users;
-	 
-	@NotNull
-	private FormDetailsDTO form;
+	private List<@Valid UserDTO> users;
 
 }

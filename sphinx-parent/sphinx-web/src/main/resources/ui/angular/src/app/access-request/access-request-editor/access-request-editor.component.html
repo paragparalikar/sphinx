@@ -21,7 +21,7 @@
             <span class="p-inputgroup-addon">Form</span>
             <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
                 [suggestions]="formSuggestions" (completeMethod)="suggestForms($event)"
-                [(ngModel)]="request.form" [forceSelection]="true" class="w-full importent-text" 
+                [(ngModel)]="form" [forceSelection]="true" class="w-full importent-text" 
                 field="name" (onSelect)="onFormSelect($event)" [required]=true>
                 <ng-template let-form pTemplate="item">
                     <i class="fa fa-wpforms"></i> {{form.name}}
@@ -31,7 +31,7 @@
     </div>
 </div>
 <div #formRendererElement class="my-3"></div>
-<div *ngIf="form" class="text-end">
+<div *ngIf="formioForm" class="text-end">
     <button type="button" class="btn btn-default" (click)="back()">
         <i class="fa fa-times"></i> Cancel
     </button>

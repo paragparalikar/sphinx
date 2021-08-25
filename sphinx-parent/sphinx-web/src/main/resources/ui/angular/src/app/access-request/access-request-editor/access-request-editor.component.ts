@@ -8,6 +8,7 @@ import { AccessRequest } from '../access-request.model';
 import { AccessRequestService } from '../access-request.service';
 import { Formio } from 'formiojs';
 import { NavigationService } from 'src/app/shared/navigation.service';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class AccessRequestEditorComponent implements OnInit {
   @ViewChild("formRendererElement", {read: ElementRef, static: true})
   private formRendererElement?: ElementRef;
 
-  form?: any;
+  form?: Form;
+  formioForm?: any;
   title: string = "New Request";
   request: AccessRequest = {};
   userSuggestions: User[] = [];
@@ -30,6 +32,7 @@ export class AccessRequestEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private formService: FormService,
+    private messageService: MessageService,
     private navigationService: NavigationService,
     private accessRequestService: AccessRequestService) { }
 
@@ -40,7 +43,9 @@ export class AccessRequestEditorComponent implements OnInit {
           this.accessRequestService.findById(params.id).subscribe(
             accessRequest => {
               this.request = accessRequest;
-              this.render();
+              this.formService.findById(this.request.formId!).subscribe(
+                form => this.render(form)
+              );
             }
           );
         }
@@ -62,17 +67,18 @@ export class AccessRequestEditorComponent implements OnInit {
 
   onFormSelect(event: any){
     this.formService.findById(event.id).subscribe(
-      form => {
-        this.request.form = form;
-        this.render();
-      }
+      form => this.render(form)
     );
   }
 
-  render(){
-    Formio.createForm(this.formRendererElement!.nativeElement, this.request!.form!).then(
+  render(form: Form){
+    this.form = form;
+    this.request.formId = form.id;
+    this.request.formName = form.name;
+    Formio.createForm(this.formRendererElement!.nativeElement, form).then(
       form => {
-        this.form = form;
+        this.formioForm = form;
+        this.formioForm.submission = this.request.payload;
       }
     );
   }
@@ -82,7 +88,16 @@ export class AccessRequestEditorComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.form._data);
-    this.request.payload = JSON.stringify(this.form._data);
+    console.log(this.formioForm._data);
+    this.request.payload = JSON.stringify(this.formioForm._data);
+    this.accessRequestService.save(this.request).subscribe(
+      response => {
+        this.messageService.add({
+          severity: "success",
+          summary: "Saved",
+          detail: `Request has been saved successfully`
+        });
+      }
+    );
   }
 }

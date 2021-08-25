@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Page } from '../shared/page.model';
 import { AccessRequest } from './access-request.model';
 
@@ -20,6 +21,7 @@ export class AccessRequestService {
   }
 
   save(request: AccessRequest): Observable<AccessRequest> {
+    request.payload = JSON.stringify(request.payload);
     if(request.id){
       return this.httpClient.put<AccessRequest>(`${this.url}`, request);
     } else {
@@ -28,7 +30,12 @@ export class AccessRequestService {
   }
 
   findById(id: number): Observable<AccessRequest> {
-    return this.httpClient.get<AccessRequest>(`${this.url}/${id}`);
+    return this.httpClient.get<AccessRequest>(`${this.url}/${id}`).pipe(
+      map(request => {
+        request.payload = JSON.parse(request.payload!);
+        return request;
+      })
+    );
   }
 
   deleteById(id: number): Observable<any> {
