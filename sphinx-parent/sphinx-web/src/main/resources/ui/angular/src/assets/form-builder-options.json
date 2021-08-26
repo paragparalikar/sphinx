@@ -23,10 +23,9 @@
                 "selectboxes": true,
                 "checkbox": true,
                 "radio": true,
-                "tags": true,
                 "day": true,
                 "time": true,
-                "daytime": true,
+                "datetime": true,
                 "currency": true
             }
         }

@@ -81,7 +81,9 @@ export class AccessRequestEditorComponent implements OnInit {
     Formio.createForm(this.formRendererElement!.nativeElement, form, this.formioOptions).then(
       form => {
         this.formioForm = form;
-        this.formioForm.submission = this.request.payload;
+        this.formioForm.submission = {
+          data: this.request.payload
+        };
       }
     );
   }
