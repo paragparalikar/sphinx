@@ -10,7 +10,6 @@ import { Formio } from 'formiojs';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import { MessageService } from 'primeng/api';
 
-
 @Component({
   selector: 'app-access-request-editor',
   templateUrl: './access-request-editor.component.html',
@@ -27,6 +26,10 @@ export class AccessRequestEditorComponent implements OnInit {
   request: AccessRequest = {};
   userSuggestions: User[] = [];
   formSuggestions: Form[] = [];
+  formioOptions = {
+    noAlerts: true,
+    highlightErrors: false
+  };
   
   constructor(
     private route: ActivatedRoute,
@@ -75,7 +78,7 @@ export class AccessRequestEditorComponent implements OnInit {
     this.form = form;
     this.request.formId = form.id;
     this.request.formName = form.name;
-    Formio.createForm(this.formRendererElement!.nativeElement, form).then(
+    Formio.createForm(this.formRendererElement!.nativeElement, form, this.formioOptions).then(
       form => {
         this.formioForm = form;
         this.formioForm.submission = this.request.payload;
@@ -88,15 +91,17 @@ export class AccessRequestEditorComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.formioForm._data);
-    this.request.payload = JSON.stringify(this.formioForm._data);
-    this.accessRequestService.save(this.request).subscribe(
-      response => {
-        this.messageService.add({
-          severity: "success",
-          summary: "Saved",
-          detail: `Request has been saved successfully`
-        });
+    this.formioForm.submit().then(
+      (submission: { data: any; }) => {
+        this.request.payload = JSON.stringify(submission.data);
+        this.accessRequestService.save(this.request).subscribe(
+          response => {
+            this.messageService.add({
+              severity: "success",
+              summary: "Saved",
+              detail: `Request has been saved successfully`
+            });
+          });
       }
     );
   }

@@ -35,7 +35,7 @@
     <button type="button" class="btn btn-default" (click)="back()">
         <i class="fa fa-times"></i> Cancel
     </button>
-    <button type="button" class="btn btn-primary" (click)="submit()">
+    <button type="submit" class="btn btn-primary" (click)="submit()" [disabled]="formioForm.pristine">
         Submit
     </button>
-</div>
+</div>   
