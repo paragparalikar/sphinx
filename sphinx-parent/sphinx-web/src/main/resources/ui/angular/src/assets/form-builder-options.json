@@ -1,0 +1,34 @@
+{
+    "noDefaultSubmitButton": true,
+    "builder": {
+        "basic": false,
+        "advanced": false,
+        "layout": {
+            "default": true
+        },
+        "data": false,
+        "premium": false,
+        "customBasic": {
+            "title": "Widgets",
+            "default": true,
+            "weight": 0,
+            "components": {
+                "textfield": true,
+                "password": true,
+                "number": true,
+                "textarea": true,
+                "email": true,
+                "phoneNumber": true,
+                "select": true,
+                "selectboxes": true,
+                "checkbox": true,
+                "radio": true,
+                "tags": true,
+                "day": true,
+                "time": true,
+                "daytime": true,
+                "currency": true
+            }
+        }
+    }
+}

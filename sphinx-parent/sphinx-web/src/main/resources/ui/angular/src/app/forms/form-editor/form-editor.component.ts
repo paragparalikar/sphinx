@@ -4,6 +4,7 @@ import { FormBuilder } from 'formiojs';
 import { MessageService } from 'primeng/api';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
+import * as formBuilderOptions from 'src/assets/form-builder-options.json';
 
 @Component({
   selector: 'app-form-editor',
@@ -19,7 +20,7 @@ export class FormEditorComponent implements OnInit {
   form: Form = {};
   formBuilder?: FormBuilder;
   title: string = 'Create New Form';
-    
+  
   constructor(
     private formService: FormService, 
     private activatedRoute: ActivatedRoute,
@@ -42,23 +43,8 @@ export class FormEditorComponent implements OnInit {
       }
     );
 
-    this.formBuilder = new FormBuilder(this.formBuilderElement!.nativeElement, this.form, {
-      noDefaultSubmitButton: true,
-      builder: {
-        premium: false,
-        basic: {
-          components: {
-            password: false,
-            button: false,
-          },
-        },
-        advanced: {
-          components: {
-            signature: false,
-          },
-        }
-      }
-    });
+    this.formBuilder = new FormBuilder(this.formBuilderElement!.nativeElement, 
+      this.form, formBuilderOptions);
   }
 
   save(){
