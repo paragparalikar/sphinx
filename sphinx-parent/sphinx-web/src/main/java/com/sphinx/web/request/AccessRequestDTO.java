@@ -13,6 +13,5 @@ public class AccessRequestDTO {
 	private Long formId;
 	private String formName;
 	private AccessRequestStatus status;
-	private LocalDateTime createTimestamp;
-	private LocalDateTime updateTimestamp;
+	private LocalDateTime submitTimestamp;
 }

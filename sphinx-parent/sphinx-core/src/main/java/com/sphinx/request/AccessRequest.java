@@ -45,18 +45,12 @@ public class AccessRequest {
 	private Form form;
 	
 	@Column(insertable = true, updatable = false)
-	private LocalDateTime createTimestamp;
-	
-	private LocalDateTime updateTimestamp;
+	private LocalDateTime submitTimestamp;
 	
 	@PrePersist
 	public void prePersist() {
-		this.createTimestamp = LocalDateTime.now();
-	}
-	
-	@PreUpdate
-	public void preUpdate() {
-		this.updateTimestamp = LocalDateTime.now();
+		this.status = AccessRequestStatus.NEW;
+		this.submitTimestamp = LocalDateTime.now();
 	}
 	
 }

@@ -3,10 +3,11 @@
 <div class="p-fluid">
     <div class="field w-full">
         <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">Users</span>
-            <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
-                [suggestions]="userSuggestions" (completeMethod)="suggestUsers($event)" [multiple]="true"
-                [(ngModel)]="request.users" [forceSelection]="true" class="w-full" [required]=true>
+            <span class="p-inputgroup-addon">
+                <i class="fa fa-users"></i>&nbsp;&nbsp;Users
+            </span>
+            <p-autoComplete [suggestions]="userSuggestions" (completeMethod)="suggestUsers($event)" [multiple]="true"
+                [(ngModel)]="request.users" [forceSelection]="true" class="w-full" [required]=true  #usersInput="ngModel">
                 <ng-template let-user pTemplate="item">
                     <i class="fa fa-user"></i> {{user.lastName}}, {{user.firstName}} {{user.middleName}}
                 </ng-template>
@@ -15,18 +16,25 @@
                 </ng-template>
             </p-autoComplete>
         </div>
+        <div *ngIf="usersInput.invalid && (usersInput.dirty || usersInput.touched)" class="formio-errors">
+            <div class="form-text error">Please select target users</div>
+        </div>
     </div>
     <div class="field w-full">
         <div class="p-inputgroup">
-            <span class="p-inputgroup-addon">Form</span>
-            <p-autoComplete [showTransitionOptions]="'100ms'" [hideTransitionOptions]="'100ms'"
-                [suggestions]="formSuggestions" (completeMethod)="suggestForms($event)"
+            <span class="p-inputgroup-addon">
+                <i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Form
+            </span>
+            <p-autoComplete [suggestions]="formSuggestions" (completeMethod)="suggestForms($event)"
                 [(ngModel)]="form" [forceSelection]="true" class="w-full importent-text" 
-                field="name" (onSelect)="onFormSelect($event)" [required]=true>
+                field="name" (onSelect)="onFormSelect($event)" [required]=true #formInput="ngModel">
                 <ng-template let-form pTemplate="item">
                     <i class="fa fa-wpforms"></i> {{form.name}}
                 </ng-template>
             </p-autoComplete>
+        </div>
+        <div *ngIf="formInput.invalid && (formInput.dirty || formInput.touched)" class="formio-errors">
+            <div class="form-text error">Please select a form</div>
         </div>
     </div>
 </div>
