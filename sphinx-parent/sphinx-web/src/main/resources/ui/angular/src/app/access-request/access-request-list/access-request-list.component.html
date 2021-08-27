@@ -1,24 +1,28 @@
 <div class="page-title" >My Requests</div>
 <p-toast></p-toast>
-<p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true"
-    [rows]="10" [totalRecords]="page.totalElements" [loading]="loading" [showCurrentPageReport]="true" 
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
+<p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
+    [alwaysShowPaginator]="false" [rows]="10" [totalRecords]="page.totalElements" 
+    [loading]="loading" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
     [globalFilterFields]="['id','name']">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="id">
+            <th pSortableColumn="id" class="col-1">
                 ID <p-sortIcon field="id"></p-sortIcon> <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
             </th>
-            <th pSortableColumn="name">
+            <th pSortableColumn="name" class="col-5">
                 Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="form.name" display="menu"></p-columnFilter>
             </th>
-            <th pSortableColumn="status">
-                Status <p-sortIcon field="status"></p-sortIcon> <p-columnFilter type="text" field="status" display="menu"></p-columnFilter>
+            <th pSortableColumn="status" class="col-2">
+                Status <p-sortIcon field="status"></p-sortIcon> 
+                <p-columnFilter type="text" field="status" display="menu">
+                    
+                </p-columnFilter>
             </th>
-            <th pSortableColumn="submitTimestamp">
-                Created <p-sortIcon field="submitTimestamp"></p-sortIcon> <p-columnFilter type="text" field="submitTimestamp" display="menu"></p-columnFilter>
+            <th pSortableColumn="submitTimestamp" class="col-2">
+                Created <p-sortIcon field="submitTimestamp"></p-sortIcon> <p-columnFilter type="date" field="submitTimestamp" display="menu"></p-columnFilter>
             </th>
-            <th class="text-end p-py-1">
+            <th class="text-end p-py-1 col-2">
                 <p-button label="New Request" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
             </th>
         </tr>
@@ -26,13 +30,12 @@
     <ng-template pTemplate="body" let-item>
         <tr>
             <td>{{item.id}}</td>
-            <td>{{item.formName}}</td>
+            <td>
+                <a href="#" routerLink="editor" [queryParams]="{id: item.id}">{{item.formName}}</a>
+            </td>
             <td>{{item.status}}</td>
-            <td>{{item.submitTimestamp}}</td>
+            <td>{{item.submitTimestamp | date:'medium'}}</td>
             <td class="text-end">
-                <button class="btn btn-warning btn-sm">
-                    <i class="fa fa-edit" routerLink="editor" [queryParams]="{id: item.id}"  ></i>
-                </button>
                 <button class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
                     <i class="fa fa-trash"></i>
                 </button>
