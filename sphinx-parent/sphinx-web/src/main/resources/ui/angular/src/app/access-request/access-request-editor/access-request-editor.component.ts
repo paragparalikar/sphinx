@@ -28,6 +28,7 @@ export class AccessRequestEditorComponent implements OnInit {
   formSuggestions: Form[] = [];
   formioOptions = {
     noAlerts: true,
+    readOnly: false,
     highlightErrors: false
   };
   
@@ -78,6 +79,7 @@ export class AccessRequestEditorComponent implements OnInit {
     this.form = form;
     this.request.formId = form.id;
     this.request.formName = form.name;
+    this.formioOptions.readOnly = this.request.id != undefined;
     Formio.createForm(this.formRendererElement!.nativeElement, form, this.formioOptions).then(
       form => {
         this.formioForm = form;

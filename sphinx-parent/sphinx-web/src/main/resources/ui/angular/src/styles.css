@@ -39,6 +39,9 @@ body, .p-component {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+.input-group-text{
+  height: 100%;
+}
 .builder-sidebar .btn {
     min-width: 100% !important; 
 }

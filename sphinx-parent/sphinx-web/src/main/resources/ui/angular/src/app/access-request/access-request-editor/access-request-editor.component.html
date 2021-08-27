@@ -7,7 +7,7 @@
                 <span class="p-inputgroup-addon">
                     <i class="fa fa-users"></i>&nbsp;&nbsp;Users
                 </span>
-                <p-autoComplete name="usersac" field="id" [suggestions]="userSuggestions" 
+                <p-autoComplete name="usersac" field="id" [suggestions]="userSuggestions" [disabled]="formioOptions.readOnly"
                     (completeMethod)="suggestUsers($event)" [multiple]="true"
                     [(ngModel)]="request.users" [forceSelection]="true" class="w-full" [required]=true  #usersInput="ngModel">
                     <ng-template let-user pTemplate="item">
@@ -27,7 +27,7 @@
                 <span class="p-inputgroup-addon">
                     <i class="fa fa-file-text"></i>&nbsp;&nbsp;Form&nbsp;
                 </span>
-                <p-autoComplete name="formac" field="name"  [suggestions]="formSuggestions" 
+                <p-autoComplete name="formac" field="name"  [suggestions]="formSuggestions" [disabled]="formioOptions.readOnly"
                     (completeMethod)="suggestForms($event)" [(ngModel)]="form" 
                     [forceSelection]="true" class="w-full importent-text" 
                     (onSelect)="onFormSelect($event)" [required]=true #formInput="ngModel">
@@ -43,7 +43,7 @@
     </div>
     <p-card [style.display]="formioForm ? 'block' : 'none'">
         <div #formRendererElement></div>
-        <div class="mt-4 text-end" *ngIf="formioForm">
+        <div class="mt-4 text-end" *ngIf="formioForm && !formioOptions.readOnly">
             <button type="button" class="btn btn-default" (click)="back()">
                 <i class="fa fa-times"></i> Cancel
             </button>
