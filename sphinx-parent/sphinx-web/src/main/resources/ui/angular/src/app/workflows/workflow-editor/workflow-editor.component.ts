@@ -1,66 +1,75 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { DiagramModel, NodeModel, PortModel, RxZuDiagramComponent } from '@rxzu/angular';
 import DrawFlow from 'drawflow';
+import { createShorthandPropertyAssignment } from 'typescript';
 
 @Component({
   selector: 'app-workflow-editor',
   templateUrl: './workflow-editor.component.html',
-  styleUrls: ['./workflow-editor.component.css']
+  styleUrls: ['./workflow-editor.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class WorkflowEditorComponent implements OnInit {
+export class WorkflowEditorComponent {
+  diagramModel: DiagramModel;
+  nodesLibrary = [
+    { color: '#AFF8D8', name: 'default' },
+    { color: '#FFB5E8', name: 'div' },
+    { color: '#85E3FF', name: 'default' },
+  ];
+  @ViewChild(RxZuDiagramComponent, { static: true })
+  diagram?: RxZuDiagramComponent;
 
-  @ViewChild("drawFlowDiv", {read: ElementRef, static: true})
-  private drawFlowDiv?: ElementRef;
-  private editor?: DrawFlow;
+  constructor() {
+    this.diagramModel = new DiagramModel();
+  }
 
-  constructor() { }
+  ngAfterViewInit() {
+    this.diagram?.zoomToFit();
+  }
 
-  ngOnInit(): void {
-    if(this.drawFlowDiv){
-      this.editor = new DrawFlow(this.drawFlowDiv.nativeElement);
-      this.editor.reroute = true;
-      this.editor.editor_mode = 'edit';
-      this.editor.start();
+  createNode(type: string) {
+    const nodeData = this.nodesLibrary.find((nodeLib) => nodeLib.name === type);
+    if (nodeData) {
+      const node = new NodeModel();
+      const port = new PortModel();
+      node.addPort(port);
+      node.setExtras(nodeData);
+      return node;
+    }
+    return null;
+  }
+
+  /**
+   * On drag start, assign the desired properties to the dataTransfer
+   */
+  onBlockDrag(e: DragEvent) {
+    const type = (e.target as HTMLElement).getAttribute('data-type');
+    if (e.dataTransfer && type) {
+      e.dataTransfer.setData('type', type);
     }
   }
 
-  drag(event: DragEvent){
-    const element = event.target as HTMLElement;
-    event!.dataTransfer!.setData("node", element!.getAttribute('data-node')!);
-  }
-
-  drop(event: DragEvent){
-    event.preventDefault();
-    var data = event.dataTransfer!.getData("node");
-    this.addNodeToDrawFlow(data, event.clientX, event.clientY);
-  }
-
-  addNodeToDrawFlow(name: string, x: number, y: number){
-    switch(name){
-      case 'start': 
-        const startHtml = `
-        <div>
-          <div class="title-box"><i class="fa fa-arrow-right"></i> Start</div>
-        </div>
-        `;
-        this.editor!.addNode('Start', 0, 1, x, y, 'start', {}, startHtml, false);
-        break;
-      case 'stop':
-        const endHtml = `
-        <div>
-          <div class="title-box"><i class="fa fa-circle"></i> Stop</div>
-        </div>
-        `;
-        this.editor!.addNode('End', 0, 1, x, y, 'end', {}, endHtml, false);
-        break;
-      case 'mail':
-        const mailHtml = `
-        <div>
-          <div class="title-box"><i class="fa fa-envelope"></i> Mail</div>
-        </div>
-        `;
-        this.editor!.addNode('Mail', 0, 1, x, y, 'mail', {}, mailHtml, false);
-        break;
+  /**
+   * on block dropped, create new intent with the empty data of the selected block type
+   */
+  onBlockDropped(e: DragEvent): void | undefined {
+    if (e.dataTransfer) {
+      const nodeType = e.dataTransfer.getData('type');
+      const node = this.createNode(nodeType);
+      const canvasManager = this.diagram?.diagramEngine.getCanvasManager();
+      if (canvasManager) {
+        const droppedPoint = canvasManager.getZoomAwareRelativePoint(e);
+        const width = node?.getWidth() ?? 1;
+        const height = node?.getHeight() ?? 1;
+        const coords = {
+          x: droppedPoint.x - width / 2,
+          y: droppedPoint.y - height / 2,
+        };
+        if (node) {
+          node.setCoords(coords);
+          this.diagramModel.addNode(node);
+        }
+      }
     }
   }
-
 }

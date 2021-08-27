@@ -1,21 +1,20 @@
-<div>
-    <h4>Create New Workflow</h4>
-</div>
-<div #drawFlowDiv id="drawflow" (drop)="drop($event)" ondragover="event.preventDefault();" style="min-height: 400px; min-width: 400px;"></div>
-<div>
-    <span>
-        <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="start">
-            <i class="fa fa-arrow-right"></i><span> Start</span>
-        </div>
-    </span>
-    <span>
-        <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="stop">
-            <i class="fa fa-circle"></i><span> Stop</span>
-        </div>
-    </span>
-    <span>
-        <div class="drag-drawflow" draggable="true" (dragstart)="drag($event)" data-node="mail">
-            <i class="fa fa-envelope"></i><span> Mail</span>
-        </div>
-    </span>
-</div>
+<div class="action-bar">
+    <div
+      *ngFor="let node of nodesLibrary"
+      class="node-drag"
+      draggable="true"
+      data-type="div"
+      [attr.data-name]="node.name"
+      (dragstart)="onBlockDrag($event)"
+      [ngStyle]="{ 'background-color': node.color }"
+    >
+      {{ node.name }}
+    </div>
+  </div>
+  
+  <rxzu-diagram
+    class="demo-diagram"
+    [model]="diagramModel"
+    (drop)="onBlockDropped($event)"
+    (dragover)="$event.preventDefault()"
+  ></rxzu-diagram>
