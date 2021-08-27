@@ -1,7 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DiagramModel, NodeModel, PortModel, RxZuDiagramComponent } from '@rxzu/angular';
-import DrawFlow from 'drawflow';
-import { createShorthandPropertyAssignment } from 'typescript';
 
 @Component({
   selector: 'app-workflow-editor',

@@ -77,6 +77,7 @@ export class AccessRequestEditorComponent implements OnInit {
 
   render(form: Form){
     this.form = form;
+    this.title = form.name!;
     this.request.formId = form.id;
     this.request.formName = form.name;
     this.formioOptions.readOnly = this.request.id != undefined;
