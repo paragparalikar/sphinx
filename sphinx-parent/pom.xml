@@ -63,5 +63,6 @@
 	<modules>
 		<module>sphinx-core</module>
 		<module>sphinx-web</module>
+		<module>sphinx-workflow</module>
 	</modules>
 </project>

@@ -92,10 +92,14 @@ export class AccessRequestEditorComponent implements OnInit {
     this.navigationService.back();
   }
 
-  submit(){
-    this.formioForm.submit().then(
+  submit(requestForm){
+    Object.keys(requestForm.controls).forEach(key => {
+      requestForm.controls[key].markAsTouched();
+    });
+    this.formioForm.submit().then( 
       (submission: { data: any; }) => {
-        this.request.payload = JSON.stringify(submission.data);
+        if(requestForm.touched && requestForm.valid){
+          this.request.payload = JSON.stringify(submission.data);
         this.accessRequestService.save(this.request).subscribe(
           response => {
             this.messageService.add({
@@ -104,6 +108,7 @@ export class AccessRequestEditorComponent implements OnInit {
               detail: `Request has been saved successfully`
             });
           });
+        }
       }
     );
   }
