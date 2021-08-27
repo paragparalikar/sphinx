@@ -18,11 +18,11 @@ export class AccessRequestListComponent implements OnInit {
   loading: boolean = true;
   lazyLoadEvent?: LazyLoadEvent;
   statuses = [
-    {label: 'New', value: 'NEW'},
-    {label: 'Pending', value: 'PENDING'},
-    {label: 'Approved', value: 'APPROVED'},
-    {label: 'Rejected', value: 'REJECTED'},
-    {label: 'Cancelled', value: 'CANCELLED'}
+    {label: 'NEW', value: 'NEW'},
+    {label: 'PENDING', value: 'PENDING'},
+    {label: 'APPROVED', value: 'APPROVED'},
+    {label: 'REJECTED', value: 'REJECTED'},
+    {label: 'CANCELLED', value: 'CANCELLED'}
   ];
 
   constructor(
@@ -64,7 +64,7 @@ export class AccessRequestListComponent implements OnInit {
             this.messageSerivce.add({
               severity: "success",
               summary: "Cancelled",
-              detail: `Request "${request.id}" has been deleted successfully`
+              detail: `Request "${request.id}" has been cancelled successfully`
             });
           }
         );
