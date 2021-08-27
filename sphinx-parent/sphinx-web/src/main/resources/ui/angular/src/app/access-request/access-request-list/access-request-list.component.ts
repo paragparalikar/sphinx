@@ -17,6 +17,13 @@ export class AccessRequestListComponent implements OnInit {
   };
   loading: boolean = true;
   lazyLoadEvent?: LazyLoadEvent;
+  statuses = [
+    {label: 'New', value: 'NEW'},
+    {label: 'Pending', value: 'PENDING'},
+    {label: 'Approved', value: 'APPROVED'},
+    {label: 'Rejected', value: 'REJECTED'},
+    {label: 'Cancelled', value: 'CANCELLED'}
+  ];
 
   constructor(
     private accessRequestService: AccessRequestService,

@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 const routes: Routes = [
   {path: '', component: AccessRequestListComponent},
@@ -34,6 +35,7 @@ const routes: Routes = [
     InputTextModule,
     ConfirmPopupModule,
     AutoCompleteModule,
+    DropdownModule,
     RouterModule.forChild(routes)
   ]
 })

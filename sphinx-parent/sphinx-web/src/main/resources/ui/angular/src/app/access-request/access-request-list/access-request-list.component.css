@@ -1,0 +1,19 @@
+.status-cell{
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 5px;
+    color: #ffffff;
+    min-width: 40px;
+    max-width: 40px;
+}
+.status-NEW,
+.status-PENDING{
+    background-color: #007bff;
+}
+.status-APPROVED{
+    background-color: #198754;
+}
+.status-REJECTED,
+.status-CANCELLED{
+    background-color: #dc3545;
+}

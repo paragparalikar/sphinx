@@ -15,8 +15,14 @@
             </th>
             <th pSortableColumn="status" class="col-2">
                 Status <p-sortIcon field="status"></p-sortIcon> 
-                <p-columnFilter type="text" field="status" display="menu">
-                    
+                <p-columnFilter field="status" matchMode="equals"  display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'status-cell status-' + option.value">{{option.label}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
                 </p-columnFilter>
             </th>
             <th pSortableColumn="submitTimestamp" class="col-2">
@@ -33,7 +39,7 @@
             <td>
                 <a href="#" routerLink="editor" [queryParams]="{id: item.id}">{{item.formName}}</a>
             </td>
-            <td>{{item.status}}</td>
+            <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
             <td>{{item.submitTimestamp | date:'medium'}}</td>
             <td class="text-end">
                 <button class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
