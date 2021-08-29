@@ -10,9 +10,10 @@ import { DiagramModel, NodeModel, PortModel, RxZuDiagramComponent } from '@rxzu/
 export class WorkflowEditorComponent {
   diagramModel: DiagramModel;
   nodesLibrary = [
-    { color: '#AFF8D8', name: 'default' },
-    { color: '#FFB5E8', name: 'div' },
-    { color: '#85E3FF', name: 'default' },
+    { type:'request', name: 'Request Received', icon:'fa fa-arrow-right' },
+    { type:'email', name: 'Email', icon: 'fa fa-envelope'},
+    { type:'approval', name: 'Approval', icon: 'fa fa-check' },
+    { type:'ldap', name: 'LDAP', icon: 'fa fa-users' }
   ];
   @ViewChild(RxZuDiagramComponent, { static: true })
   diagram?: RxZuDiagramComponent;
@@ -26,20 +27,14 @@ export class WorkflowEditorComponent {
   }
 
   createNode(type: string) {
-    const nodeData = this.nodesLibrary.find((nodeLib) => nodeLib.name === type);
-    if (nodeData) {
-      const node = new NodeModel();
-      const port = new PortModel();
-      node.addPort(port);
-      node.setExtras(nodeData);
-      return node;
-    }
-    return null;
+    const nodeData = {
+      type: type
+    };
+    const node = new NodeModel();
+    node.setExtras(nodeData);
+    return node;
   }
 
-  /**
-   * On drag start, assign the desired properties to the dataTransfer
-   */
   onBlockDrag(e: DragEvent) {
     const type = (e.target as HTMLElement).getAttribute('data-type');
     if (e.dataTransfer && type) {
@@ -47,9 +42,6 @@ export class WorkflowEditorComponent {
     }
   }
 
-  /**
-   * on block dropped, create new intent with the empty data of the selected block type
-   */
   onBlockDropped(e: DragEvent): void | undefined {
     if (e.dataTransfer) {
       const nodeType = e.dataTransfer.getData('type');

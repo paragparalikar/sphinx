@@ -2,14 +2,14 @@
   <div class="action-bar">
     <div
       *ngFor="let node of nodesLibrary"
-      class="node-drag"
+      class="node-drag  mx-2"
       draggable="true"
-      data-type="div"
+      [attr.data-type]="node.type"
       [attr.data-name]="node.name"
       (dragstart)="onBlockDrag($event)"
-      [ngStyle]="{ 'background-color': node.color }"
+      style="background-color: #AFF8D8;"
     >
-      {{ node.name }}
+      <i [class]="node.icon"></i>  {{ node.name }}
     </div>
   </div>
   <rxzu-diagram

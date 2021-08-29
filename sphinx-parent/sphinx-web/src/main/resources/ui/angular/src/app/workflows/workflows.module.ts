@@ -6,6 +6,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentProviderOptions, DefaultLabelComponent, DefaultLinkComponent, DefaultNodeComponent, DefaultPortComponent, RxZuDefaultsModule, RxZuModule } from '@rxzu/angular';
+import { RequestReceivedNodeComponent } from './workflow-editor/rxzu/nodes/request-received-node/request-received-node.component';
+import { EmailNodeComponent } from './workflow-editor/rxzu/nodes/email-node/email-node.component';
+import { ApprovalNodeComponent } from './workflow-editor/rxzu/nodes/approval-node/approval-node.component';
+import { LdapNodeComponent } from './workflow-editor/rxzu/nodes/ldap-node/ldap-node.component';
+import { CustomNodeComponent } from './workflow-editor/rxzu/nodes/custom-node/custom-node.component';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
@@ -14,7 +19,7 @@ const routes: Routes = [
 const DEFAULTS: ComponentProviderOptions[] = [
   {
     type: 'node',
-    component: DefaultNodeComponent,
+    component: CustomNodeComponent,
   },
   {
     type: 'port',
@@ -31,7 +36,7 @@ const DEFAULTS: ComponentProviderOptions[] = [
 ];
 
 @NgModule({
-  declarations: [WorkflowListComponent, WorkflowEditorComponent],
+  declarations: [WorkflowListComponent, WorkflowEditorComponent, CustomNodeComponent, RequestReceivedNodeComponent, EmailNodeComponent, ApprovalNodeComponent, LdapNodeComponent],
   imports: [
     CommonModule,
     HttpClientModule,
