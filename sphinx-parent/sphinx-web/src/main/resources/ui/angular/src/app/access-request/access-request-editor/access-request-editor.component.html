@@ -1,34 +1,32 @@
-<div class="container-fluid">
-    <div class="page-title">{{title}}</div>
-    <form #requestForm="ngForm">
-        <div class="p-fluid" *ngIf="!formioOptions.readOnly">
-            <div class="field w-full">
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon">
-                        <i class="fa fa-file-text"></i>&nbsp;&nbsp;Form&nbsp;
-                    </span>
-                    <p-autoComplete name="formac" field="name"  [suggestions]="formSuggestions" [disabled]="formioOptions.readOnly"
-                        (completeMethod)="suggestForms($event)" [(ngModel)]="form" 
-                        [forceSelection]="true" class="w-full importent-text"
-                        (onSelect)="onFormSelect($event)" [required]=true #formInput="ngModel">
-                        <ng-template let-form pTemplate="item">
-                            <i class="fa fa-wpforms"></i> {{form.name}}
-                        </ng-template>
-                    </p-autoComplete>
-                </div>
+<div class="page-title">{{title}}</div>
+<form #requestForm="ngForm">
+    <div class="p-fluid" *ngIf="!formioOptions.readOnly">
+        <div class="field w-full">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">
+                    <i class="fa fa-file-text"></i>&nbsp;&nbsp;Form&nbsp;
+                </span>
+                <p-autoComplete name="formac" field="name"  [suggestions]="formSuggestions" [disabled]="formioOptions.readOnly"
+                    (completeMethod)="suggestForms($event)" [(ngModel)]="form" 
+                    [forceSelection]="true" class="w-full importent-text"
+                    (onSelect)="onFormSelect($event)" [required]=true #formInput="ngModel">
+                    <ng-template let-form pTemplate="item">
+                        <i class="fa fa-wpforms"></i> {{form.name}}
+                    </ng-template>
+                </p-autoComplete>
             </div>
         </div>
-        <p-card [style.display]="formioForm ? 'block' : 'none'">
-            <div #formRendererElement></div>
-            <div class="mt-4 text-end">
-                <button type="button" class="btn btn-default" (click)="back()">
-                    <i class="fa fa-arrow-left"></i> Back
-                </button>
-                <button type="submit" class="btn btn-primary" (click)="submit(requestForm)"
-                *ngIf="formioForm && !formioOptions.readOnly">
-                    <i class="fa fa-save"></i> Submit
-                </button>
-            </div>   
-        </p-card>
-    </form>    
-</div>
+    </div>
+    <p-card [style.display]="formioForm ? 'block' : 'none'">
+        <div #formRendererElement></div>
+        <div class="mt-4 text-end">
+            <button type="button" class="btn btn-default" (click)="back()">
+                <i class="fa fa-arrow-left"></i> Back
+            </button>
+            <button type="submit" class="btn btn-primary" (click)="submit(requestForm)"
+            *ngIf="formioForm && !formioOptions.readOnly">
+                <i class="fa fa-save"></i> Submit
+            </button>
+        </div>   
+    </p-card>
+</form>    

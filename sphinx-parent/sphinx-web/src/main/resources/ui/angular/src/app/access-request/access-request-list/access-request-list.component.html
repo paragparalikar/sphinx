@@ -1,52 +1,50 @@
-<div class="container-fluid">
-    <div class="page-title">My Requests</div>
-    <p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
-        [alwaysShowPaginator]="false" [rows]="10" [totalRecords]="page.totalElements" 
-        [loading]="loading" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
-        [globalFilterFields]="['id','name']">
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="id" class="col-2">
-                    ID <p-sortIcon field="id"></p-sortIcon> <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
-                </th>
-                <th pSortableColumn="name" class="col-4">
-                    Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="form.name" display="menu"></p-columnFilter>
-                </th>
-                <th pSortableColumn="status" class="col-2">
-                    Status <p-sortIcon field="status"></p-sortIcon> 
-                    <p-columnFilter field="status" matchMode="equals"  display="menu">
-                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
-                                <ng-template let-option pTemplate="item">
-                                    <span [class]="'status-cell status-' + option.value">{{option.label}}</span>
-                                </ng-template>
-                            </p-dropdown>
-                        </ng-template>
-                    </p-columnFilter>
-                </th>
-                <th pSortableColumn="submitTimestamp" class="col-2">
-                    Created <p-sortIcon field="submitTimestamp"></p-sortIcon> <p-columnFilter type="date" field="submitTimestamp" display="menu"></p-columnFilter>
-                </th>
-                <th class="text-end p-py-1 col-2">
-                    <p-button label="New Request" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item>
-            <tr>
-                <td>{{item.id}}</td>
-                <td>
-                    <a href="#" routerLink="editor" [queryParams]="{id: item.id}">{{item.formName}}</a>
-                </td>
-                <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
-                <td>{{item.submitTimestamp | date:'medium'}}</td>
-                <td class="text-end">
-                    <button class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div>
+<div class="page-title">My Requests</div>
+<p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
+    [alwaysShowPaginator]="false" [rows]="10" [totalRecords]="page.totalElements" 
+    [loading]="loading" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+    [globalFilterFields]="['id','name']">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id" class="col-2">
+                ID <p-sortIcon field="id"></p-sortIcon> <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="name" class="col-4">
+                Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="form.name" display="menu"></p-columnFilter>
+            </th>
+            <th pSortableColumn="status" class="col-2">
+                Status <p-sortIcon field="status"></p-sortIcon> 
+                <p-columnFilter field="status" matchMode="equals"  display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'status-cell status-' + option.value">{{option.label}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+            <th pSortableColumn="submitTimestamp" class="col-2">
+                Created <p-sortIcon field="submitTimestamp"></p-sortIcon> <p-columnFilter type="date" field="submitTimestamp" display="menu"></p-columnFilter>
+            </th>
+            <th class="text-end p-py-1 col-2">
+                <p-button label="New Request" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.id}}</td>
+            <td>
+                <a href="#" routerLink="editor" [queryParams]="{id: item.id}">{{item.formName}}</a>
+            </td>
+            <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
+            <td>{{item.submitTimestamp | date:'medium'}}</td>
+            <td class="text-end">
+                <button class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
