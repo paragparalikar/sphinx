@@ -16,9 +16,6 @@
                         </ng-template>
                     </p-autoComplete>
                 </div>
-                <div *ngIf="formInput.invalid && (formInput.dirty || formInput.touched)" class="formio-errors">
-                    <div class="form-text error">Please select a form</div>
-                </div>
             </div>
         </div>
         <p-card [style.display]="formioForm ? 'block' : 'none'">

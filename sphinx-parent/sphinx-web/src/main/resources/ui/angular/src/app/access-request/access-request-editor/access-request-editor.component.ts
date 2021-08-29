@@ -82,7 +82,7 @@ export class AccessRequestEditorComponent implements OnInit {
   }
 
   back(){
-    this.navigationService.back();
+    this.navigationService.navigate(['..'], {relativeTo: this.route});
   }
 
   submit(requestForm){
@@ -100,7 +100,7 @@ export class AccessRequestEditorComponent implements OnInit {
               summary: "Saved",
               detail: `Request has been saved successfully`
             });
-            this.navigationService.navigate(['..'], {relativeTo: this.route});
+            this.back();
           });
         }
       }
