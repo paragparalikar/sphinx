@@ -29,6 +29,7 @@
     "font-awesome": "^4.7.0",
     "formiojs": "^4.13.5",
     "jquery": "3.4.1",
+    "lit-element": "^2.5.1",
     "primeflex": "^3.0.1",
     "primeicons": "^4.1.0",
     "primeng": "^12.1.0-rc.2",
