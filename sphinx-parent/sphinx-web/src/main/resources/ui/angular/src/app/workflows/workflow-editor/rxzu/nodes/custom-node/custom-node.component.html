@@ -7,12 +7,13 @@
   (mouseover)="model.setHovered()"
   (mouseout)="model.setHovered(false)"
 >
-
-  <app-request-received-node [model]="model" *ngIf="model.getExtras().type == 'request'"></app-request-received-node>
-  <app-approval-node [model]="model" *ngIf="model.getExtras().type == 'approval'"></app-approval-node>
-  <app-email-node [model]="model" *ngIf="model.getExtras().type == 'email'"></app-email-node>
-  <app-ldap-node [model]="model" *ngIf="model.getExtras().type == 'ldap'"></app-ldap-node>
   <div class="ports">
     <ng-template #portsLayer></ng-template>
+  </div>
+  <div class="node-content">
+    <app-request-received-node [model]="model" *ngIf="model.getExtras().type == 'request'"></app-request-received-node>
+    <app-approval-node [model]="model" *ngIf="model.getExtras().type == 'approval'"></app-approval-node>
+    <app-email-node [model]="model" *ngIf="model.getExtras().type == 'email'"></app-email-node>
+    <app-ldap-node [model]="model" *ngIf="model.getExtras().type == 'ldap'"></app-ldap-node>
   </div>
 </div>
