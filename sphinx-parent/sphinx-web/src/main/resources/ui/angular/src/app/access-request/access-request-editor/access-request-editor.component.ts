@@ -2,8 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Form } from 'src/app/forms/form.model';
 import { FormService } from 'src/app/forms/form.service';
-import { User } from 'src/app/user/user.model';
-import { UserService } from 'src/app/user/user.service';
 import { AccessRequest } from '../access-request.model';
 import { AccessRequestService } from '../access-request.service';
 import { Formio } from 'formiojs';
@@ -24,7 +22,6 @@ export class AccessRequestEditorComponent implements OnInit {
   formioForm?: any;
   title: string = "New Request";
   request: AccessRequest = {};
-  userSuggestions: User[] = [];
   formSuggestions: Form[] = [];
   formioOptions = {
     noAlerts: true,
@@ -34,7 +31,6 @@ export class AccessRequestEditorComponent implements OnInit {
   
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
     private formService: FormService,
     private messageService: MessageService,
     private navigationService: NavigationService,
@@ -54,12 +50,6 @@ export class AccessRequestEditorComponent implements OnInit {
           );
         }
       }
-    );
-  }
-
-  suggestUsers(event: any){
-    this.userService.findSuggestions(event.query).subscribe(
-      users => this.userSuggestions = users
     );
   }
 
@@ -110,6 +100,7 @@ export class AccessRequestEditorComponent implements OnInit {
               summary: "Saved",
               detail: `Request has been saved successfully`
             });
+            this.navigationService.navigate(['..'], {relativeTo: this.route});
           });
         }
       }

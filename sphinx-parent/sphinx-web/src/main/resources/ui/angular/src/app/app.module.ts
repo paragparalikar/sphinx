@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     HttpClientModule,
     NgbModule,
     TableModule,
+    ToastModule,
     ConfirmPopupModule
   ],
   exports: [

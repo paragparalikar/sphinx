@@ -34,9 +34,6 @@ public class AccessRequest {
 	@Enumerated(EnumType.STRING)
 	private AccessRequestStatus status;
 	
-	@ManyToMany
-	private List<User> users;
-	
 	@Lob 
 	@Basic(fetch=FetchType.LAZY)
 	private String payload;

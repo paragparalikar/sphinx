@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Location } from '@angular/common'
-import { Router, NavigationEnd } from '@angular/router'
+import { Router, NavigationEnd, NavigationExtras } from '@angular/router'
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
@@ -21,5 +21,13 @@ export class NavigationService {
     } else {
       this.router.navigateByUrl('/')
     }
+  }
+
+  navigate(commands: any[], extras: NavigationExtras | undefined): Promise<boolean> {
+    return this.router.navigate(commands, extras);
+  }
+
+  navigateByUrl(path: string): Promise<boolean> {
+    return this.router.navigateByUrl(path);
   }
 }

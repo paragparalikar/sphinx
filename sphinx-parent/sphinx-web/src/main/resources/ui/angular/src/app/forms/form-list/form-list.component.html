@@ -1,7 +1,6 @@
 <div class="page-title" >
     Forms Management
 </div>
-<p-toast></p-toast>
 <p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true"
     [rows]="10" [totalRecords]="page.totalElements" [loading]="loading" [showCurrentPageReport]="true" 
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"

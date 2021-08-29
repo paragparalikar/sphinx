@@ -1,27 +1,6 @@
 <div class="page-title">{{title}}</div>
-<p-toast></p-toast>
 <form #requestForm="ngForm">
-    <div class="p-fluid">
-        <div class="field w-full">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">
-                    <i class="fa fa-users"></i>&nbsp;&nbsp;Users
-                </span>
-                <p-autoComplete name="usersac" field="id" [suggestions]="userSuggestions" [disabled]="formioOptions.readOnly"
-                    (completeMethod)="suggestUsers($event)" [multiple]="true"
-                    [(ngModel)]="request.users" [forceSelection]="true" class="w-full" [required]=true  #usersInput="ngModel">
-                    <ng-template let-user pTemplate="item">
-                        <i class="fa fa-user"></i> {{user.lastName}}, {{user.firstName}} {{user.middleName}}
-                    </ng-template>
-                    <ng-template let-user pTemplate="selectedItem">
-                        <i class="fa fa-user"></i>&nbsp;&nbsp;{{user.lastName}}, {{user.firstName}} {{user.middleName}}
-                    </ng-template>
-                </p-autoComplete>
-            </div>
-            <div *ngIf="usersInput.invalid && (usersInput.dirty || usersInput.touched)" class="formio-errors">
-                <div class="form-text error">Please select target users</div>
-            </div>
-        </div>
+    <div class="p-fluid" *ngIf="!formioOptions.readOnly">
         <div class="field w-full">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon">
@@ -29,7 +8,7 @@
                 </span>
                 <p-autoComplete name="formac" field="name"  [suggestions]="formSuggestions" [disabled]="formioOptions.readOnly"
                     (completeMethod)="suggestForms($event)" [(ngModel)]="form" 
-                    [forceSelection]="true" class="w-full importent-text" 
+                    [forceSelection]="true" class="w-full importent-text"
                     (onSelect)="onFormSelect($event)" [required]=true #formInput="ngModel">
                     <ng-template let-form pTemplate="item">
                         <i class="fa fa-wpforms"></i> {{form.name}}

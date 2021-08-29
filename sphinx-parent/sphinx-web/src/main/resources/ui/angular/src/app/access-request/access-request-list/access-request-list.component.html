@@ -1,8 +1,7 @@
 <div class="page-title" >My Requests</div>
-<p-toast></p-toast>
 <p-table [value]="page.content" [lazy]="true" (onLazyLoad)="load($event)" [paginator]="true" 
     [alwaysShowPaginator]="false" [rows]="10" [totalRecords]="page.totalElements" 
-    [loading]="loading" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+    [loading]="loading" [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
     [globalFilterFields]="['id','name']">
     <ng-template pTemplate="header">

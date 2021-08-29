@@ -12,6 +12,5 @@ export interface AccessRequest {
     updateTimestamp?: Date;
 
     payload?: string;
-    users?: User[];
 
 }
