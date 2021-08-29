@@ -1,3 +1,9 @@
+#workflow-editor-wrapper{
+  height: 100vh;
+  width: calc(100vw - 200px);
+}
+
+
 .demo-diagram {
     display: flex;
     height: 100%;

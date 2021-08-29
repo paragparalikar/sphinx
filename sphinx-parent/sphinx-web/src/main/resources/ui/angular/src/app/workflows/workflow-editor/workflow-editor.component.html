@@ -1,4 +1,5 @@
-<div class="action-bar">
+<div id="workflow-editor-wrapper">
+  <div class="action-bar">
     <div
       *ngFor="let node of nodesLibrary"
       class="node-drag"
@@ -11,10 +12,10 @@
       {{ node.name }}
     </div>
   </div>
-  
   <rxzu-diagram
     class="demo-diagram"
     [model]="diagramModel"
     (drop)="onBlockDropped($event)"
     (dragover)="$event.preventDefault()"
   ></rxzu-diagram>
+</div>
