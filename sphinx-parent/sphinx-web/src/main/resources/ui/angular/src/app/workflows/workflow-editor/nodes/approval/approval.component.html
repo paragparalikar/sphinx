@@ -4,7 +4,7 @@
 <div class="p-2">
     <div class="form-group">
         <label for="approver" class="field-required">Approver</label>
-        <select #approver="ngModel" class="form-control" name="approver" id="approver" 
+        <select #approver="ngModel" class="form-control p-component" name="approver" id="approver" 
         required [(ngModel)]="approvalVertex.approver">
             <option value="manager-1">Manager (Level 1)</option>
             <option value="manager-2">Manager (Level 2)</option>
@@ -16,7 +16,7 @@
     </div>
     <div *ngIf="'application-owner' == approver.value" class="form-group pt-2">
         <label for="applicationId" class="field-required">Application ID</label>
-        <input type="text" class="form-control" name="applicationId" id="applicationId" 
+        <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
         [(ngModel)]="approvalVertex.applicationId" required minlength="3" maxlength="255"
         #applicationId="ngModel">
         <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">

@@ -4,7 +4,7 @@
 <div class="p-2">
     <div class="form-group pt-2">
         <label for="script" class="field-required">Script (JS)</label>
-        <textarea class="form-control" name="script" id="script" 
+        <textarea pInputTextarea class="form-control" name="script" id="script" 
         [(ngModel)]="transformerVertex.script" required minlength="3" maxlength="2550" 
         #script="ngModel"></textarea>
         <div *ngIf="script.invalid && script.touched" class="text-danger">

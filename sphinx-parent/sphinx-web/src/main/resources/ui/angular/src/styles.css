@@ -1,6 +1,6 @@
 @import './assets/fonts/fonts.css';
 
-body, .p-component {
+body, .p-component, .p-inputtext {
     font-size: 12px;
     font-family: 'Montserrat';
     font-style: normal;
@@ -19,7 +19,9 @@ body, .p-component {
 .p-datatable .p-datatable-thead > tr > th {
   padding: 0.35rem;
 }
-
+.p-inputtext {
+  padding: 0.25rem;
+}
 .page-title {
     font-size: 24px;
     font-weight: 400;

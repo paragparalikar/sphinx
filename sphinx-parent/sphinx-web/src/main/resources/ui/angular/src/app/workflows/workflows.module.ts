@@ -11,6 +11,10 @@ import { ApprovalComponent } from './workflow-editor/nodes/approval/approval.com
 import { LdapComponent } from './workflow-editor/nodes/ldap/ldap.component';
 import { FormsModule } from '@angular/forms';
 import { TransformerComponent } from './workflow-editor/nodes/transformer/transformer.component';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
@@ -23,6 +27,10 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     FormsModule,
+    DropdownModule,
+    PasswordModule,
+    InputTextModule,
+    InputTextareaModule,
     RouterModule.forChild(routes)
   ]
 })

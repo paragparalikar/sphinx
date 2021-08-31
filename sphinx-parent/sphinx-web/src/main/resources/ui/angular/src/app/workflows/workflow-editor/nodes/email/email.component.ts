@@ -10,6 +10,12 @@ import { EmailVertex } from './email-vertex';
 export class EmailComponent implements OnInit, DynamicNodeComponent {
 
   emailVertex: EmailVertex = {};
+  recipients = [
+    {name: "Requester", value: "requester"},
+    {name: "Manager (Level 1)", value: "manager-1"},
+    {name: "Manager (Level 2)", value: "manager-2"},
+    {name: "Application Owner", value: "application-owner"}
+  ];
 
   constructor() { }
 
