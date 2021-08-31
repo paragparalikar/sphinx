@@ -5,12 +5,24 @@
     <div class="form-group">
         <label for="to">To</label>
         <select #to="ngModel" class="form-control" name="to" id="to" required [(ngModel)]="emailVertex.to">
-            <option value="manager-1" selected>Manager (Level 1)</option>
+            <option value="requester">Requester</option>
+            <option value="manager-1">Manager (Level 1)</option>
             <option value="manager-2">Manager (Level 2)</option>
             <option value="application-owner">Application Owner</option>
         </select>
         <div *ngIf="to.invalid && to.touched" class="text-danger">
             <div *ngIf="to.errors?.required">To field is required</div>
+        </div>
+    </div>
+    <div *ngIf="'application-owner' == to.value" class="form-group pt-2">
+        <label for="applicationId">Application ID</label>
+        <input type="text" class="form-control" name="applicationId" id="applicationId" 
+        [(ngModel)]="emailVertex.applicationId" required minlength="3" maxlength="255"
+        #applicationId="ngModel">
+        <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
+            <div *ngIf="applicationId.errors?.required">Application ID is required</div>
+            <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>
+            <div *ngIf="applicationId.errors?.maxlength">Application ID can be at most 255 char long</div>
         </div>
     </div>
     <div class="form-group pt-2">
