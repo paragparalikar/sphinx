@@ -38,6 +38,9 @@ export class WorkflowEditorComponent implements OnInit{
     this.drawFlow.start();
   }
 
+  zoomIn(){ this.drawFlow?.zoom_in(); }
+  zoomOut() { this.drawFlow?.zoom_out(); }
+
   drag(event){
     event.dataTransfer.setData('node', event.target.getAttribute('data-node'));
   }

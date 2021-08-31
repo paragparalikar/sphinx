@@ -6,5 +6,10 @@
     </span>
 </div>
 <form #workflowForm>
-    <div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();"></div>
+    <div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();">
+        <div class="bar-zoom">
+            <i class="fa fa-search-minus mr-3" (click)="zoomOut()"></i>
+            <i class="fa fa-search-plus" (click)="zoomIn()"></i>
+        </div>
+    </div>
 </form>
