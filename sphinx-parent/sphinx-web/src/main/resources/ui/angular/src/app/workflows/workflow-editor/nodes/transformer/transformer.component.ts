@@ -15,4 +15,12 @@ export class TransformerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getData(){
+    return this.transformerVertex;
+  }
+
+  setData(data: any){
+    this.transformerVertex = data as TransformerVertex;
+  }
+
 }

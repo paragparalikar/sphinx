@@ -1,6 +1,6 @@
 
 .node-lib{
-    height: 40px;
+    height: 30px;
 }
 .node-item{
     border-radius: 3px;
@@ -10,7 +10,7 @@
     margin-right: 10px;
 }
 .drawFlowDiv {
-    height: calc(100vh - 92px);
+    height: calc(100vh - 82px);
     width: calc(100vw - 212px);
     position: absolute;
     background-size: 25px 25px;

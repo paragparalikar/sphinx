@@ -22,4 +22,12 @@ export class EmailComponent implements OnInit, DynamicNodeComponent {
   ngOnInit(): void {
   }
 
+  getData(){
+    return this.emailVertex;
+  }
+
+  setData(data: any){
+    this.emailVertex = data as EmailVertex;
+  }
+
 }

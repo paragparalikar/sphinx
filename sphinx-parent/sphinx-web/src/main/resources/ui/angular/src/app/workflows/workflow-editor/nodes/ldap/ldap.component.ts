@@ -16,4 +16,12 @@ export class LdapComponent implements OnInit, DynamicNodeComponent {
   ngOnInit(): void {
   }
 
+  getData(){
+    return this.ldapVertex;
+  }
+   
+  setData(data: any){
+    this.ldapVertex = data as LdapVertex;
+  }
+
 }

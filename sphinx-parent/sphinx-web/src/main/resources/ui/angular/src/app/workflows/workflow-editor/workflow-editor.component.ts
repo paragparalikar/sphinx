@@ -54,11 +54,12 @@ export class WorkflowEditorComponent implements OnInit{
 
   addNode(type: string, pos_x: number, pos_y: number){
     const editor: any = this.drawFlow;
+    const data = {};
     pos_x = pos_x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
     pos_y = pos_y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
     const nodeItem = this.nodeItems.find(item => item.type == type);
     const id: string = 'dynamic-node-' + this.counter++;
-    editor.addNode(type, nodeItem?.inputs, nodeItem?.outputs, pos_x, pos_y, type, {}, `<div id="${id}"></div>`, false);
+    editor.addNode(type, nodeItem?.inputs, nodeItem?.outputs, pos_x, pos_y, type, data, `<div id="${id}"></div>`, false);
     const nativeElement = document.getElementById(id);
 
     let componentFactory: ComponentFactory<DynamicNodeComponent> | undefined = undefined;
@@ -82,6 +83,12 @@ export class WorkflowEditorComponent implements OnInit{
     if(componentFactory){
       const componentRef: ComponentRef<DynamicNodeComponent> = componentFactory.create(this.injector, [], nativeElement);
       this.applicationRef.attachView(componentRef.hostView);
+      componentRef.instance.setData(data);
     }
   }
+
+  export(){
+    console.log(this.drawFlow?.export());
+  }
+
 }

@@ -13,4 +13,10 @@ export class RequestComponent implements OnInit, DynamicNodeComponent {
   ngOnInit(): void {
   }
 
+  getData(){
+    return undefined;
+  }
+
+  setData(data: any){ }
+
 }

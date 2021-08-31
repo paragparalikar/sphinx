@@ -16,4 +16,12 @@ export class ApprovalComponent implements OnInit, DynamicNodeComponent {
   ngOnInit(): void {
   }
 
+  getData(){
+    return this.approvalVertex;
+  }
+
+  setData(data: any){
+    this.approvalVertex = data as ApprovalVertex;
+  }
+
 }
