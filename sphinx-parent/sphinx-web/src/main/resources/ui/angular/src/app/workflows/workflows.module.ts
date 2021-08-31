@@ -10,13 +10,14 @@ import { EmailComponent } from './workflow-editor/nodes/email/email.component';
 import { ApprovalComponent } from './workflow-editor/nodes/approval/approval.component';
 import { LdapComponent } from './workflow-editor/nodes/ldap/ldap.component';
 import { FormsModule } from '@angular/forms';
+import { TransformerComponent } from './workflow-editor/nodes/transformer/transformer.component';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
   {path: 'editor', component: WorkflowEditorComponent}
 ];
 @NgModule({
-  declarations: [WorkflowListComponent, WorkflowEditorComponent, RequestComponent, EmailComponent, ApprovalComponent, LdapComponent],
+  declarations: [WorkflowListComponent, WorkflowEditorComponent, RequestComponent, EmailComponent, ApprovalComponent, LdapComponent, TransformerComponent],
   imports: [
     CommonModule,
     HttpClientModule,

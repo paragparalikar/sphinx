@@ -21,6 +21,13 @@
         "outputs": 2
     },
     {
+        "type": "transformer",
+        "icon": "fa fa-code",
+        "text": "Transformer",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
         "type": "ldap",
         "icon": "fa fa-users",
         "text": "LDAP",
