@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="form-group pt-2">
-        <label for="subjectTemplate" class="field-required">Subject Template (Thymeleaf)</label>
+        <label for="subjectTemplate" class="field-required">Subject Template</label>
         <input pInputText type="text" class="form-control" name="subjectTemplate" id="subjectTemplate" 
         [(ngModel)]="emailVertex.subjectTemplate" required minlength="3" maxlength="255"
         #subjectTemplate="ngModel">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="form-group pt-2">
-        <label for="contentTemplate" class="field-required">Content Template (Thymeleaf)</label>
+        <label for="contentTemplate" class="field-required">Content Template</label>
         <textarea pInputTextarea class="form-control" name="contentTemplate" id="contentTemplate" 
         [(ngModel)]="emailVertex.contentTemplate" required minlength="3" maxlength="2550" 
         #contentTemplate="ngModel"></textarea>
