@@ -9,6 +9,7 @@ import { RequestComponent } from './workflow-editor/nodes/request/request.compon
 import { EmailComponent } from './workflow-editor/nodes/email/email.component';
 import { ApprovalComponent } from './workflow-editor/nodes/approval/approval.component';
 import { LdapComponent } from './workflow-editor/nodes/ldap/ldap.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
     RouterModule.forChild(routes)
   ]
 })

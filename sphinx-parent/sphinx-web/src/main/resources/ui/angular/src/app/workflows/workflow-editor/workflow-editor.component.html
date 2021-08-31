@@ -5,4 +5,6 @@
         <i [ngClass]="nodeItem.icon"></i>  {{nodeItem.text}}
     </span>
 </div>
-<div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();"></div>
+<form #workflowForm>
+    <div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();"></div>
+</form>
