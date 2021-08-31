@@ -1,2 +1,8 @@
 <div class="page-title">{{title}}</div>
-<div #drawFlowDiv class="drawFlowDiv"></div>
+<div class="node-lib">
+    <span *ngFor="let nodeItem of nodeItems" class="node-item" draggable="true" 
+        (dragstart)="drag($event)" [attr.data-node]="nodeItem.type">
+        <i [ngClass]="nodeItem.icon"></i>  {{nodeItem.text}}
+    </span>
+</div>
+<div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();"></div>

@@ -1,0 +1,30 @@
+[
+    {
+        "type": "request",
+        "inputs": 0,
+        "outputs": 1,
+        "icon": "fa fa-arrow-right",
+        "text": "Request Received"
+    },
+    {
+        "type": "email",
+        "inputs": 1,
+        "outputs": 1,
+        "icon": "fa fa-envelope",
+        "text": "Email"
+    },
+    {
+        "type": "approval",
+        "icon": "fa fa-check",
+        "text": "Approval",
+        "inputs": 1,
+        "outputs": 2
+    },
+    {
+        "type": "ldap",
+        "icon": "fa fa-users",
+        "text": "LDAP",
+        "inputs": 1,
+        "outputs": 1
+    }
+]

@@ -5,13 +5,17 @@ import { WorkflowEditorComponent } from './workflow-editor/workflow-editor.compo
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RequestComponent } from './workflow-editor/nodes/request/request.component';
+import { EmailComponent } from './workflow-editor/nodes/email/email.component';
+import { ApprovalComponent } from './workflow-editor/nodes/approval/approval.component';
+import { LdapComponent } from './workflow-editor/nodes/ldap/ldap.component';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
   {path: 'editor', component: WorkflowEditorComponent}
 ];
 @NgModule({
-  declarations: [WorkflowListComponent, WorkflowEditorComponent],
+  declarations: [WorkflowListComponent, WorkflowEditorComponent, RequestComponent, EmailComponent, ApprovalComponent, LdapComponent],
   imports: [
     CommonModule,
     HttpClientModule,
