@@ -1,1 +1,38 @@
-<p>ldap works!</p>
+<div class="title-box">
+    <i class="fa fa-users"></i>  LDAP
+</div>
+<div class="p-2">
+    <div class="form-group">
+        <label for="url" class="field-required">URL</label>
+        <input type="text" class="form-control" name="url" id="url" 
+        [(ngModel)]="ldapVertex.url" required minlength="8" maxlength="255"
+        #url="ngModel">
+        <div *ngIf="url.invalid && url.touched" class="text-danger">
+            <div *ngIf="url.errors?.required">URL is required</div>
+            <div *ngIf="url.errors?.minlength">URL must be at least 8 char long</div>
+            <div *ngIf="url.errors?.maxlength">URL can be at most 255 char long</div>
+        </div>
+    </div>
+    <div class="form-group pt-2">
+        <label for="username" class="field-required">Username</label>
+        <input type="text" class="form-control" name="username" id="username" 
+        [(ngModel)]="ldapVertex.username" required minlength="3" maxlength="255"
+        #username="ngModel">
+        <div *ngIf="username.invalid && username.touched" class="text-danger">
+            <div *ngIf="username.errors?.required">Username is required</div>
+            <div *ngIf="username.errors?.minlength">Username must be at least 3 char long</div>
+            <div *ngIf="username.errors?.maxlength">Username can be at most 255 char long</div>
+        </div>
+    </div>
+    <div class="form-group pt-2">
+        <label for="password" class="field-required">Password</label>
+        <input type="password" class="form-control" name="password" id="password" 
+        [(ngModel)]="ldapVertex.password" required minlength="3" maxlength="255"
+        #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger">
+            <div *ngIf="password.errors?.required">Password is required</div>
+            <div *ngIf="password.errors?.minlength">Password must be at least 3 char long</div>
+            <div *ngIf="password.errors?.maxlength">Password can be at most 255 char long</div>
+        </div>
+    </div>
+</div>

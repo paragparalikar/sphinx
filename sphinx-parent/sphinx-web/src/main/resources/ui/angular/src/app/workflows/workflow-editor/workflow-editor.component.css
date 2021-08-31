@@ -157,3 +157,16 @@
   .bar-zoom svg:nth-child(1) {
     padding-left: 0px;
   }
+
+  .inputs > .input.input_1 {
+    background-color: #ffc107;
+    border-color: #ffc107;
+  }
+  .outputs > .output.output_1 {
+    background-color: #198754;
+    border-color: #198754;
+  }
+  .outputs > .output.output_2 {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }

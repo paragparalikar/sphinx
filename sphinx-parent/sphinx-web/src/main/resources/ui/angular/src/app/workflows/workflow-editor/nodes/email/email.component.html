@@ -3,7 +3,7 @@
 </div>
 <div class="p-2">
     <div class="form-group">
-        <label for="to">To</label>
+        <label for="to" class="field-required">To</label>
         <select #to="ngModel" class="form-control" name="to" id="to" required [(ngModel)]="emailVertex.to">
             <option value="requester">Requester</option>
             <option value="manager-1">Manager (Level 1)</option>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div *ngIf="'application-owner' == to.value" class="form-group pt-2">
-        <label for="applicationId">Application ID</label>
+        <label for="applicationId" class="field-required">Application ID</label>
         <input type="text" class="form-control" name="applicationId" id="applicationId" 
         [(ngModel)]="emailVertex.applicationId" required minlength="3" maxlength="255"
         #applicationId="ngModel">
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="form-group pt-2">
-        <label for="subjectTemplate">Subject Template (Thymeleaf)</label>
+        <label for="subjectTemplate" class="field-required">Subject Template (Thymeleaf)</label>
         <input type="text" class="form-control" name="subjectTemplate" id="subjectTemplate" 
         [(ngModel)]="emailVertex.subjectTemplate" required minlength="3" maxlength="255"
         #subjectTemplate="ngModel">
@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="form-group pt-2">
-        <label for="contentTemplate">Content Template (Thymeleaf)</label>
+        <label for="contentTemplate" class="field-required">Content Template (Thymeleaf)</label>
         <textarea class="form-control" name="contentTemplate" id="contentTemplate" 
         [(ngModel)]="emailVertex.contentTemplate" required minlength="3" maxlength="2550" 
         #contentTemplate="ngModel"></textarea>

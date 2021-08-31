@@ -5,7 +5,7 @@
         <i [ngClass]="nodeItem.icon"></i>  {{nodeItem.text}}
     </span>
 </div>
-<form #workflowForm>
+<form #workflowForm class="needs-validation" novalidate>
     <div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();">
         <div class="bar-zoom">
             <i class="fa fa-search-minus mr-3" (click)="zoomOut()"></i>
