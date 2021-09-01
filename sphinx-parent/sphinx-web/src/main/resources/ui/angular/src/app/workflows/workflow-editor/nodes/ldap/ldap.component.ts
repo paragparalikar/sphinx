@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DynamicNodeComponent } from '../dynamic-node-component';
 import { LdapVertex } from './ldap-vertex';
 
@@ -7,14 +8,12 @@ import { LdapVertex } from './ldap-vertex';
   templateUrl: './ldap.component.html',
   styleUrls: ['./ldap.component.css']
 })
-export class LdapComponent implements OnInit, DynamicNodeComponent {
+export class LdapComponent implements DynamicNodeComponent {
 
   ldapVertex: LdapVertex = {};
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @ViewChild(NgForm, {read: NgForm, static: true})
+  form!: NgForm;
 
   getData(){
     return this.ldapVertex;
@@ -23,5 +22,4 @@ export class LdapComponent implements OnInit, DynamicNodeComponent {
   setData(data: any){
     this.ldapVertex = data as LdapVertex;
   }
-
 }

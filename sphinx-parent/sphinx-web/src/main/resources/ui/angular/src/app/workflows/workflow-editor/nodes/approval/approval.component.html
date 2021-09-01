@@ -1,28 +1,30 @@
 <div class="title-box">
     <i class="fa fa-check"></i>  Approval
 </div>
-<div class="p-2">
-    <div class="form-group">
-        <label for="approver" class="field-required">Approver</label>
-        <select #approver="ngModel" class="form-control p-component" name="approver" id="approver" 
-        required [(ngModel)]="approvalVertex.approver">
-            <option value="manager-1">Manager (Level 1)</option>
-            <option value="manager-2">Manager (Level 2)</option>
-            <option value="application-owner">Application Owner</option>
-        </select>
-        <div *ngIf="approver.invalid && approver.touched" class="text-danger">
-            <div *ngIf="approver.errors?.required">Approver is required</div>
+<form class="needs-validation" novalidate>
+    <div class="p-2">
+        <div class="form-group">
+            <label for="approver" class="field-required">Approver</label>
+            <select #approver="ngModel" class="form-control p-component" name="approver" id="approver" 
+            required [(ngModel)]="approvalVertex.approver">
+                <option value="manager-1">Manager (Level 1)</option>
+                <option value="manager-2">Manager (Level 2)</option>
+                <option value="application-owner">Application Owner</option>
+            </select>
+            <div *ngIf="approver.invalid && approver.touched" class="text-danger">
+                <div *ngIf="approver.errors?.required">Approver is required</div>
+            </div>
+        </div>
+        <div *ngIf="'application-owner' == approver.value" class="form-group pt-2">
+            <label for="applicationId" class="field-required">Application ID</label>
+            <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
+            [(ngModel)]="approvalVertex.applicationId" required minlength="3" maxlength="255"
+            #applicationId="ngModel">
+            <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
+                <div *ngIf="applicationId.errors?.required">Application ID is required</div>
+                <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>
+                <div *ngIf="applicationId.errors?.maxlength">Application ID can be at most 255 char long</div>
+            </div>
         </div>
     </div>
-    <div *ngIf="'application-owner' == approver.value" class="form-group pt-2">
-        <label for="applicationId" class="field-required">Application ID</label>
-        <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
-        [(ngModel)]="approvalVertex.applicationId" required minlength="3" maxlength="255"
-        #applicationId="ngModel">
-        <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
-            <div *ngIf="applicationId.errors?.required">Application ID is required</div>
-            <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>
-            <div *ngIf="applicationId.errors?.maxlength">Application ID can be at most 255 char long</div>
-        </div>
-    </div>
-</div>
+</form>

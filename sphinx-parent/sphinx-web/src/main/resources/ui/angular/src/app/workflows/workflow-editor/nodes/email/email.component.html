@@ -1,50 +1,53 @@
 <div class="title-box">
     <i class="fa fa-envelope"></i>  Email
 </div>
-<div class="p-2">
-    <div class="form-group">
-        <label for="to" class="field-required">To</label>
-        <select #to="ngModel" class="form-control p-component" name="to" id="to" required [(ngModel)]="emailVertex.to">
-            <option value="requester">Requester</option>
-            <option value="manager-1">Manager (Level 1)</option>
-            <option value="manager-2">Manager (Level 2)</option>
-            <option value="application-owner">Application Owner</option>
-        </select>
-        <div *ngIf="to.invalid && to.touched" class="text-danger">
-            <div *ngIf="to.errors?.required">To field is required</div>
+<form class="needs-validation" novalidate>
+    <div class="p-2">
+        <div class="form-group">
+            <label for="to" class="field-required">To</label>
+            <select #to="ngModel" class="form-control p-component" name="to" 
+            id="to" required [(ngModel)]="emailVertex.to">
+                <option value="requester">Requester</option>
+                <option value="manager-1">Manager (Level 1)</option>
+                <option value="manager-2">Manager (Level 2)</option>
+                <option value="application-owner">Application Owner</option>
+            </select>
+            <div *ngIf="to.invalid && to.touched" class="text-danger">
+                <div *ngIf="to.errors?.required">To field is required</div>
+            </div>
         </div>
-    </div>
-    <div *ngIf="'application-owner' == to.value" class="form-group pt-2">
-        <label for="applicationId" class="field-required">Application ID</label>
-        <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
-        [(ngModel)]="emailVertex.applicationId" required minlength="3" maxlength="255"
-        #applicationId="ngModel">
-        <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
-            <div *ngIf="applicationId.errors?.required">Application ID is required</div>
-            <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>
-            <div *ngIf="applicationId.errors?.maxlength">Application ID can be at most 255 char long</div>
+        <div *ngIf="'application-owner' == to.value" class="form-group pt-2">
+            <label for="applicationId" class="field-required">Application ID</label>
+            <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
+            [(ngModel)]="emailVertex.applicationId" required minlength="3" maxlength="255"
+            #applicationId="ngModel">
+            <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
+                <div *ngIf="applicationId.errors?.required">Application ID is required</div>
+                <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>
+                <div *ngIf="applicationId.errors?.maxlength">Application ID can be at most 255 char long</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group pt-2">
-        <label for="subjectTemplate" class="field-required">Subject Template</label>
-        <input pInputText type="text" class="form-control" name="subjectTemplate" id="subjectTemplate" 
-        [(ngModel)]="emailVertex.subjectTemplate" required minlength="3" maxlength="255"
-        #subjectTemplate="ngModel">
-        <div *ngIf="subjectTemplate.invalid && subjectTemplate.touched" class="text-danger">
-            <div *ngIf="subjectTemplate.errors?.required">Subject template is required</div>
-            <div *ngIf="subjectTemplate.errors?.minlength">Subject template must be at least 3 char long</div>
-            <div *ngIf="subjectTemplate.errors?.maxlength">Subject template can be at most 255 char long</div>
+        <div class="form-group pt-2">
+            <label for="subjectTemplate" class="field-required">Subject Template</label>
+            <input pInputText type="text" class="form-control" name="subjectTemplate" id="subjectTemplate" 
+            [(ngModel)]="emailVertex.subjectTemplate" required minlength="3" maxlength="255"
+            #subjectTemplate="ngModel">
+            <div *ngIf="subjectTemplate.invalid && subjectTemplate.touched" class="text-danger">
+                <div *ngIf="subjectTemplate.errors?.required">Subject template is required</div>
+                <div *ngIf="subjectTemplate.errors?.minlength">Subject template must be at least 3 char long</div>
+                <div *ngIf="subjectTemplate.errors?.maxlength">Subject template can be at most 255 char long</div>
+            </div>
         </div>
-    </div>
-    <div class="form-group pt-2">
-        <label for="contentTemplate" class="field-required">Content Template</label>
-        <textarea pInputTextarea class="form-control" name="contentTemplate" id="contentTemplate" 
-        [(ngModel)]="emailVertex.contentTemplate" required minlength="3" maxlength="2550" 
-        #contentTemplate="ngModel"></textarea>
-        <div *ngIf="contentTemplate.invalid && contentTemplate.touched" class="text-danger">
-            <div *ngIf="contentTemplate.errors?.required">Content template is required</div>
-            <div *ngIf="contentTemplate.errors?.minlength">Content template must be at least 3 char long</div>
-            <div *ngIf="contentTemplate.errors?.maxlength">Content template can be at most 2550 char long</div>
+        <div class="form-group pt-2">
+            <label for="contentTemplate" class="field-required">Content Template</label>
+            <textarea pInputTextarea class="form-control" name="contentTemplate" id="contentTemplate" 
+            [(ngModel)]="emailVertex.contentTemplate" required minlength="3" maxlength="2550" 
+            #contentTemplate="ngModel"></textarea>
+            <div *ngIf="contentTemplate.invalid && contentTemplate.touched" class="text-danger">
+                <div *ngIf="contentTemplate.errors?.required">Content template is required</div>
+                <div *ngIf="contentTemplate.errors?.minlength">Content template must be at least 3 char long</div>
+                <div *ngIf="contentTemplate.errors?.maxlength">Content template can be at most 2550 char long</div>
+            </div>
         </div>
-    </div>
-</div>
+    </div>    
+</form>

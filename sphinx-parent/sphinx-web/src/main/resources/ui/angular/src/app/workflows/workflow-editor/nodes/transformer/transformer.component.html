@@ -1,16 +1,18 @@
 <div class="title-box">
     <i class="fa fa-code"></i>  Transformer
 </div>
-<div class="p-2">
-    <div class="form-group pt-2">
-        <label for="script" class="field-required">Script (JS)</label>
-        <textarea pInputTextarea class="form-control" name="script" id="script" 
-        [(ngModel)]="transformerVertex.script" required minlength="3" maxlength="2550" 
-        #script="ngModel"></textarea>
-        <div *ngIf="script.invalid && script.touched" class="text-danger">
-            <div *ngIf="script.errors?.required">Script is required</div>
-            <div *ngIf="script.errors?.minlength">Script must be at least 3 char long</div>
-            <div *ngIf="script.errors?.maxlength">Script can be at most 2550 char long</div>
+<form class="needs-validation" novalidate>
+    <div class="p-2">
+        <div class="form-group pt-2">
+            <label for="script" class="field-required">Script (JS)</label>
+            <textarea pInputTextarea class="form-control" name="script" id="script" 
+            [(ngModel)]="transformerVertex.script" required minlength="3" maxlength="2550" 
+            #script="ngModel"></textarea>
+            <div *ngIf="script.invalid && script.touched" class="text-danger">
+                <div *ngIf="script.errors?.required">Script is required</div>
+                <div *ngIf="script.errors?.minlength">Script must be at least 3 char long</div>
+                <div *ngIf="script.errors?.maxlength">Script can be at most 2550 char long</div>
+            </div>
         </div>
     </div>
-</div>
+</form>

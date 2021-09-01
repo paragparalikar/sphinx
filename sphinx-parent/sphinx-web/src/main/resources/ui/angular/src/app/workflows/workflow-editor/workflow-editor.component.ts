@@ -1,7 +1,10 @@
-import { ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import Drawflow from 'drawflow';
 import {css} from "lit-element"; 
 import nodes from "src/assets/workflow-nodes.json";
+import { Workflow } from '../workflow.model';
+import { WorkflowService } from '../workflow.service';
 import { ApprovalComponent } from './nodes/approval/approval.component';
 import { DynamicNodeComponent } from './nodes/dynamic-node-component';
 import { EmailComponent } from './nodes/email/email.component';
@@ -16,19 +19,23 @@ export const style = css`.drawflow,.drawflow .parent-node{position:relative}.par
   styleUrls: ['./workflow-editor.component.css'],
   encapsulation: ViewEncapsulation.None 
 })
-export class WorkflowEditorComponent implements OnInit{
+export class WorkflowEditorComponent implements OnInit {
  
   @ViewChild('drawFlowDiv', {read: ElementRef, static: true})
   drawFlowDiv!: ElementRef;
-
+  
   counter: number = 0;
   nodeItems = nodes;
   drawFlow?: Drawflow;
+  workflow?: Workflow;
   title = 'Create New Workflow';
-
+  domParser = new DOMParser();
+  
   constructor(
     private injector: Injector,
+    private activatedRoute: ActivatedRoute,
     private applicationRef: ApplicationRef,
+    private workflowService: WorkflowService,
     private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit(){
@@ -37,6 +44,29 @@ export class WorkflowEditorComponent implements OnInit{
     this.drawFlow.reroute_fix_curvature = true;
     this.drawFlow.force_first_input = false;
     this.drawFlow.start();
+
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        if(params.id){
+          this.workflowService.findById(params.id).subscribe(
+            workflow => {
+              this.workflow = workflow;
+              this.title = workflow.name;
+              this.drawFlow?.import(workflow.payload);
+
+              this.nodeItems.forEach(item => {
+                this.drawFlow?.getNodesFromName(item.type)
+                .map(id => this.drawFlow?.getNodeFromId(id))
+                .forEach(node => {
+                  const div = this.getNativeElement(node?.html);
+                  this.attachComponent(node!.name, node?.data, div!);
+                });
+              });
+            }
+          );
+        }
+      }
+    );
   }
 
   zoomIn(){ this.drawFlow?.zoom_in(); }
@@ -61,34 +91,56 @@ export class WorkflowEditorComponent implements OnInit{
     const id: string = 'dynamic-node-' + this.counter++;
     editor.addNode(type, nodeItem?.inputs, nodeItem?.outputs, pos_x, pos_y, type, data, `<div id="${id}"></div>`, false);
     const nativeElement = document.getElementById(id);
+    this.attachComponent(type, data, nativeElement);
+  }
 
-    let componentFactory: ComponentFactory<DynamicNodeComponent> | undefined = undefined;
-    switch(type){
-      case 'request' : 
-        componentFactory = this.componentFactoryResolver.resolveComponentFactory(RequestComponent);
-        break;
-      case 'email' : 
-        componentFactory = this.componentFactoryResolver.resolveComponentFactory(EmailComponent);
-        break;
-      case 'approval' : 
-        componentFactory = this.componentFactoryResolver.resolveComponentFactory(ApprovalComponent);
-        break;
-      case 'ldap' :
-        componentFactory = this.componentFactoryResolver.resolveComponentFactory(LdapComponent);
-        break;
-      case 'transformer' :
-        componentFactory = this.componentFactoryResolver.resolveComponentFactory(TransformerComponent);
-        break;
-    }
+  private attachComponent(type: string, data: any, nativeElement: HTMLElement | null){
+    const componentFactory: ComponentFactory<DynamicNodeComponent> | undefined = this.resolveComponentFactory(type);
     if(componentFactory){
       const componentRef: ComponentRef<DynamicNodeComponent> = componentFactory.create(this.injector, [], nativeElement);
-      this.applicationRef.attachView(componentRef.hostView);
       componentRef.instance.setData(data);
+      this.applicationRef.attachView(componentRef.hostView);
     }
+  }
+
+  private resolveComponentFactory(type: string): ComponentFactory<DynamicNodeComponent> | undefined {
+    switch(type){
+      case 'request' : 
+        return this.componentFactoryResolver.resolveComponentFactory(RequestComponent);
+      case 'email' : 
+        return this.componentFactoryResolver.resolveComponentFactory(EmailComponent);
+      case 'approval' : 
+        return this.componentFactoryResolver.resolveComponentFactory(ApprovalComponent);
+      case 'ldap' :
+        return this.componentFactoryResolver.resolveComponentFactory(LdapComponent);
+      case 'transformer' :
+        return this.componentFactoryResolver.resolveComponentFactory(TransformerComponent);
+      default :
+        return undefined;
+    }
+  }
+
+  private getNativeElement(html?: string){
+    if(html){
+      const htmlElement = this.domParser.parseFromString(html, 'text/html');
+      const div: HTMLDivElement = htmlElement.getElementsByTagName('div')[0];
+      const id: string | null = div.getAttribute('id');
+      return document.getElementById(id!);
+    }
+    return undefined;
   }
 
   export(){
     console.log(this.drawFlow?.export());
+  }
+
+  submit(){
+    if(this.drawFlow){
+      this.workflow = new Workflow(1, "test", this.drawFlow.export());
+      this.workflowService.save(this.workflow).subscribe(
+        result => console.log(this.workflow)
+      );
+    }
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DynamicNodeComponent } from '../dynamic-node-component';
 import { EmailVertex } from './email-vertex';
 
@@ -7,20 +8,19 @@ import { EmailVertex } from './email-vertex';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit, DynamicNodeComponent {
+export class EmailComponent implements DynamicNodeComponent {
 
   emailVertex: EmailVertex = {};
+
+  @ViewChild(NgForm, {read: NgForm, static: true})
+  form!: NgForm;
+  
   recipients = [
     {name: "Requester", value: "requester"},
     {name: "Manager (Level 1)", value: "manager-1"},
     {name: "Manager (Level 2)", value: "manager-2"},
     {name: "Application Owner", value: "application-owner"}
   ];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   getData(){
     return this.emailVertex;
@@ -29,5 +29,4 @@ export class EmailComponent implements OnInit, DynamicNodeComponent {
   setData(data: any){
     this.emailVertex = data as EmailVertex;
   }
-
 }

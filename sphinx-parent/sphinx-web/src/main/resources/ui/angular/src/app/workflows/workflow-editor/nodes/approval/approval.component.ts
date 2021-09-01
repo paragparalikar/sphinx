@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { DynamicNodeComponent } from '../dynamic-node-component';
 import { ApprovalVertex } from './approval-vertex';
 
@@ -7,14 +8,12 @@ import { ApprovalVertex } from './approval-vertex';
   templateUrl: './approval.component.html',
   styleUrls: ['./approval.component.css']
 })
-export class ApprovalComponent implements OnInit, DynamicNodeComponent {
+export class ApprovalComponent implements DynamicNodeComponent {
 
   approvalVertex: ApprovalVertex = {};
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  
+  @ViewChild(NgForm, {read: NgForm, static: true})
+  form!: NgForm;
 
   getData(){
     return this.approvalVertex;

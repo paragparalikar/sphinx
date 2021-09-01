@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { DynamicNodeComponent } from '../dynamic-node-component';
 import { TransformerVertex } from './transformer-vertex';
 
 @Component({
@@ -6,14 +8,12 @@ import { TransformerVertex } from './transformer-vertex';
   templateUrl: './transformer.component.html',
   styleUrls: ['./transformer.component.css']
 })
-export class TransformerComponent implements OnInit {
+export class TransformerComponent implements DynamicNodeComponent {
 
+  @ViewChild(NgForm, {read: NgForm, static: true})
+  form!: NgForm;
+  
   transformerVertex: TransformerVertex = {};
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   getData(){
     return this.transformerVertex;
