@@ -15,6 +15,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
@@ -31,6 +36,12 @@ const routes: Routes = [
     PasswordModule,
     InputTextModule,
     InputTextareaModule,
+    TableModule,
+    ButtonModule,
+    ToolbarModule,
+    ToastModule,
+    InputTextModule,
+    ConfirmPopupModule,
     RouterModule.forChild(routes)
   ]
 })

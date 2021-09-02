@@ -10,7 +10,7 @@ import { LdapVertex } from './ldap-vertex';
 })
 export class LdapComponent implements DynamicNodeComponent {
 
-  ldapVertex: LdapVertex = {};
+  ldapVertex: LdapVertex = new LdapVertex();
 
   @ViewChild(NgForm, {read: NgForm, static: true})
   form!: NgForm;

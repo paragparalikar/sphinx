@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { Page } from 'src/app/shared/page.model';
 import { Workflow } from '../workflow.model';
 import { WorkflowService } from '../workflow.service';
 
@@ -9,20 +11,60 @@ import { WorkflowService } from '../workflow.service';
 })
 export class WorkflowListComponent implements OnInit {
 
-  collectionSize: number = 0;
-  page: number = 1;
-  items: Workflow[] = [];
+  page: Page<Workflow> = {
+    totalElements: 0,
+    content: []
+  };
+  loading: boolean = true;
+  lazyLoadEvent?: LazyLoadEvent;
 
-  constructor(private workflowService: WorkflowService) { }
+  constructor(
+    private workflowService: WorkflowService,
+    private messageSerivce: MessageService, 
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.workflowService.findAll().subscribe(
+    
+  }
+
+  load(event: LazyLoadEvent){
+    const that = this;
+    this.loading = true;
+    this.lazyLoadEvent = event;
+    this.workflowService.findAll(event).subscribe(
       page => {
-        this.items = page.content;
-        this.collectionSize = page.totalElements;
-        this.page = 1;
+        that.page = page;
+        that.loading = false;
       }
     );
   }
+
+  delete(event: any, workflow: Workflow) {
+    this.confirmationService.confirm({
+      message: `Are you sure you want to delete workflow "${workflow.name}" ?`,
+      icon: "pi pi-exclamation-triangle",
+      acceptIcon: 'pi pi-trash',
+      acceptLabel: "Delete",
+      acceptButtonStyleClass: 'btn btn-danger',
+      rejectLabel: "Cancel",
+      rejectIcon: "pi pi-times",
+      rejectButtonStyleClass: "btn btn-plain",  
+      target: event.target,
+      closeOnEscape: true,
+      accept: () => {
+        this.workflowService.deleteById(workflow.id!).subscribe(
+          response => {
+            this.load(this.lazyLoadEvent!);
+            this.messageSerivce.add({
+              severity: "success",
+              summary: "Deleted",
+              detail: `Workflow "${workflow.name}" has been deleted successfully`
+            });
+          }
+        );
+      }
+    });
+  }
+
 
 }

@@ -13,7 +13,7 @@ export class TransformerComponent implements DynamicNodeComponent {
   @ViewChild(NgForm, {read: NgForm, static: true})
   form!: NgForm;
   
-  transformerVertex: TransformerVertex = {};
+  transformerVertex: TransformerVertex = new TransformerVertex();
 
   getData(){
     return this.transformerVertex;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicNodeComponent } from '../dynamic-node-component';
+import { RequestVertex } from './request-vertex';
 
 @Component({
   selector: 'app-request',
@@ -8,15 +9,19 @@ import { DynamicNodeComponent } from '../dynamic-node-component';
 })
 export class RequestComponent implements OnInit, DynamicNodeComponent {
 
+  requestVertex: RequestVertex = new RequestVertex();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
   getData(){
-    return undefined;
+    return this.requestVertex;
   }
 
-  setData(data: any){ }
+  setData(data: any){ 
+    this.requestVertex = data as RequestVertex;
+  }
 
 }

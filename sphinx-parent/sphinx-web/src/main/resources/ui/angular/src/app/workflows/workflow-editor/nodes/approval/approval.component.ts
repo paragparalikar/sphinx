@@ -10,7 +10,7 @@ import { ApprovalVertex } from './approval-vertex';
 })
 export class ApprovalComponent implements DynamicNodeComponent {
 
-  approvalVertex: ApprovalVertex = {};
+  approvalVertex: ApprovalVertex = new ApprovalVertex();
   
   @ViewChild(NgForm, {read: NgForm, static: true})
   form!: NgForm;

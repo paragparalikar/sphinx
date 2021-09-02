@@ -10,7 +10,7 @@ import { EmailVertex } from './email-vertex';
 })
 export class EmailComponent implements DynamicNodeComponent {
 
-  emailVertex: EmailVertex = {};
+  emailVertex: EmailVertex = new EmailVertex();
 
   @ViewChild(NgForm, {read: NgForm, static: true})
   form!: NgForm;
