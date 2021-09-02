@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import com.sphinx.workflow.model.Workflow;
 

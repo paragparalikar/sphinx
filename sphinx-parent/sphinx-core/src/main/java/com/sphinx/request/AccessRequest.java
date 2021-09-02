@@ -1,7 +1,6 @@
 package com.sphinx.request;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,13 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import com.sphinx.form.Form;
-import com.sphinx.user.User;
 
 import lombok.Data;
 
