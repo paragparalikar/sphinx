@@ -54,8 +54,7 @@ public class WorkflowController {
 	
 	@GetMapping("/{id}")
 	public WorkflowDetailsDTO findById(@PathVariable final Long id) {
-		final Workflow workflow = workflowService.findById(id);
-		return null == workflow ? null : workflowMapper.entityToDTO(workflow);
+		return workflowService.mapById(id, workflowMapper::entityToDTO);
 	}
 	
 	@PostMapping
