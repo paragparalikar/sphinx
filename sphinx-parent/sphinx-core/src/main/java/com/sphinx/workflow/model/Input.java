@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,9 @@ public class Input {
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(nullable = false)
+	private String name;
 	
 	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<@Valid InputConnection> connections = new ArrayList<>();

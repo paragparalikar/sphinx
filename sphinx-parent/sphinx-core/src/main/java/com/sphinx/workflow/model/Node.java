@@ -51,11 +51,11 @@ public class Node {
 	@JsonProperty("class") 
 	private String clazz;
 	
-	@MapKey(name = "id")
+	@MapKey(name = "name")
 	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Map<@NotBlank String, @Valid Input> inputs = new HashMap<>();
 	
-	@MapKey(name = "id")
+	@MapKey(name = "name")
 	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Map<@NotBlank String, @Valid Output> outputs = new HashMap<>();
 	

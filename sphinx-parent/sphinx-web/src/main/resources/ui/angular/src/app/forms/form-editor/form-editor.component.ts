@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
 import * as formBuilderOptions from 'src/assets/form-builder-options.json';
+import { NavigationService } from 'src/app/shared/navigation.service';
 
 @Component({
   selector: 'app-form-editor',
@@ -24,6 +25,7 @@ export class FormEditorComponent implements OnInit {
   constructor(
     private formService: FormService, 
     private activatedRoute: ActivatedRoute,
+    private navigationService: NavigationService,
     private messageSerivce: MessageService) { }
 
   ngOnInit(): void {
@@ -50,11 +52,14 @@ export class FormEditorComponent implements OnInit {
   save(){
     if(this.form.name && this.form.components && 0 < this.form.components.length){
       this.formService.save(this.form).subscribe(
-        response => this.messageSerivce.add({
-          severity: "success",
-          summary: "Saved",
-          detail: `Form "${this.form.name}" has been saved successfully`
-        })
+        response => {
+          this.messageSerivce.add({
+            severity: "success",
+            summary: "Saved",
+            detail: `Form "${this.form.name}" has been saved successfully`
+          });
+          this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+        }
       );
     }
   }
