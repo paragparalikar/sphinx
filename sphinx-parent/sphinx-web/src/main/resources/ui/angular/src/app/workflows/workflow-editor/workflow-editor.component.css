@@ -1,5 +1,8 @@
+.name-container{
+  height: 55px;
+}
 .drawFlowDiv {
-    height: calc(100vh - 92px);
+    height: calc(100vh - 110px);
     width: calc(100vw - 212px);
     position: absolute;
     background-size: 25px 25px;

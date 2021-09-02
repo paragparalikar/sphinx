@@ -7,9 +7,9 @@
             <label for="approver" class="field-required">Approver</label>
             <select #approver="ngModel" class="form-control p-component" name="approver" id="approver" 
             required [(ngModel)]="approvalVertex.approver">
-                <option value="manager-1">Manager (Level 1)</option>
-                <option value="manager-2">Manager (Level 2)</option>
-                <option value="application-owner">Application Owner</option>
+                <option value="MANAGER1">Manager (Level 1)</option>
+                <option value="MANAGER2">Manager (Level 2)</option>
+                <option value="APPLICATION_OWNER">Application Owner</option>
             </select>
             <div *ngIf="approver.invalid && approver.touched" class="text-danger">
                 <div *ngIf="approver.errors?.required">Approver is required</div>

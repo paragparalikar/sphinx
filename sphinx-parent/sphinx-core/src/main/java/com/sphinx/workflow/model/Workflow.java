@@ -1,6 +1,10 @@
 package com.sphinx.workflow.model;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -21,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sphinx.workflow.model.vertex.RequestVertex;
 
 import lombok.Data;
 
@@ -54,5 +59,13 @@ public class Workflow implements Serializable {
 	@PostLoad
 	public void postLoad() throws JsonMappingException, JsonProcessingException {
 		this.data = objectMapper.readValue(this.payload, new TypeReference<Map<Integer,Node>>() {});
+	}
+	
+	public static void main(String[] args) throws IOException {
+		final String text = new String(Files.readAllBytes(Paths.get("C:\\git\\sphinx\\sphinx-parent\\sphinx-core\\src\\main\\java\\com\\sphinx\\workflow\\model\\test.json")));
+		final ObjectMapper objectMapper = new ObjectMapper();
+		final Workflow workflow = objectMapper.readValue(text, Workflow.class);
+		workflow.getData().values().stream().map(Node::getData).forEach(v -> System.out.println(v.getClass()));
+		System.out.println(workflow);
 	}
 }

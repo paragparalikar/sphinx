@@ -23,12 +23,13 @@ public class ControllerExceptionHandler {
 	    return ErrorResponse.builder().errorMessage(errorMessages).build();
 	}
 	
-	@ExceptionHandler(value=HttpMessageNotReadableException.class)
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-	public ErrorResponse handleUnprosseasableMsgException(HttpMessageNotReadableException msgNotReadable) {
-		return ErrorResponse.builder()
-	            .message("UNPROCESSABLE INPUT DATA")
-	            .status(HttpStatus.UNPROCESSABLE_ENTITY.value())
-	            .build();
-	}
+	/*
+	 * @ExceptionHandler(value=HttpMessageNotReadableException.class)
+	 * 
+	 * @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) public ErrorResponse
+	 * handleUnprosseasableMsgException(HttpMessageNotReadableException
+	 * msgNotReadable) { return ErrorResponse.builder()
+	 * .message("UNPROCESSABLE INPUT DATA")
+	 * .status(HttpStatus.UNPROCESSABLE_ENTITY.value()) .build(); }
+	 */
 }

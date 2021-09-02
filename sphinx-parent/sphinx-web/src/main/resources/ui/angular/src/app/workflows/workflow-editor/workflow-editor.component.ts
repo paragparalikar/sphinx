@@ -39,7 +39,6 @@ export class WorkflowEditorComponent implements OnInit {
     private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit(){
-    console.log(nodes);
     this.drawFlow = new Drawflow(this.drawFlowDiv.nativeElement);
     this.drawFlow.reroute = true;
     this.drawFlow.reroute_fix_curvature = true;
@@ -52,8 +51,14 @@ export class WorkflowEditorComponent implements OnInit {
           this.workflowService.findById(params.id).subscribe(
             workflow => {
               this.workflow = workflow;
-              this.title = workflow.name ? workflow.name : "Create New Workflow";
-              //this.drawFlow?.import(workflow.payload);
+              this.title = workflow.name!;
+              this.drawFlow?.import({
+                drawflow: {
+                  Home: {
+                    data: workflow.data
+                  }
+                }
+              });
 
               this.nodeItems.forEach(item => {
                 this.drawFlow?.getNodesFromName(item.type)
@@ -63,6 +68,7 @@ export class WorkflowEditorComponent implements OnInit {
                   this.attachComponent(node!.name, node?.data, div!);
                 });
               });
+              
             }
           );
         }
@@ -137,7 +143,8 @@ export class WorkflowEditorComponent implements OnInit {
 
   submit(){
     if(this.drawFlow){
-      this.workflow = new Workflow(1, "test", this.drawFlow.export());
+      this.workflow.data = this.drawFlow.export().drawflow.Home.data;
+      console.log(this.workflow);
       this.workflowService.save(this.workflow).subscribe(
         result => console.log(this.workflow)
       );

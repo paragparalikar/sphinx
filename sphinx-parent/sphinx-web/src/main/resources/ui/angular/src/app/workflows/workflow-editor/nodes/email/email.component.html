@@ -7,10 +7,10 @@
             <label for="to" class="field-required">To</label>
             <select #to="ngModel" class="form-control p-component" name="to" 
             id="to" required [(ngModel)]="emailVertex.to">
-                <option value="requester">Requester</option>
-                <option value="manager-1">Manager (Level 1)</option>
-                <option value="manager-2">Manager (Level 2)</option>
-                <option value="application-owner">Application Owner</option>
+                <option value="REQUESTER">Requester</option>
+                <option value="MANAGER1">Manager (Level 1)</option>
+                <option value="MANAGER2">Manager (Level 2)</option>
+                <option value="APPLICATION_OWNER">Application Owner</option>
             </select>
             <div *ngIf="to.invalid && to.touched" class="text-danger">
                 <div *ngIf="to.errors?.required">To field is required</div>
