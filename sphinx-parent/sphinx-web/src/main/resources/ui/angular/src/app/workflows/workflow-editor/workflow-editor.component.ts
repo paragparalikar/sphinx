@@ -64,6 +64,7 @@ export class WorkflowEditorComponent implements OnInit {
                 this.drawFlow?.getNodesFromName(item.type)
                 .map(id => this.drawFlow?.getNodeFromId(id))
                 .forEach(node => {
+                  this.counter++;
                   const div = this.getNativeElement(node?.html);
                   this.attachComponent(node!.name, node?.data, div!);
                 });

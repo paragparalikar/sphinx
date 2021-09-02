@@ -14,22 +14,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerExceptionHandler {
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value=MethodArgumentNotValidException.class)
+	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public ErrorResponse handleException(MethodArgumentNotValidException exception) {
-	    final List<ErrorModel> errorMessages = exception.getBindingResult().getFieldErrors().stream()
-	            .map(err -> new ErrorModel(err.getField(), err.getRejectedValue(), err.getDefaultMessage()))
-	            .distinct()
-	            .collect(Collectors.toList());
-	    return ErrorResponse.builder().errorMessage(errorMessages).build();
+		final List<ErrorModel> errorMessages = exception.getBindingResult().getFieldErrors().stream()
+				.map(err -> new ErrorModel(err.getField(), err.getRejectedValue(), err.getDefaultMessage())).distinct()
+				.collect(Collectors.toList());
+		return ErrorResponse.builder().errorMessage(errorMessages).build();
 	}
-	
-	/*
-	 * @ExceptionHandler(value=HttpMessageNotReadableException.class)
-	 * 
-	 * @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY) public ErrorResponse
-	 * handleUnprosseasableMsgException(HttpMessageNotReadableException
-	 * msgNotReadable) { return ErrorResponse.builder()
-	 * .message("UNPROCESSABLE INPUT DATA")
-	 * .status(HttpStatus.UNPROCESSABLE_ENTITY.value()) .build(); }
-	 */
+
+	@ExceptionHandler(value = HttpMessageNotReadableException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public ErrorResponse handleUnprosseasableMsgException(HttpMessageNotReadableException msgNotReadable) {
+		return ErrorResponse.builder().message("UNPROCESSABLE INPUT DATA")
+				.status(HttpStatus.UNPROCESSABLE_ENTITY.value()).build();
+	}
+
 }
