@@ -4,7 +4,7 @@
         "inputs": 0,
         "outputs": 1,
         "icon": "fa fa-arrow-right",
-        "text": "Request Received"
+        "text": "Request"
     },
     {
         "type": "email",
@@ -31,6 +31,34 @@
         "type": "ldap",
         "icon": "fa fa-users",
         "text": "LDAP",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
+        "type": "ldap",
+        "icon": "fa fa-link",
+        "text": "HTTP",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
+        "type": "ldap",
+        "icon": "fa fa-database",
+        "text": "JDBC",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
+        "type": "ldap",
+        "icon": "fa fa-file",
+        "text": "FTP",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
+        "type": "ldap",
+        "icon": "fa fa-file",
+        "text": "SFTP",
         "inputs": 1,
         "outputs": 1
     }

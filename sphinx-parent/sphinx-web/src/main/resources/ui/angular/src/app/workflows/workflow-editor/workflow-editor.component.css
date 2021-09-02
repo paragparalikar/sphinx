@@ -1,16 +1,5 @@
-
-.node-lib{
-    height: 30px;
-}
-.node-item{
-    border-radius: 3px;
-    background-color: chocolate;
-    padding: 5px;
-    color: white;
-    margin-right: 10px;
-}
 .drawFlowDiv {
-    height: calc(100vh - 82px);
+    height: calc(100vh - 92px);
     width: calc(100vw - 212px);
     position: absolute;
     background-size: 25px 25px;
@@ -136,10 +125,11 @@
   }
   
   .bar-zoom {
-    float: right;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+    position: absolute; 
+    width: 100%;
+    bottom: 5px;
+    right: 5px;
+    left: 0px;
     display: flex;
     font-size: 24px;
     color: white;
