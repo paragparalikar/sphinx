@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model;
+package com.sphinx.workflow.node;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sphinx.workflow.model.vertex.Vertex;
+import com.sphinx.workflow.task.Task;
 
 import lombok.Data;
 
@@ -46,7 +46,7 @@ public class Node {
 	@Valid 
 	@NotNull 
 	@OneToOne(optional = false, orphanRemoval = true, cascade = CascadeType.ALL)
-	private Vertex data;
+	private Task data;
 	
 	@JsonProperty("class") 
 	private String clazz;

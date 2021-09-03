@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model;
+package com.sphinx.workflow;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -18,7 +18,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.WorkflowConstraint;
+import com.sphinx.workflow.node.Node;
+import com.sphinx.workflow.validation.WorkflowConstraint;
 
 import lombok.Data;
 

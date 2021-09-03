@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sphinx.web.search.PrimengQueries;
 import com.sphinx.web.search.SearchBuilder;
+import com.sphinx.workflow.Workflow;
 import com.sphinx.workflow.WorkflowService;
-import com.sphinx.workflow.model.Workflow;
 
 import lombok.RequiredArgsConstructor;
 

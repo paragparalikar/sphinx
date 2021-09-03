@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model.vertex;
+package com.sphinx.workflow.node;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,27 +8,21 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
-public class LdapVertex extends Vertex {
-
+public class InputConnection {
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@NotBlank 
+
+	@NotBlank
 	@Column(nullable = false)
-	private String url;
+	private String node;
 	
-	@NotBlank 
+	@NotBlank
 	@Column(nullable = false)
-	private String username;
-	
-	@NotBlank 
-	@Column(nullable = false)
-	private String password;
+	private String input;
 	
 }

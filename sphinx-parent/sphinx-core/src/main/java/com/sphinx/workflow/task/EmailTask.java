@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model.vertex;
+package com.sphinx.workflow.task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.model.RecipientType;
+import com.sphinx.workflow.node.RecipientType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class EmailVertex extends Vertex {
+public class EmailTask extends Task {
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)

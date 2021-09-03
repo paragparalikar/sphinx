@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model.vertex;
+package com.sphinx.workflow.task;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,15 +19,15 @@ import lombok.Data;
   include = JsonTypeInfo.As.PROPERTY, 
   property = "type")
 @JsonSubTypes({ 
-  @Type(value = RequestVertex.class, name = "request"), 
-  @Type(value = EmailVertex.class, name = "email"), 
-  @Type(value = ApprovalVertex.class, name = "approval"),
-  @Type(value = TransformerVertex.class, name = "transformer"),
-  @Type(value = LdapVertex.class, name = "ldap")
+  @Type(value = RequestTask.class, name = "request"), 
+  @Type(value = EmailTask.class, name = "email"), 
+  @Type(value = ApprovalTask.class, name = "approval"),
+  @Type(value = TransformerTask.class, name = "transformer"),
+  @Type(value = LdapTask.class, name = "ldap")
 })
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Vertex {
+public abstract class Task {
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)

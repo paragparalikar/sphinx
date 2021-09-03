@@ -5,7 +5,7 @@ import java.util.List;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 
-import com.sphinx.workflow.model.Workflow;
+import com.sphinx.workflow.Workflow;
 
 @Mapper(componentModel = "spring")
 public interface WorkflowMapper {

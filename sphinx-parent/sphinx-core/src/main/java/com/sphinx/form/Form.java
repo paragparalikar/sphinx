@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.model.Workflow;
+import com.sphinx.workflow.Workflow;
 
 import lombok.Data;
 

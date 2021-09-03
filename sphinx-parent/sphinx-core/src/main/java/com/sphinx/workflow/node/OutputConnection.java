@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model;
+package com.sphinx.workflow.node;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

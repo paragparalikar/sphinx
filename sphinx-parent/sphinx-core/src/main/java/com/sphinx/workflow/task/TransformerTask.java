@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model.vertex;
+package com.sphinx.workflow.task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class TransformerVertex extends Vertex {
+public class TransformerTask extends Task {
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)

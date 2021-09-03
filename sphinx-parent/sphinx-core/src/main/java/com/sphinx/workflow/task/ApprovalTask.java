@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model.vertex;
+package com.sphinx.workflow.task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.model.ApproverType;
+import com.sphinx.workflow.node.ApproverType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class ApprovalVertex extends Vertex {
+public class ApprovalTask extends Task {
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)

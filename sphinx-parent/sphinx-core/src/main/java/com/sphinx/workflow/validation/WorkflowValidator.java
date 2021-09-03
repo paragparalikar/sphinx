@@ -1,4 +1,4 @@
-package com.sphinx.workflow;
+package com.sphinx.workflow.validation;
 
 import java.util.Collection;
 import java.util.Map;
@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.sphinx.workflow.model.Node;
-import com.sphinx.workflow.model.Output;
-import com.sphinx.workflow.model.OutputConnection;
+import com.sphinx.workflow.node.Node;
+import com.sphinx.workflow.node.Output;
+import com.sphinx.workflow.node.OutputConnection;
 
 public class WorkflowValidator implements ConstraintValidator<WorkflowConstraint, Map<String, Node>>{
 	
@@ -23,13 +23,15 @@ public class WorkflowValidator implements ConstraintValidator<WorkflowConstraint
 		
 		context.disableDefaultConstraintViolation();
 		
-		if(!containsRequestNode(value)) {
+		final long requestNodeCount = getRequestNodeCount(value);
+		
+		if(1 != requestNodeCount) {
 			valid = false;
-			context.buildConstraintViolationWithTemplate("Workflow must contain at least one request node as starting point")
+			context.buildConstraintViolationWithTemplate("Workflow must contain exactly one request node as starting point")
 				.addConstraintViolation();
 		}
 		
-		if(!containsTaskNode(value)) {
+		if(requestNodeCount == value.size()) {
 			valid = false;
 			context.buildConstraintViolationWithTemplate("Workflow must contain at least one task to perform")
 				.addConstraintViolation();
@@ -44,12 +46,8 @@ public class WorkflowValidator implements ConstraintValidator<WorkflowConstraint
 		return valid;
 	}
 	
-	private boolean containsRequestNode(Map<String, Node> value) {
-		return value.values().stream().anyMatch(requestPredicate);
-	}
-	
-	private boolean containsTaskNode(Map<String, Node> value) {
-		return value.values().stream().anyMatch(requestPredicate.negate());
+	private long getRequestNodeCount(Map<String, Node> value) {
+		return value.values().stream().filter(requestPredicate).count();
 	}
 
 	private boolean areAllNodesReachable(Map<String, Node> value) {

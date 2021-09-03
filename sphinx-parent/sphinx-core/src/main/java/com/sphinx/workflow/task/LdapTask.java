@@ -1,4 +1,4 @@
-package com.sphinx.workflow.model;
+package com.sphinx.workflow.task;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,21 +8,27 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-public class InputConnection {
-	
+@EqualsAndHashCode(callSuper = true)
+public class LdapTask extends Task {
+
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	@NotBlank
-	@Column(nullable = false)
-	private String node;
 	
-	@NotBlank
+	@NotBlank 
 	@Column(nullable = false)
-	private String input;
+	private String url;
+	
+	@NotBlank 
+	@Column(nullable = false)
+	private String username;
+	
+	@NotBlank 
+	@Column(nullable = false)
+	private String password;
 	
 }

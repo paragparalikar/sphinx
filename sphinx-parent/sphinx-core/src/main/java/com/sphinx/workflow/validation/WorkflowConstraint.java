@@ -1,4 +1,4 @@
-package com.sphinx.workflow;
+package com.sphinx.workflow.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
