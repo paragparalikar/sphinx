@@ -8,8 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.sphinx.workflow.model.Workflow;
 
 import lombok.Data;
 
@@ -26,6 +30,10 @@ public class Form implements Serializable {
 	@Size(min = 3, max = 255) 
 	@Column(nullable = false, unique = true)
 	private String name;
+	
+	@NotNull
+	@ManyToOne(optional = false)
+	private Workflow workflow;
 	
 	@Lob
 	@NotBlank 

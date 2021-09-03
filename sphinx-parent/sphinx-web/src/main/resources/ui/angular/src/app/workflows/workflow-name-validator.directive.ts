@@ -20,7 +20,6 @@ export class WorkflowNameValidatorDirective implements AsyncValidator {
 
   validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
     return new Promise(resolve => {
-      console.log(control.value);
       this.workflowService.exists(this.workflowId ? this.workflowId : 0, control.value).subscribe(
         response => {
           if(response){

@@ -5,22 +5,26 @@
     [globalFilterFields]="['id','name']" [alwaysShowPaginator]="false" >
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="id">
+            <th pSortableColumn="id" class="col-2">
                 ID <p-sortIcon field="id"></p-sortIcon> <p-columnFilter type="numeric" field="id" display="menu"></p-columnFilter>
             </th>
-            <th pSortableColumn="name">
+            <th pSortableColumn="name" class="col-4">
                 Name <p-sortIcon field="name"></p-sortIcon> <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
             </th>
-            <th class="text-end p-py-1">
+            <th pSortableColumn="workflow.name" class="col-4">
+                Workflow <p-sortIcon field="workflow.name"></p-sortIcon> <p-columnFilter type="text" field="workflow.name" display="menu"></p-columnFilter>
+            </th>
+            <th class="text-end p-py-1 col-2">
                 <p-button label="New Form" icon="pi pi-plus" iconPos="left" routerLink="editor"></p-button>
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
         <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td class="text-end">
+            <td class="col-2">{{item.id}}</td>
+            <td class="col-4">{{item.name}}</td>
+            <td class="col-4">{{item.workflow.name}}</td>
+            <td class="text-end col-2">
                 <button class="btn btn-warning btn-sm">
                     <i class="fa fa-edit" routerLink="editor" [queryParams]="{id: item.id}"  ></i>
                 </button>

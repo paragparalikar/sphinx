@@ -108,8 +108,10 @@ export class WorkflowEditorComponent implements OnInit {
         this.counter = this.counter < node!.id ? node!.id : this.counter;
         const div = this.getNativeElement(node?.html);
         this.attachComponent(node!.name, node?.data, div!);
+        this.drawFlow?.updateConnectionNodes(node!.id);
       });
     });
+    
   }
 
   private attachComponent(type: string, data: any, nativeElement: HTMLElement | null){

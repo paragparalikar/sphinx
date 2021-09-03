@@ -1,5 +1,5 @@
 <div class="page-title">{{ form.id ? 'Modify Form' : 'Create New Form'}}</div>
-<div class="row">
+<form #formBuilderForm="ngForm" class="row needs-validation" novalidate>
     <div class="col-5">
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon">
@@ -27,7 +27,7 @@
     <div class="col-5">
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon">
-                <i class="fa fa-file-text"></i>&nbsp;&nbsp;Form&nbsp;
+                <i class="fa fa-sitemap"></i>&nbsp;&nbsp;Workflow
             </span>
             <p-autoComplete name="workflowName" field="name"  [suggestions]="workflowSuggestions"
                 (completeMethod)="suggestWorkflows($event)" [(ngModel)]="form.workflow" 
@@ -49,5 +49,5 @@
             <i class="fa fa-save"></i>&nbsp;&nbsp;Save
         </button>
     </div>
-</div>
+</form>
 <div #formBuilderElement class="my-3"></div>

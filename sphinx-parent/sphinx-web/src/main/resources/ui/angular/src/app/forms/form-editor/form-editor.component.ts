@@ -8,6 +8,7 @@ import * as formBuilderOptions from 'src/assets/form-builder-options.json';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import { Workflow } from 'src/app/workflows/workflow.model';
 import { WorkflowService } from 'src/app/workflows/workflow.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-form-editor',
@@ -19,6 +20,9 @@ export class FormEditorComponent implements OnInit {
 
   @ViewChild("formBuilderElement", {read: ElementRef, static: true})
   private formBuilderElement?: ElementRef;
+
+  @ViewChild("formBuilderForm", {read: NgForm, static: true})
+  private formBuilderForm?: NgForm;
 
   form: Form = {};
   workflow?: Workflow;
@@ -57,7 +61,21 @@ export class FormEditorComponent implements OnInit {
   }
 
   save(){
-    if(this.form.name && this.form.components && 0 < this.form.components.length){
+    if(this.formBuilderForm?.invalid){
+      this.messageSerivce.add({
+        severity: "error",
+        summary: "Validation Errors",
+        icon: "fa fa-exclamation-triangle",
+        detail: "Please fix validation errors before saving data"
+      });
+    } else if(!this.form.components || 0 == this.form.components.length){
+      this.messageSerivce.add({
+        severity: "error",
+        summary: "Validation Errors",
+        icon: "fa fa-exclamation-triangle",
+        detail: "There are no components in the form to save"
+      });
+    } else {
       this.formService.save(this.form).subscribe(
         response => {
           this.messageSerivce.add({
