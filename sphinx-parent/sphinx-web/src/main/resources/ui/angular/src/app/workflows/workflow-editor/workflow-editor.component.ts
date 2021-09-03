@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Injector, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Drawflow from 'drawflow';
@@ -151,19 +152,54 @@ export class WorkflowEditorComponent implements OnInit {
     console.log(this.drawFlow?.export());
   }
 
+  isValid(): boolean{
+    const forms: HTMLCollectionOf<HTMLFormElement> = document.getElementsByTagName('form');
+    if(forms.length == 1) return false;
+    for(let index = 0; index < forms.length; index++){
+      const form: HTMLFormElement | null = forms.item(index);
+      if(form && form.classList.contains('ng-invalid')) return false;
+    }
+    return true;
+  }
+
   submit(){
-    if(this.drawFlow){
-      this.workflow.data = this.drawFlow.export().drawflow.Home.data;
+    if(this.isValid()){
+      this.workflow.data = this.drawFlow!.export().drawflow.Home.data;
       this.workflowService.save(this.workflow).subscribe(
-        result => {
+        response => {
           this.messageService.add({
             severity: "success",
             summary: "Saved",
+            icon: "fa fa-check",
             detail: `Workflow "${this.workflow.name}" has been saved successfully`
           });
           this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+        },
+        response => {
+          if(response instanceof HttpErrorResponse){
+            var message: string = '<ul>';
+            response.error.messages.map(m => m.text).forEach(element => {
+              message = message + `<li>${element}</li>`;
+            });
+            message = message + '</ul>';
+            this.messageService.add({
+              severity: "error",
+              icon: "fa fa-exclamation-triangle",
+              summary: "Validation Errors",
+              sticky: true,
+              closable: true,
+              detail: message
+            });
+          }
         }
       );
+    } else {
+      this.messageService.add({
+        severity: "error",
+        summary: "Validation Errors",
+        icon: "fa fa-exclamation-triangle",
+        detail: `This page contains validation errors, please correct them before saving data`
+      });
     }
   }
 

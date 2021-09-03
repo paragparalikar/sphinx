@@ -1,27 +1,29 @@
 <div class="page-title">{{workflow.id ? workflow.name : 'Create New Workflow'}}</div>
-<div class="name-container">
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-            <i class="fa fa-sitemap"></i>&nbsp;&nbsp;Name
-        </span>
-        <input type="text" id="name" name="name" pInputText style="width: 500px;" class="importent-text"
-        [(ngModel)]="workflow!.name" #name="ngModel" required minlength="3" maxlength="255">
-        <button type="button" class="p-inputgroup-addon btn-primary" (click)="submit()">
-            <i class="fa fa-save"></i>
-        </button>
-    </div>
-    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="formio-errors">
-        <div *ngIf="name.errors?.required" class="form-text error">
-            Please provide a name for this workflow
+<form #workflowForm="ngForm" class="needs-validation" novalidate>
+    <div class="name-container">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="fa fa-sitemap"></i>&nbsp;&nbsp;Name
+            </span>
+            <input type="text" id="name" name="name" pInputText style="width: 500px;" class="importent-text"
+            [(ngModel)]="workflow!.name" #name="ngModel" required minlength="3" maxlength="255">
+            <button type="button" class="p-inputgroup-addon btn-primary" (click)="submit()">
+                <i class="fa fa-save"></i>
+            </button>
         </div>
-        <div *ngIf="name.errors?.minlength" class="form-text error">
-            Name must be at least 3 characters long.
+        <div *ngIf="name.invalid && workflowForm.touched" class="formio-errors">
+            <div *ngIf="name.errors?.required" class="form-text error">
+                Please provide a name for this workflow
+            </div>
+            <div *ngIf="name.errors?.minlength" class="form-text error">
+                Name must be at least 3 characters long.
+            </div>
+            <div *ngIf="name.errors?.maxlength" class="form-text error">
+                Name can be at most 255 characters long.
+            </div>
         </div>
-        <div *ngIf="name.errors?.maxlength" class="form-text error">
-            Name can be at most 255 characters long.
-        </div>
-    </div>
-</div>
+    </div>    
+</form>
 <div #drawFlowDiv class="drawFlowDiv drawflow" (drop)="drop($event)" (dragover)="$event.preventDefault();">
     <div class="bar-zoom d-flex justify-content-between">
         <div class="mr-3 text-left">

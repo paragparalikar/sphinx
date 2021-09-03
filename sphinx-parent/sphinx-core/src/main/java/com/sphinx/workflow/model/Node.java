@@ -30,7 +30,7 @@ public class Node {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long key;
 	
-	private int id;
+	private String id;
 	private int pos_x;
 	private int pos_y;
 	private boolean typenode;

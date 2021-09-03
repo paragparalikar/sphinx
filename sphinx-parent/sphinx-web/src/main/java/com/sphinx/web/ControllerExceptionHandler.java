@@ -16,17 +16,29 @@ public class ControllerExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = MethodArgumentNotValidException.class)
 	public ErrorResponse handleException(MethodArgumentNotValidException exception) {
-		final List<ErrorModel> errorMessages = exception.getBindingResult().getFieldErrors().stream()
-				.map(err -> new ErrorModel(err.getField(), err.getRejectedValue(), err.getDefaultMessage())).distinct()
+		final List<ErrorMessage> errorMessages = exception.getBindingResult().getFieldErrors().stream()
+				.map(error -> ErrorMessage.builder()
+						.fieldName(error.getField())
+						.text(error.getDefaultMessage())
+						.rejectedValue(error.getRejectedValue())
+						.build())
+				.distinct()
 				.collect(Collectors.toList());
-		return ErrorResponse.builder().errorMessage(errorMessages).build();
+		return ErrorResponse.builder()
+				.messages(errorMessages)
+				.status(HttpStatus.BAD_REQUEST.value())
+				.build();
 	}
 
-	@ExceptionHandler(value = HttpMessageNotReadableException.class)
 	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ExceptionHandler(value = HttpMessageNotReadableException.class)
 	public ErrorResponse handleUnprosseasableMsgException(HttpMessageNotReadableException msgNotReadable) {
-		return ErrorResponse.builder().message("UNPROCESSABLE INPUT DATA")
-				.status(HttpStatus.UNPROCESSABLE_ENTITY.value()).build();
+		return ErrorResponse.builder()
+				.status(HttpStatus.UNPROCESSABLE_ENTITY.value())
+				.message(ErrorMessage.builder()
+						.text("Received unprocessable data, please contact your system administrator")
+						.build())
+				.build();
 	}
 
 }

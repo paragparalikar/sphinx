@@ -16,7 +16,12 @@
     </div>
   </nav>
   <div class="bg-pattern-light w-full container-fluid">
-      <p-toast></p-toast>
+      <p-toast>
+        <ng-template let-message pTemplate="message">
+          <i class="{{message.icon}} text-lg mr-2"></i><h6>{{message.summary}}</h6>
+          <p class="ml-4" innerHtml="{{message.detail}}"></p>
+        </ng-template>
+      </p-toast>
       <router-outlet></router-outlet>
       <p-confirmPopup></p-confirmPopup>
   </div>

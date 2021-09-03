@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import com.sphinx.workflow.model.Node;
+import com.sphinx.workflow.validation.WorkflowConstraint;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import lombok.EqualsAndHashCode;
 public class WorkflowDetailsDTO extends WorkflowDTO {
 
 	@NotEmpty
-	private Map<Integer,@Valid Node> data;
+	@WorkflowConstraint
+	private Map<String,@Valid Node> data;
 	
 }

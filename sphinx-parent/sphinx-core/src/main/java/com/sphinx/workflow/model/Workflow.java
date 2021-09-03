@@ -17,6 +17,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.sphinx.workflow.validation.WorkflowConstraint;
+
 import lombok.Data;
 
 @Data
@@ -32,8 +34,9 @@ public class Workflow implements Serializable {
 	@Size(min = 3, max = 255) 
 	private String name;
 	
-	@NotEmpty
+	@NotEmpty 
+	@WorkflowConstraint
 	@MapKey(name = "id")
 	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Map<@NotNull Integer, @Valid Node> data;
+	private Map<@NotNull String, @Valid Node> data;
 }
