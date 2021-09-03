@@ -1,29 +1,53 @@
 <div class="page-title">{{ form.id ? 'Modify Form' : 'Create New Form'}}</div>
-<p-toolbar>
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-            <i class="fa fa-file-text"></i>&nbsp;&nbsp;Name
-        </span>
-        <input type="text" id="name" name="name" pInputText style="width: 500px;" class="importent-text"
-        [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="255" 
-        appFormNameValidator [formId]="form.id">
-        <button type="button" class="p-inputgroup-addon btn-primary" (click)="save()">
-            <i class="fa fa-save"></i>
+<div class="row">
+    <div class="col-5">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="fa fa-file-text"></i>&nbsp;&nbsp;Name
+            </span>
+            <input type="text" id="name" name="name" pInputText class="importent-text w-full"
+            [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="255" 
+            appFormNameValidator [formId]="form.id">
+        </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="formio-errors">
+            <div *ngIf="name.errors?.required" class="form-text error">
+                Please provide a name for this form
+            </div>
+            <div *ngIf="name.errors?.minlength" class="form-text error">
+                Name must be at least 3 characters long.
+            </div>
+            <div *ngIf="name.errors?.maxlength" class="form-text error">
+                Name can be at most 255 characters long.
+            </div>
+            <div *ngIf="name.errors?.exists" class="form-text error">
+                This name is already taken, please provide a different name.
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+                <i class="fa fa-file-text"></i>&nbsp;&nbsp;Form&nbsp;
+            </span>
+            <p-autoComplete name="workflowName" field="name"  [suggestions]="workflowSuggestions"
+                (completeMethod)="suggestWorkflows($event)" [(ngModel)]="form.workflow" 
+                [forceSelection]="true" class="importent-text w-full" [required]=true
+                #workflowInput="ngModel">
+                <ng-template let-workflow pTemplate="item">
+                    <i class="fa fa-sitemap"></i> {{workflow.name}}
+                </ng-template>
+            </p-autoComplete>
+        </div>
+        <div *ngIf="workflowInput.invalid && (workflowInput.dirty || workflowInput.touched)" class="formio-errors">
+            <div *ngIf="workflowInput.errors?.required" class="form-text error">
+                Please select a workflow associated with this form
+            </div>
+        </div>   
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-primary btn-sm float-end" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;&nbsp;Save
         </button>
     </div>
-    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="formio-errors">
-        <div *ngIf="name.errors?.required" class="form-text error">
-            Please provide a name for this form
-        </div>
-        <div *ngIf="name.errors?.minlength" class="form-text error">
-            Name must be at least 3 characters long.
-        </div>
-        <div *ngIf="name.errors?.maxlength" class="form-text error">
-            Name can be at most 255 characters long.
-        </div>
-        <div *ngIf="name.errors?.exists" class="form-text error">
-            This name is already taken, please provide a different name.
-        </div>
-    </div>
-</p-toolbar>
+</div>
 <div #formBuilderElement class="my-3"></div>

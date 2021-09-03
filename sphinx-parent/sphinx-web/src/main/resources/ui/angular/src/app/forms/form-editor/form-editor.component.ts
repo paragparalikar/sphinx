@@ -6,6 +6,8 @@ import { Form } from '../form.model';
 import { FormService } from '../form.service';
 import * as formBuilderOptions from 'src/assets/form-builder-options.json';
 import { NavigationService } from 'src/app/shared/navigation.service';
+import { Workflow } from 'src/app/workflows/workflow.model';
+import { WorkflowService } from 'src/app/workflows/workflow.service';
 
 @Component({
   selector: 'app-form-editor',
@@ -19,16 +21,18 @@ export class FormEditorComponent implements OnInit {
   private formBuilderElement?: ElementRef;
 
   form: Form = {};
+  workflow?: Workflow;
+  workflowSuggestions: Workflow[] = [];
   formBuilder?: FormBuilder;
 
   constructor(
     private formService: FormService, 
     private activatedRoute: ActivatedRoute,
+    private workflowService: WorkflowService,
     private navigationService: NavigationService,
     private messageSerivce: MessageService) { }
 
   ngOnInit(): void {
-
     this.activatedRoute.queryParams.subscribe(
       params => {
         if(params.id){
@@ -44,6 +48,12 @@ export class FormEditorComponent implements OnInit {
 
     this.formBuilder = new FormBuilder(this.formBuilderElement!.nativeElement, 
       this.form, formBuilderOptions);
+  }
+
+  suggestWorkflows(event: any){
+    this.workflowService.findSuggestions(event.query).subscribe(
+      workflows => this.workflowSuggestions = workflows
+    );
   }
 
   save(){

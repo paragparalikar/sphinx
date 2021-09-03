@@ -7,6 +7,10 @@ body, .p-component, .p-inputtext {
     font-weight: 400;
 }
 
+.p-inputgroup-addon {
+  padding: 0 0.5rem;
+}
+
 .bg-pattern-dark {
   background: url(./assets/images/dark_exa.png) repeat 0 0;
 }
