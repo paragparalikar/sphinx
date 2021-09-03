@@ -12,6 +12,8 @@ import com.sphinx.workflow.model.Workflow;
 @Repository
 public interface WorkflowRepository extends JpaRepository<Workflow, Long>, JpaSpecificationExecutor<Workflow> {
 
+	Boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
+	
 	List<Workflow> findByNameContainingIgnoreCase(String query, Pageable pageable);
 	
 }

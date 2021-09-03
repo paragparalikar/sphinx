@@ -37,6 +37,11 @@ public class FormController {
 	private final FormService formService;
 	private final SearchBuilder searchBuilder;
 	
+	@GetMapping(value = "/{id}", params = "name")
+	public Boolean exists(@PathVariable("id") final Long id, @RequestParam("name") final String name) {
+		return formService.existsByName(id, name);
+	}
+	
 	@GetMapping(params = "q")
 	public List<FormDTO> findSuggestions(@RequestParam("q") final String query){
 		final Pageable pageable = PageRequest.of(0, 10, Sort.by("name"));

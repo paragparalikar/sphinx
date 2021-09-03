@@ -16,6 +16,10 @@ public class FormService {
 
 	private final FormRepository formRepository;
 	
+	public Boolean existsByName(Long id, String name) {
+		return formRepository.existsByNameIgnoreCaseAndIdNot(name, id);
+	}
+	
 	public List<Form> findSuggestions(@NonNull String query,@NonNull Pageable pageable){
 		return formRepository.findByNameContainingIgnoreCase(query, pageable);
 	}

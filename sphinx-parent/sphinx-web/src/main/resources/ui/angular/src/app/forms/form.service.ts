@@ -15,6 +15,10 @@ export class FormService {
 
   constructor(private httpClient: HttpClient) {}
 
+  exists(id: number, name: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.url}/${id}?name=${name}`);
+  }
+
   findSuggestions(query: string): Observable<Form[]> {
     return this.httpClient.get<Form[]>(`${this.url}?q=${query}`);
   }

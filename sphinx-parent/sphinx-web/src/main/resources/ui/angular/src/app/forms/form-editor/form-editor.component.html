@@ -5,7 +5,8 @@
             <i class="fa fa-file-text"></i>&nbsp;&nbsp;Name
         </span>
         <input type="text" id="name" name="name" pInputText style="width: 500px;" class="importent-text"
-        [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="255">
+        [(ngModel)]="form.name" #name="ngModel" required minlength="3" maxlength="255" 
+        appFormNameValidator [formId]="form.id">
         <button type="button" class="p-inputgroup-addon btn-primary" (click)="save()">
             <i class="fa fa-save"></i>
         </button>
@@ -19,6 +20,9 @@
         </div>
         <div *ngIf="name.errors?.maxlength" class="form-text error">
             Name can be at most 255 characters long.
+        </div>
+        <div *ngIf="name.errors?.exists" class="form-text error">
+            This name is already taken, please provide a different name.
         </div>
     </div>
 </p-toolbar>

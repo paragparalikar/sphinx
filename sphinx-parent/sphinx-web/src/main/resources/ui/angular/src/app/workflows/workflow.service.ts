@@ -14,6 +14,10 @@ export class WorkflowService {
 
   constructor(private http: HttpClient) { }
 
+  exists(id: number, name: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.url}/${id}?name=${name}`);
+  }
+
   findSuggestions(query: string): Observable<Workflow[]> {
     return this.http.get<Workflow[]>(`${this.url}?q=${query}`);
   }

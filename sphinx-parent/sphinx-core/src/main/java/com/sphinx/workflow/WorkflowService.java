@@ -22,6 +22,10 @@ public class WorkflowService {
 
 	private final WorkflowRepository workflowRepository;
 	
+	public Boolean existsByName(Long id, String name) {
+		return workflowRepository.existsByNameIgnoreCaseAndIdNot(name, id);
+	}
+	
 	public List<Workflow> findSuggestions(@NonNull String query,@NonNull Pageable pageable){
 		return workflowRepository.findByNameContainingIgnoreCase(query, pageable);
 	}

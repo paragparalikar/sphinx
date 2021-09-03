@@ -5,8 +5,8 @@ import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import com.sphinx.workflow.WorkflowConstraint;
 import com.sphinx.workflow.model.Node;
-import com.sphinx.workflow.validation.WorkflowConstraint;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

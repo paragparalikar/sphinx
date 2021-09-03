@@ -11,6 +11,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { InputTextModule } from 'primeng/inputtext';
+import { FormNameValidatorDirective } from './form-name-validator.directive';
 
 const routes: Routes = [
   {path: '', component: FormListComponent},
@@ -18,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FormListComponent, FormEditorComponent],
+  declarations: [FormListComponent, FormEditorComponent, FormNameValidatorDirective],
   imports: [
     CommonModule,
     NgbModule,

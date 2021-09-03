@@ -37,6 +37,11 @@ public class WorkflowController {
 	private final WorkflowMapper workflowMapper;
 	private final WorkflowService workflowService;
 	
+	@GetMapping(value = "/{id}", params = "name")
+	public Boolean exists(@PathVariable("id") final Long id, @RequestParam("name") final String name) {
+		return workflowService.existsByName(id, name);
+	}
+	
 	@GetMapping(params = "q") 
 	public List<WorkflowDTO> findSuggestions(@RequestParam("q") final String query){
 		final Pageable pageable = PageRequest.of(0, 10, Sort.by("name"));

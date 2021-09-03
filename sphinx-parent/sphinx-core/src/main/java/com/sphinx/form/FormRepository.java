@@ -12,4 +12,6 @@ public interface FormRepository extends JpaRepository<Form, Long>, JpaSpecificat
 	
 	List<Form> findByNameContainingIgnoreCase(String query, Pageable pageable);
 	
+	Boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
+	
 }

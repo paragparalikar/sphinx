@@ -1,4 +1,4 @@
-package com.sphinx.workflow.validation;
+package com.sphinx.workflow;
 
 import java.util.Collection;
 import java.util.Map;
