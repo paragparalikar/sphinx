@@ -62,6 +62,7 @@ export class FormListComponent implements OnInit, OnDestroy {
             this.messageSerivce.add({
               severity: "success",
               summary: "Deleted",
+              icon: "fa fa-check",
               detail: `Form "${form.name}" has been deleted successfully`
             });
           }

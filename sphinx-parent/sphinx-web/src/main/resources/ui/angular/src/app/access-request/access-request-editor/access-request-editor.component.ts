@@ -20,7 +20,6 @@ export class AccessRequestEditorComponent implements OnInit {
 
   form?: Form;
   formioForm?: any;
-  title: string = "New Request";
   request: AccessRequest = {};
   formSuggestions: Form[] = [];
   formioOptions = {
@@ -67,7 +66,6 @@ export class AccessRequestEditorComponent implements OnInit {
 
   render(form: Form){
     this.form = form;
-    this.title = form.name!;
     this.request.formId = form.id;
     this.request.formName = form.name;
     this.formioOptions.readOnly = this.request.id != undefined;
@@ -98,6 +96,7 @@ export class AccessRequestEditorComponent implements OnInit {
             this.messageService.add({
               severity: "success",
               summary: "Saved",
+              icon: "fa fa-check",
               detail: `Request has been saved successfully`
             });
             this.back();

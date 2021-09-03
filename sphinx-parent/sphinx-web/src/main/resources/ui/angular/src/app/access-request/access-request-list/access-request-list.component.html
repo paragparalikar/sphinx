@@ -41,7 +41,7 @@
             <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
             <td>{{item.submitTimestamp | date:'medium'}}</td>
             <td class="text-end">
-                <button class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
+                <button *ngIf="item.status != 'CANCELLED'" class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
                     <i class="fa fa-trash"></i>
                 </button>
             </td>

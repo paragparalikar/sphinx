@@ -1,4 +1,4 @@
-<div class="page-title">{{title}}</div>
+<div class="page-title">{{request.id ? 'View Request for Access' : 'Request For Access'}}</div>
 <form #requestForm="ngForm">
     <div class="p-fluid" *ngIf="!formioOptions.readOnly">
         <div class="field w-full">

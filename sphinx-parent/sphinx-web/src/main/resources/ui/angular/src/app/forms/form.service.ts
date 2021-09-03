@@ -20,17 +20,7 @@ export class FormService {
   }
 
   findAll(params: any): Observable<Page<Form>> {
-    const pageRequest = JSON.stringify(params);
-    return this.httpClient.post<Page<Form>>(`${this.url}/pages`, pageRequest, this.options).pipe(
-      map(page => {
-        const forms: Form[] = page.content;
-        page.content = forms.map(form => {
-          form.components = JSON.parse(form.components as string);
-          return form;
-        });
-        return page;
-      })
-    );
+    return this.httpClient.post<Page<Form>>(`${this.url}/pages`, params, this.options);
   }
 
   save(form: Form): Observable<Form> {

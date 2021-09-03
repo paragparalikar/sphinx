@@ -34,7 +34,7 @@ public class AccessRequest {
 	@Basic(fetch=FetchType.LAZY)
 	private String payload;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Form form;
 	
 	@Column(insertable = true, updatable = false)

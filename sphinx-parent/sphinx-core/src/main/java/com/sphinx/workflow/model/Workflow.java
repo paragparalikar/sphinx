@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class Workflow implements Serializable {
 	
 	@NotBlank 
 	@Size(min = 3, max = 255) 
+	@Column(nullable = false, unique = true)
 	private String name;
 	
 	@NotEmpty 

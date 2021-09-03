@@ -64,6 +64,7 @@ export class AccessRequestListComponent implements OnInit {
             this.messageSerivce.add({
               severity: "success",
               summary: "Cancelled",
+              icon: "fa fa-check",
               detail: `Request "${request.id}" has been cancelled successfully`
             });
           }

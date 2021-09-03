@@ -2,6 +2,7 @@ package com.sphinx.form;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Form implements Serializable {
 	
 	@NotBlank 
 	@Size(min = 3, max = 255) 
+	@Column(nullable = false, unique = true)
 	private String name;
 	
 	@Lob

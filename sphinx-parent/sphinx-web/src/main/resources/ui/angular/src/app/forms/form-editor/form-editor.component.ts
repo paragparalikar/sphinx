@@ -20,8 +20,7 @@ export class FormEditorComponent implements OnInit {
 
   form: Form = {};
   formBuilder?: FormBuilder;
-  title: string = 'Create New Form';
-  
+
   constructor(
     private formService: FormService, 
     private activatedRoute: ActivatedRoute,
@@ -35,12 +34,10 @@ export class FormEditorComponent implements OnInit {
         if(params.id){
           this.formService.findById(params.id).subscribe(form => {
             this.form = form;
-            this.title = `Edit Form ${form.name}`;
             this.formBuilder!.setForm(this.form);
           });
         } else {
           this.form = {};
-          this.title = "Create New Form";
         }
       }
     );
@@ -56,6 +53,7 @@ export class FormEditorComponent implements OnInit {
           this.messageSerivce.add({
             severity: "success",
             summary: "Saved",
+            icon: "fa fa-check",
             detail: `Form "${this.form.name}" has been saved successfully`
           });
           this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
