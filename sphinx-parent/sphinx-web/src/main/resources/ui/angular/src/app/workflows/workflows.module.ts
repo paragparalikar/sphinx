@@ -20,13 +20,14 @@ import { ButtonModule } from 'primeng/button';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { WorkflowNameValidatorDirective } from './workflow-name-validator.directive';
 
 const routes: Routes = [
   {path: '', component: WorkflowListComponent},
   {path: 'editor', component: WorkflowEditorComponent}
 ];
 @NgModule({
-  declarations: [WorkflowListComponent, WorkflowEditorComponent, RequestComponent, EmailComponent, ApprovalComponent, LdapComponent, TransformerComponent],
+  declarations: [WorkflowListComponent, WorkflowEditorComponent, RequestComponent, EmailComponent, ApprovalComponent, LdapComponent, TransformerComponent, WorkflowNameValidatorDirective],
   imports: [
     CommonModule,
     HttpClientModule,
