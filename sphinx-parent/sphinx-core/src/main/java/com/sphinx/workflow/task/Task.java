@@ -1,6 +1,9 @@
 package com.sphinx.workflow.task;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +19,9 @@ import lombok.Data;
 @Data
 @JsonTypeInfo(
   use = JsonTypeInfo.Id.NAME, 
-  include = JsonTypeInfo.As.PROPERTY, 
-  property = "type")
+  include = JsonTypeInfo.As.EXISTING_PROPERTY, 
+  property = "type",
+  visible = true)
 @JsonSubTypes({ 
   @Type(value = RequestTask.class, name = "request"), 
   @Type(value = EmailTask.class, name = "email"), 
@@ -32,4 +36,8 @@ public abstract class Task {
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private TaskType type;
 }

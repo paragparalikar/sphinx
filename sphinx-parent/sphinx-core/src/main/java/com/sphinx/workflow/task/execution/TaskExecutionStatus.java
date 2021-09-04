@@ -1,4 +1,4 @@
-package com.sphinx.workflow.task;
+package com.sphinx.workflow.task.execution;
 
 public enum TaskExecutionStatus {
 

@@ -1,6 +1,8 @@
 package com.sphinx.workflow.execution;
 
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,14 +17,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.sphinx.workflow.Workflow;
-import com.sphinx.workflow.task.TaskExecution;
+import com.sphinx.workflow.node.Node;
+import com.sphinx.workflow.task.execution.TaskExecution;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WorkflowExecution {
 
 	@Id
@@ -32,13 +39,21 @@ public class WorkflowExecution {
 	@ManyToOne(optional = false)
 	private Workflow workflow;
 	
-	private Boolean success;
-	
+	@Builder.Default
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
-	private WorkflowExecutionStatus status;
+	private WorkflowExecutionStatus status = WorkflowExecutionStatus.NEW;
 	
+	@Builder.Default
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private Map<Long, TaskExecution> taskExecutions;
+	private Set<TaskExecution> taskExecutions = new HashSet<>();
+	
+	public TaskExecution getTaskExecution(Node node) {
+		if(null == node || null == taskExecutions) return null;
+		return taskExecutions.stream()
+				.filter(taskExecution -> Objects.equals(taskExecution.getTask(), node.getData()))
+				.findFirst()
+				.orElse(null);
+	}
 	
 }
