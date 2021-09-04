@@ -2,16 +2,18 @@ package com.sphinx.web.request;
 
 import java.time.LocalDateTime;
 
-import com.sphinx.request.AccessRequestStatus;
+import com.sphinx.request.RequestStatus;
+import com.sphinx.request.RequestType;
 
 import lombok.Data;
 
 @Data
-public class AccessRequestDTO {
+public class RequestDTO {
 
 	private Long id;
 	private Long formId;
 	private String formName;
-	private AccessRequestStatus status;
+	private RequestType type;
+	private RequestStatus status;
 	private LocalDateTime submitTimestamp;
 }

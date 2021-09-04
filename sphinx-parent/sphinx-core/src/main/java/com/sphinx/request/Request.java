@@ -13,22 +13,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 
 import com.sphinx.form.Form;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-public class AccessRequest {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Request {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Builder.Default
 	@Enumerated(EnumType.STRING)
-	private AccessRequestStatus status;
+	private RequestType type = RequestType.ACCESS;
+	
+	@Builder.Default
+	@Enumerated(EnumType.STRING)
+	private RequestStatus status = RequestStatus.NEW;
 	
 	@Lob 
 	@Basic(fetch=FetchType.LAZY)
@@ -37,13 +47,8 @@ public class AccessRequest {
 	@ManyToOne
 	private Form form;
 	
+	@Builder.Default
 	@Column(insertable = true, updatable = false)
-	private LocalDateTime submitTimestamp;
-	
-	@PrePersist
-	public void prePersist() {
-		this.status = AccessRequestStatus.NEW;
-		this.submitTimestamp = LocalDateTime.now();
-	}
+	private LocalDateTime submitTimestamp = LocalDateTime.now();
 	
 }

@@ -1,6 +1,6 @@
 package com.sphinx.request;
 
-public enum AccessRequestStatus {
+public enum RequestStatus {
 
 	NEW, PENDING, APPROVED, REJECTED, CANCELLED;
 	

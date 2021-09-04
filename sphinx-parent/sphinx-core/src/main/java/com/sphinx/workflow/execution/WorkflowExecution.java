@@ -46,9 +46,9 @@ public class WorkflowExecution {
 	
 	@Builder.Default
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<TaskExecution> taskExecutions = new HashSet<>();
+	private Set<TaskExecution<?>> taskExecutions = new HashSet<>();
 	
-	public TaskExecution getTaskExecution(Node node) {
+	public TaskExecution<?> getTaskExecution(Node node) {
 		if(null == node || null == taskExecutions) return null;
 		return taskExecutions.stream()
 				.filter(taskExecution -> Objects.equals(taskExecution.getTask(), node.getData()))

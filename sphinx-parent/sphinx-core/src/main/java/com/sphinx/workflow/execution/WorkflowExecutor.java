@@ -44,7 +44,7 @@ public class WorkflowExecutor {
 	}
 	
 	private void execute(Node node, Object payload, WorkflowExecution workflowExecution) {
-		final TaskExecution taskExecution = getTaskExecution(node, workflowExecution);
+		final TaskExecution<?> taskExecution = getTaskExecution(node, workflowExecution);
 		if(TaskExecutionStatus.NEW.equals(taskExecution.getStatus())) {
 			execute(taskExecution, payload);
 		}
@@ -54,21 +54,23 @@ public class WorkflowExecutor {
 		}
 	}
 	
-	private TaskExecution getTaskExecution(Node node, WorkflowExecution workflowExecution) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private TaskExecution<?> getTaskExecution(Node node, WorkflowExecution workflowExecution) {
 		return Optional.ofNullable(workflowExecution.getTaskExecution(node))
 				.orElseGet(() -> {
 					final Task task = node.getData();
-					final TaskExecution newTaskExecution = TaskExecution.of(task, workflowExecution);
-					final TaskExecution managedTaskExecution = taskExecutionRepository.save(newTaskExecution);
+					final TaskExecution<?> newTaskExecution = TaskExecution.of(task, workflowExecution);
+					final TaskExecution<?> managedTaskExecution = taskExecutionRepository.save(newTaskExecution);
 					workflowExecution.getTaskExecutions().add(managedTaskExecution);
-					return managedTaskExecution;
+					return (TaskExecution) managedTaskExecution;
 				});
 	}
 	
-	private void execute(TaskExecution taskExecution, Object payload) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void execute(TaskExecution<?> taskExecution, Object payload) {
 		final Task task = taskExecution.getTask();
-		final TaskExecutor<Task> taskHandler = taskHandlerFactory.getTaskHandler(task.getType());
-		final TaskExecutionStatus status = taskHandler.execute(task, payload);
+		final TaskExecutor taskExecutor = taskHandlerFactory.getTaskHandler(task.getType());
+		final TaskExecutionStatus status = taskExecutor.execute(taskExecution, payload);
 		taskExecution.setStatus(status);
 		taskExecution.setTimestamp(LocalDateTime.now());
 		taskExecutionRepository.save(taskExecution);

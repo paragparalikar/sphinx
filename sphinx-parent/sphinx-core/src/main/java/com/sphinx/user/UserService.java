@@ -24,4 +24,8 @@ public class UserService {
 		return userRepository.findSuggestions(lowerCasePattern, pageable);
 	}
 	
+	public User findById(Long userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
+	
 }

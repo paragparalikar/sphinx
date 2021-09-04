@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccessRequestRepository extends JpaRepository<AccessRequest, Long>, JpaSpecificationExecutor<AccessRequest> {
+public interface RequestRepository extends JpaRepository<Request, Long>, JpaSpecificationExecutor<Request> {
 
 }

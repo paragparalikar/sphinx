@@ -9,22 +9,22 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.sphinx.request.AccessRequest;
+import com.sphinx.request.Request;
 
 @Mapper(componentModel = "spring")
-public interface AccessRequestMapper {
+public interface RequestMapper {
 	
 	@Mappings({
 		@Mapping(target="formId", source="form.id"),
 		@Mapping(target="formName", source="form.name")})
-	AccessRequestDTO entityToThinDTO(AccessRequest request);
+	RequestDTO entityToThinDTO(Request request);
 
 	@InheritInverseConfiguration(name = "entityToThinDTO")
-	AccessRequest dtoToEntity(AccessRequestDetailsDTO dto);
+	Request dtoToEntity(RequestDetailsDTO dto);
 	
 	@InheritConfiguration(name = "entityToThinDTO")
-	AccessRequestDetailsDTO entityToDTO(AccessRequest request);
+	RequestDetailsDTO entityToDTO(Request request);
 	
-	@IterableMapping(elementTargetType = AccessRequestDTO.class)
-	List<AccessRequestDTO> entityToDTOs(List<AccessRequest> requests);
+	@IterableMapping(elementTargetType = RequestDTO.class)
+	List<RequestDTO> entityToDTOs(List<Request> requests);
 }

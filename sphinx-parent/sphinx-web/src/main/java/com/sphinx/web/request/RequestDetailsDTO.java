@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccessRequestDetailsDTO extends AccessRequestDTO {
+public class RequestDetailsDTO extends RequestDTO {
 	
 	@NotBlank
 	private String payload;

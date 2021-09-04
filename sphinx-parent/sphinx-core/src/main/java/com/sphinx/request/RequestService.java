@@ -10,26 +10,26 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class AccessRequestService {
+public class RequestService {
 
-	private final AccessRequestRepository accessRequestRepository;
+	private final RequestRepository accessRequestRepository;
 	
-	public Page<AccessRequest> findAll(@NonNull Specification<AccessRequest> spec, @NonNull Pageable pageable) {
+	public Page<Request> findAll(@NonNull Specification<Request> spec, @NonNull Pageable pageable) {
 		return accessRequestRepository.findAll(spec, pageable);
 	}
 	
-	public AccessRequest save(@NonNull AccessRequest request) {
+	public Request save(@NonNull Request request) {
 		return accessRequestRepository.save(request); 
 	}
 	
-	public AccessRequest findById(@NonNull Long id) {
+	public Request findById(@NonNull Long id) {
 		return accessRequestRepository.findById(id).orElse(null);
 	}
 	
 	public void cancelById(@NonNull Long id) {
-		final AccessRequest accessRequest = findById(id);
+		final Request accessRequest = findById(id);
 		if(null != accessRequest) {
-			accessRequest.setStatus(AccessRequestStatus.CANCELLED);
+			accessRequest.setStatus(RequestStatus.CANCELLED);
 			accessRequestRepository.save(accessRequest);
 		}
 	}
