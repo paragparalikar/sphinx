@@ -61,5 +61,19 @@
         "text": "SFTP",
         "inputs": 1,
         "outputs": 1
+    },
+    {
+        "type": "form",
+        "icon": "fa fa-file-text",
+        "text": "Form",
+        "inputs": 1,
+        "outputs": 1
+    },
+    {
+        "type": "workflow",
+        "icon": "fa fa-sitemap",
+        "text": "Workflow",
+        "inputs": 1,
+        "outputs": 1
     }
 ]

@@ -24,6 +24,12 @@ export class RequestListComponent implements OnInit {
     {label: 'REJECTED', value: 'REJECTED'},
     {label: 'CANCELLED', value: 'CANCELLED'}
   ];
+  types = [
+    {label: 'ACCESS', value: 'ACCESS'},
+    {label: 'FORM', value: 'FORM'},
+    {label: 'WORKFLOW', value: 'WORKFLOW'},
+  ];
+
 
   constructor(
     private requestService: RequestService,

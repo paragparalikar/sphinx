@@ -1,0 +1,13 @@
+.bar-zoom {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.node-item {
+    font-weight: 600;
+    color: brown;
+    background-color: orange;
+}
+.node-item:hover {
+    background-color: #cf8c0e;
+}

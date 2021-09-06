@@ -1,10 +1,9 @@
+.type-cell,
 .status-cell{
     font-weight: 800;
-    border-radius: 4px;
-    padding: 5px;
-    min-width: 40px;
-    max-width: 40px;
 }
+
+.type-cell-ACCESS,
 .status-NEW,
 .status-PENDING{
     color: #007bff;
@@ -12,6 +11,8 @@
 .status-APPROVED{
     color: #198754;
 }
+.type-cell-FORM,
+.type-cell-WORKFLOW,
 .status-REJECTED,
 .status-CANCELLED{
     color: #dc3545;

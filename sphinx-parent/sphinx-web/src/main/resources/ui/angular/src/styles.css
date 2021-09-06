@@ -66,7 +66,7 @@ body, .p-component, .p-inputtext {
   height: 55px;
 }
 .drawFlowDiv {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 120px);
     width: calc(100vw - 212px);
     position: absolute;
     background-size: 25px 25px;
@@ -191,27 +191,6 @@ body, .p-component, .p-inputtext {
     fill: #4ea9ff;
   }
   
-  .bar-zoom {
-    position: absolute; 
-    width: 100%;
-    bottom: 5px;
-    right: 5px;
-    left: 0px;
-    display: flex;
-    font-size: 24px;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    z-index: 5;
-  }
-  .bar-zoom svg {
-    cursor: pointer;
-    padding-left: 10px;
-  }
-  .bar-zoom svg:nth-child(1) {
-    padding-left: 0px;
-  }
-
   .inputs > .input.input_1 {
     background-color: #ffc107;
     border-color: #ffc107;

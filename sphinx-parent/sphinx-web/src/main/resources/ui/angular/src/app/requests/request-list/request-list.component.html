@@ -24,6 +24,18 @@
                     </ng-template>
                 </p-columnFilter>
             </th>
+            <th pSortableColumn="type" class="col-2">
+                Type <p-sortIcon field="type"></p-sortIcon> 
+                <p-columnFilter field="type" matchMode="equals"  display="menu">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <p-dropdown [ngModel]="value" [options]="types" (onChange)="filter($event.value)" placeholder="Any" [showClear]="true">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'status-cell status-' + option.value">{{option.label}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </ng-template>
+                </p-columnFilter>
+            </th>
             <th pSortableColumn="submitTimestamp" class="col-2">
                 Created <p-sortIcon field="submitTimestamp"></p-sortIcon> <p-columnFilter type="date" field="submitTimestamp" display="menu"></p-columnFilter>
             </th>
@@ -39,6 +51,7 @@
                 <a href="#" [routerLink]="item.type.toLowerCase() + '-request-editor'" [queryParams]="{id: item.id}">{{item.targetName}}</a>
             </td>
             <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
+            <td><span [class]="'type-cell type-cell-' + item.type">{{item.type}}</span></td>
             <td>{{item.createTimestamp | date:'medium'}}</td>
             <td class="text-end">
                 <button *ngIf="item.status != 'CANCELLED'" class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
