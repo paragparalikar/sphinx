@@ -19,8 +19,7 @@ export const style = css`.drawflow,.drawflow .parent-node{position:relative}.par
 @Component({
   selector: 'app-workflow-editor',
   templateUrl: './workflow-editor.component.html',
-  styleUrls: ['./workflow-editor.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  styleUrls: ['./workflow-editor.component.css']
 })
 export class WorkflowEditorComponent implements OnInit {
  

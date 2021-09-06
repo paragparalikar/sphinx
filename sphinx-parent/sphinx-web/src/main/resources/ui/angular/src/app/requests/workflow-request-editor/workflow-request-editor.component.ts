@@ -18,8 +18,7 @@ export const style = css`.drawflow,.drawflow .parent-node{position:relative}.par
 @Component({
   selector: 'app-workflow-request-editor',
   templateUrl: './workflow-request-editor.component.html',
-  styleUrls: ['./workflow-request-editor.component.css'],
-  encapsulation: ViewEncapsulation.None 
+  styleUrls: ['./workflow-request-editor.component.css']
 })
 export class WorkflowRequestEditorComponent implements OnInit {
 
