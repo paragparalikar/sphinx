@@ -19,7 +19,10 @@ public class RequestService {
 	}
 	
 	public Request save(@NonNull Request request) {
-		return accessRequestRepository.save(request); 
+		if(null != request.getId()) throw new IllegalArgumentException(
+				"Request can only be created/cancelled, but can not be updated");
+		final Request managedRequest = accessRequestRepository.save(request); 
+		return managedRequest;
 	}
 	
 	public Request findById(@NonNull Long id) {

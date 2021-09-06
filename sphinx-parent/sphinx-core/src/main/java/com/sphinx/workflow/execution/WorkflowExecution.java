@@ -5,10 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @Entity
@@ -36,19 +34,16 @@ public class WorkflowExecution {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@NonNull
 	@ManyToOne(optional = false)
 	private Workflow workflow;
 	
-	@Builder.Default
-	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private WorkflowExecutionStatus status = WorkflowExecutionStatus.NEW;
-	
+	@NonNull
 	@Builder.Default
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<TaskExecution<?>> taskExecutions = new HashSet<>();
+	private Set<TaskExecution> taskExecutions = new HashSet<>();
 	
-	public TaskExecution<?> getTaskExecution(Node node) {
+	public TaskExecution getTaskExecution(Node node) {
 		if(null == node || null == taskExecutions) return null;
 		return taskExecutions.stream()
 				.filter(taskExecution -> Objects.equals(taskExecution.getTask(), node.getData()))

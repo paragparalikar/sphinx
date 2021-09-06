@@ -11,9 +11,10 @@ import lombok.Data;
 public class RequestDTO {
 
 	private Long id;
-	private Long formId;
-	private String formName;
+	private Long targetId;
+	private String targetName;
 	private RequestType type;
 	private RequestStatus status;
-	private LocalDateTime submitTimestamp;
+	private LocalDateTime createTimestamp;
+	private LocalDateTime updateTimestamp;
 }

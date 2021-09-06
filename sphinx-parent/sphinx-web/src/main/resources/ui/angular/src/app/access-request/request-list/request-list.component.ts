@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Page } from 'src/app/shared/page.model';
-import { AccessRequest } from '../access-request.model';
-import { AccessRequestService } from '../access-request.service';
+import { Request } from '../request.model';
+import { RequestService } from '../request.service';
 
 @Component({
-  selector: 'app-access-request-list',
-  templateUrl: './access-request-list.component.html',
-  styleUrls: ['./access-request-list.component.css']
+  selector: 'app-request-list',
+  templateUrl: './request-list.component.html',
+  styleUrls: ['./request-list.component.css']
 })
-export class AccessRequestListComponent implements OnInit {
+export class RequestListComponent implements OnInit {
 
-  page: Page<AccessRequest> = {
+  page: Page<Request> = {
     content: [],
     totalElements: 0
   };
@@ -26,7 +26,7 @@ export class AccessRequestListComponent implements OnInit {
   ];
 
   constructor(
-    private accessRequestService: AccessRequestService,
+    private requestService: RequestService,
     private messageSerivce: MessageService, 
     private confirmationService: ConfirmationService) { }
 
@@ -37,7 +37,7 @@ export class AccessRequestListComponent implements OnInit {
     const that = this;
     this.loading = true;
     this.lazyLoadEvent = event;
-    this.accessRequestService.findAll(event).subscribe(
+    this.requestService.findAll(event).subscribe(
       page => {
         that.page = page;
         that.loading = false;
@@ -45,7 +45,7 @@ export class AccessRequestListComponent implements OnInit {
     );
   }
 
-  cancel(event: any, request: AccessRequest) {
+  cancel(event: any, request: Request) {
     this.confirmationService.confirm({
       message: `Are you sure you want to cancel request "${request.id}" ?`,
       icon: "pi pi-exclamation-triangle",
@@ -58,7 +58,7 @@ export class AccessRequestListComponent implements OnInit {
       target: event.target,
       closeOnEscape: true,
       accept: () => {
-        this.accessRequestService.deleteById(request.id!).subscribe(
+        this.requestService.deleteById(request.id!).subscribe(
           response => {
             this.load(this.lazyLoadEvent!);
             this.messageSerivce.add({

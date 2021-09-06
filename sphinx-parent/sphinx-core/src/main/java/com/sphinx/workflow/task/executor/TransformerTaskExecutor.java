@@ -2,16 +2,16 @@ package com.sphinx.workflow.task.executor;
 
 import org.springframework.stereotype.Component;
 
-import com.sphinx.workflow.task.TransformerTask;
 import com.sphinx.workflow.task.execution.TaskExecution;
 import com.sphinx.workflow.task.execution.TaskExecutionStatus;
 
 @Component
-public class TransformerTaskExecutor implements TaskExecutor<TransformerTask> {
+public class TransformerTaskExecutor implements TaskExecutor {
 
 	@Override
-	public TaskExecutionStatus execute(TaskExecution<TransformerTask> taskExecution, Object payload) {
-		return null;
+	public TaskExecutionStatus execute(TaskExecution taskExecution, Object payload) {
+		System.out.println(taskExecution);
+		return TaskExecutionStatus.COMPLETED;
 	}
 
 }

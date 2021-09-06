@@ -19,33 +19,23 @@ import com.sphinx.workflow.execution.WorkflowExecution;
 import com.sphinx.workflow.task.Task;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Builder
+@Entity 
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskExecution<T extends Task> {
-	
-	public static <T extends Task> TaskExecution<T> of(T task, WorkflowExecution workflowExecution) {
-		return TaskExecution.<T>builder()
-				.task(task)
-				.workflowExecution(workflowExecution)
-				.build();
-	}
+public class TaskExecution {  
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne(optional = false)
-	private T task;
+	private Task task;
 	
 	@ManyToMany
-	@Builder.Default
 	private Set<User> assignees = new HashSet<>();
 	
 	@ManyToOne
@@ -53,15 +43,13 @@ public class TaskExecution<T extends Task> {
 	
 	private String decision;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private WorkflowExecution workflowExecution;
 	
-	@Builder.Default
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TaskExecutionStatus status = TaskExecutionStatus.NEW;
 	
-	@Builder.Default
 	private LocalDateTime timestamp = LocalDateTime.now();
 	
 }

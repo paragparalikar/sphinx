@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccessRequestListComponent } from './access-request-list/access-request-list.component';
-import { AccessRequestEditorComponent } from './access-request-editor/access-request-editor.component';
+import { RequestListComponent } from './request-list/request-list.component';
+import { RequestEditorComponent } from './request-editor/request-editor.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,14 +15,14 @@ import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 
 const routes: Routes = [
-  {path: '', component: AccessRequestListComponent},
-  {path: 'editor', component: AccessRequestEditorComponent}
+  {path: '', component: RequestListComponent},
+  {path: 'editor', component: RequestEditorComponent}
 ];
 
 @NgModule({
   declarations: [
-    AccessRequestListComponent,
-    AccessRequestEditorComponent
+    RequestListComponent,
+    RequestEditorComponent
   ],
   imports: [
     CommonModule,
@@ -39,4 +39,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class AccessRequestModule { }
+export class RequestModule { }

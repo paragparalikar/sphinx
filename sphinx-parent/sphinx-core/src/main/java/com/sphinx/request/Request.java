@@ -1,9 +1,11 @@
 package com.sphinx.request;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,44 +13,61 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
-import com.sphinx.form.Form;
+import org.springframework.data.annotation.Immutable;
+
+import com.sphinx.common.NamedModel;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @Entity
-@Builder
+@Immutable
 @NoArgsConstructor
 @AllArgsConstructor
-public class Request {
+@DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Request implements Serializable {
+	private static final long serialVersionUID = 6319659442843630209L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Builder.Default
+	@NonNull
+	@NotNull
 	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, insertable = false, updatable = false)
 	private RequestType type = RequestType.ACCESS;
 	
-	@Builder.Default
+	@NonNull
+	@NotNull
+	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private RequestStatus status = RequestStatus.NEW;
 	
 	@Lob 
-	@Basic(fetch=FetchType.LAZY)
+	@NonNull
+	@NotNull
+	@Basic(fetch=FetchType.LAZY, optional = false)
 	private String payload;
 	
-	@ManyToOne
-	private Form form;
+	@Column(nullable = false, insertable = true, updatable = false)
+	private LocalDateTime createTimestamp = LocalDateTime.now();
 	
-	@Builder.Default
-	@Column(insertable = true, updatable = false)
-	private LocalDateTime submitTimestamp = LocalDateTime.now();
+	@Column(nullable = false)
+	private LocalDateTime updateTimestamp = LocalDateTime.now();
 	
+	@Column(nullable = false)
+	private LocalDateTime lockTimestamp = LocalDateTime.MIN;
+	
+	public abstract NamedModel getTarget();
+
 }

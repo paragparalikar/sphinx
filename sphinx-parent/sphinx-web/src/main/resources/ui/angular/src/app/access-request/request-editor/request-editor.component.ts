@@ -2,25 +2,25 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Form } from 'src/app/forms/form.model';
 import { FormService } from 'src/app/forms/form.service';
-import { AccessRequest } from '../access-request.model';
-import { AccessRequestService } from '../access-request.service';
+import { Request } from '../request.model';
+import { RequestService } from '../request.service';
 import { Formio } from 'formiojs';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-access-request-editor',
-  templateUrl: './access-request-editor.component.html',
-  styleUrls: ['./access-request-editor.component.css']
+  selector: 'app-request-editor',
+  templateUrl: './request-editor.component.html',
+  styleUrls: ['./request-editor.component.css']
 })
-export class AccessRequestEditorComponent implements OnInit {
+export class RequestEditorComponent implements OnInit {
 
   @ViewChild("formRendererElement", {read: ElementRef, static: true})
   private formRendererElement?: ElementRef;
 
   form?: Form;
   formioForm?: any;
-  request: AccessRequest = {};
+  request: Request = {};
   formSuggestions: Form[] = [];
   formioOptions = {
     noAlerts: true,
@@ -33,16 +33,16 @@ export class AccessRequestEditorComponent implements OnInit {
     private formService: FormService,
     private messageService: MessageService,
     private navigationService: NavigationService,
-    private accessRequestService: AccessRequestService) { }
+    private requestService: RequestService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
         if(params.id){
-          this.accessRequestService.findById(params.id).subscribe(
+          this.requestService.findById(params.id).subscribe(
             accessRequest => {
               this.request = accessRequest;
-              this.formService.findById(this.request.formId!).subscribe(
+              this.formService.findById(this.request.targetId!).subscribe(
                 form => this.render(form)
               );
             }
@@ -66,8 +66,8 @@ export class AccessRequestEditorComponent implements OnInit {
 
   render(form: Form){
     this.form = form;
-    this.request.formId = form.id;
-    this.request.formName = form.name;
+    this.request.targetId = form.id;
+    this.request.targetName = form.name;
     this.formioOptions.readOnly = this.request.id != undefined;
     Formio.createForm(this.formRendererElement!.nativeElement, form, this.formioOptions).then(
       form => {
@@ -90,8 +90,9 @@ export class AccessRequestEditorComponent implements OnInit {
     this.formioForm.submit().then( 
       (submission: { data: any; }) => {
         if(requestForm.touched && requestForm.valid){
-          this.request.payload = JSON.stringify(submission.data);
-        this.accessRequestService.save(this.request).subscribe(
+        this.request.type = 'ACCESS';
+        this.request.payload = JSON.stringify(submission.data);
+        this.requestService.save(this.request).subscribe(
           response => {
             this.messageService.add({
               severity: "success",

@@ -1,6 +1,5 @@
 package com.sphinx.workflow;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,6 +22,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.StringUtils;
+
+import com.sphinx.common.NamedModel;
 import com.sphinx.workflow.node.Node;
 import com.sphinx.workflow.node.Output;
 import com.sphinx.workflow.node.OutputConnection;
@@ -39,7 +41,7 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Workflow implements Serializable {
+public class Workflow implements NamedModel {
 	private static final long serialVersionUID = -760095821715213633L;
 
 	@Id	
@@ -69,16 +71,18 @@ public class Workflow implements Serializable {
 			.orElse(null);
 	}
 	
-	public Set<Node> getNextNodes(Node from){
+	public Set<Node> getNextNodes(Node from, String outputName){
 		if(null == from || null == data) {
 			return Collections.emptySet();
 		}
 		return from.getOutputs().values().stream()
-			.map(Output::getConnections)
-			.flatMap(Collection::stream)
-			.map(OutputConnection::getNode)
-			.map(data::get)
-			.collect(Collectors.toSet());
+				.filter(output -> !StringUtils.hasText(outputName) 
+						|| output.getName().equalsIgnoreCase(outputName))
+				.map(Output::getConnections)
+				.flatMap(Collection::stream)
+				.map(OutputConnection::getNode)
+				.map(data::get)
+				.collect(Collectors.toSet());
 	}
 	
 }

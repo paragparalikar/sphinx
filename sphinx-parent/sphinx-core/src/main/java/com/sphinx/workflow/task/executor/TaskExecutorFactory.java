@@ -7,9 +7,9 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
 
-import com.sphinx.workflow.task.Task;
 import com.sphinx.workflow.task.TaskType;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -21,7 +21,7 @@ public class TaskExecutorFactory {
 	private final ApprovalTaskExecutor approvalTaskExecutor;
 	private final TransformerTaskExecutor transformerTaskExecutor;
 	private final LdapTaskExecutor ldapTaskExecutor;
-	private final Map<TaskType, TaskExecutor<? extends Task>> cache = new EnumMap<>(TaskType.class);
+	private final Map<TaskType, TaskExecutor> cache = new EnumMap<>(TaskType.class);
 	
 	@PostConstruct
 	public void init() {
@@ -32,9 +32,8 @@ public class TaskExecutorFactory {
 		cache.put(TaskType.LDAP, ldapTaskExecutor);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public TaskExecutor<Task> getTaskHandler(TaskType type){
-		return (TaskExecutor<Task>) cache.get(type);
+	public TaskExecutor getTaskHandler(@NonNull TaskType type){
+		return cache.get(type);
 	}
 	
 }

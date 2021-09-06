@@ -1,11 +1,10 @@
 package com.sphinx.workflow.task.executor;
 
-import com.sphinx.workflow.task.Task;
 import com.sphinx.workflow.task.execution.TaskExecution;
 import com.sphinx.workflow.task.execution.TaskExecutionStatus;
 
-public interface TaskExecutor<T extends Task> {
+public interface TaskExecutor {
 
-	TaskExecutionStatus execute(TaskExecution<T> taskExecution, Object payload);
+	TaskExecutionStatus execute(TaskExecution taskExecution, Object payload);
 	
 }

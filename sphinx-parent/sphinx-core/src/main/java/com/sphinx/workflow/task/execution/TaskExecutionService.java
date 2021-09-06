@@ -23,7 +23,7 @@ public class TaskExecutionService {
 			@NonNull final Long userId, 
 			@NonNull final String decision) {
 		
-		final TaskExecution<?> taskExecution = taskExecutionRepository.findById(taskExecutionId)
+		final TaskExecution taskExecution = taskExecutionRepository.findById(taskExecutionId)
 				.orElseThrow(() -> new IllegalArgumentException("No task execution found by id " + taskExecutionId));
 		
 		if(!TaskExecutionStatus.PENDING.equals(taskExecution.getStatus())) {
