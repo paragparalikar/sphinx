@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RequestListComponent } from './request-list/request-list.component';
-import { RequestEditorComponent } from './request-editor/request-editor.component';
+import { AccessRequestEditorComponent } from './access-request-editor/access-request-editor.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,16 +13,22 @@ import { CardModule } from 'primeng/card';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { FormRequestEditorComponent } from './form-request-editor/form-request-editor.component';
+import { WorkflowRequestEditorComponent } from './workflow-request-editor/workflow-request-editor.component';
 
 const routes: Routes = [
   {path: '', component: RequestListComponent},
-  {path: 'editor', component: RequestEditorComponent}
+  {path: 'form-request-editor', component: FormRequestEditorComponent},
+  {path: 'access-request-editor', component: AccessRequestEditorComponent},
+  {path: 'workflow-request-editor', component: WorkflowRequestEditorComponent}
 ];
 
 @NgModule({
   declarations: [
     RequestListComponent,
-    RequestEditorComponent
+    AccessRequestEditorComponent,
+    FormRequestEditorComponent,
+    WorkflowRequestEditorComponent
   ],
   imports: [
     CommonModule,

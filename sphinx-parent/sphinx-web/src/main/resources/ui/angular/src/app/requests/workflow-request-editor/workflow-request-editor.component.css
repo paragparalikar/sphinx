@@ -1,0 +1,10 @@
+.controls-container {
+    text-align: right;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+
+.drawFlowDiv {
+    height: calc(100vh - 55px);
+}

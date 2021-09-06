@@ -10,6 +10,7 @@ import { ApprovalVertex } from './approval-vertex';
 })
 export class ApprovalComponent implements DynamicNodeComponent {
 
+  disabled: boolean = false;
   approvalVertex: ApprovalVertex = new ApprovalVertex();
   
   @ViewChild(NgForm, {read: NgForm, static: true})
@@ -23,4 +24,7 @@ export class ApprovalComponent implements DynamicNodeComponent {
     this.approvalVertex = data as ApprovalVertex;
   }
 
+  setDisabled(value: boolean) {
+    this.disabled = value;
+  }
 }

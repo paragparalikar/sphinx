@@ -13,6 +13,7 @@ export class TransformerComponent implements DynamicNodeComponent {
   @ViewChild(NgForm, {read: NgForm, static: true})
   form!: NgForm;
   
+  disabled: boolean = false;
   transformerVertex: TransformerVertex = new TransformerVertex();
 
   getData(){
@@ -21,6 +22,10 @@ export class TransformerComponent implements DynamicNodeComponent {
 
   setData(data: any){
     this.transformerVertex = data as TransformerVertex;
+  }
+
+  setDisabled(value: boolean) {
+    this.disabled = value;
   }
 
 }

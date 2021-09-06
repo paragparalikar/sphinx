@@ -10,6 +10,7 @@ import { EmailVertex } from './email-vertex';
 })
 export class EmailComponent implements DynamicNodeComponent {
 
+  disabled: boolean = false;
   emailVertex: EmailVertex = new EmailVertex();
 
   @ViewChild(NgForm, {read: NgForm, static: true})
@@ -28,5 +29,9 @@ export class EmailComponent implements DynamicNodeComponent {
 
   setData(data: any){
     this.emailVertex = data as EmailVertex;
+  }
+
+  setDisabled(value: boolean) {
+    this.disabled = value;
   }
 }

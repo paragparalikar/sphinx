@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="approver" class="field-required">Approver</label>
             <select #approver="ngModel" class="form-control p-component" name="approver" id="approver" 
-            required [(ngModel)]="approvalVertex.approver">
+            required [(ngModel)]="approvalVertex.approver" [disabled]="disabled">
                 <option value="MANAGER1">Manager (Level 1)</option>
                 <option value="MANAGER2">Manager (Level 2)</option>
                 <option value="APPLICATION_OWNER">Application Owner</option>
@@ -19,7 +19,7 @@
             <label for="applicationId" class="field-required">Application ID</label>
             <input pInputText type="text" class="form-control" name="applicationId" id="applicationId" 
             [(ngModel)]="approvalVertex.applicationId" required minlength="3" maxlength="255"
-            #applicationId="ngModel">
+            #applicationId="ngModel" [disabled]="disabled">
             <div *ngIf="applicationId.invalid && applicationId.touched" class="text-danger">
                 <div *ngIf="applicationId.errors?.required">Application ID is required</div>
                 <div *ngIf="applicationId.errors?.minlength">Application ID must be at least 3 char long</div>

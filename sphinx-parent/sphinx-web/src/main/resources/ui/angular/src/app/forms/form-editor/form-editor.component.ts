@@ -82,7 +82,7 @@ export class FormEditorComponent implements OnInit {
             severity: "success",
             summary: "Saved",
             icon: "fa fa-check",
-            detail: `Form "${this.form.name}" has been saved successfully`
+            detail: `Request for form "${this.form.name}" has been submitted successfully`
           });
           this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
         }

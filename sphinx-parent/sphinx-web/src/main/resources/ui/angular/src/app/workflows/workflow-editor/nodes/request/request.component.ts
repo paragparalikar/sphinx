@@ -24,4 +24,7 @@ export class RequestComponent implements OnInit, DynamicNodeComponent {
     this.requestVertex = data as RequestVertex;
   }
 
+  setDisabled(value: boolean) {
+   
+  }
 }

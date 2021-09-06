@@ -1,0 +1,9 @@
+<div class="page-title">{{workflow.id ? workflow.name : 'Create New Workflow'}}</div>
+<div #drawFlowDiv class="drawFlowDiv drawflow" (dragover)="$event.preventDefault();">
+    <div class="controls-container">
+        <div class="btn-group">
+            <button class="btn btn-secondary" (click)="zoomOut()"><i class="fa fa-search-minus"></i></button>
+            <button class="btn btn-secondary" (click)="zoomIn()"><i class="fa fa-search-plus"></i></button>
+        </div>
+    </div>
+</div>

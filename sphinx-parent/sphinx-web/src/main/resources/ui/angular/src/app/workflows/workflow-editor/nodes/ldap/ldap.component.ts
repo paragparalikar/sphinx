@@ -10,6 +10,7 @@ import { LdapVertex } from './ldap-vertex';
 })
 export class LdapComponent implements DynamicNodeComponent {
 
+  disabled: boolean = false;
   ldapVertex: LdapVertex = new LdapVertex();
 
   @ViewChild(NgForm, {read: NgForm, static: true})
@@ -21,5 +22,9 @@ export class LdapComponent implements DynamicNodeComponent {
    
   setData(data: any){
     this.ldapVertex = data as LdapVertex;
+  }
+
+  setDisabled(value: boolean) {
+    this.disabled = value;
   }
 }

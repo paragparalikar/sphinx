@@ -7,7 +7,7 @@
             <label for="script" class="field-required">Script (JS)</label>
             <textarea pInputTextarea class="form-control" name="script" id="script" 
             [(ngModel)]="transformerVertex.script" required minlength="3" maxlength="2550" 
-            #script="ngModel"></textarea>
+            #script="ngModel" [disabled]="disabled"></textarea>
             <div *ngIf="script.invalid && script.touched" class="text-danger">
                 <div *ngIf="script.errors?.required">Script is required</div>
                 <div *ngIf="script.errors?.minlength">Script must be at least 3 char long</div>
