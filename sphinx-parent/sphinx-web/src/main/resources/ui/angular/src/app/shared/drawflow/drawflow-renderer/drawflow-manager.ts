@@ -1,13 +1,13 @@
 import { ApplicationRef, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Injector } from "@angular/core";
 import Drawflow from "drawflow";
 import nodes from "src/assets/workflow-nodes.json";
-import { ApprovalComponent } from "../workflows/workflow-editor/nodes/approval/approval.component";
-import { DynamicNodeComponent } from "../workflows/workflow-editor/nodes/dynamic-node-component";
-import { EmailComponent } from "../workflows/workflow-editor/nodes/email/email.component";
-import { LdapComponent } from "../workflows/workflow-editor/nodes/ldap/ldap.component";
-import { RequestComponent } from "../workflows/workflow-editor/nodes/request/request.component";
-import { TransformerComponent } from "../workflows/workflow-editor/nodes/transformer/transformer.component";
-import { Workflow } from "../workflows/workflow.model";
+import { ApprovalComponent } from "../../../workflows/workflow-editor/nodes/approval/approval.component";
+import { DynamicNodeComponent } from "../../../workflows/workflow-editor/nodes/dynamic-node-component";
+import { EmailComponent } from "../../../workflows/workflow-editor/nodes/email/email.component";
+import { LdapComponent } from "../../../workflows/workflow-editor/nodes/ldap/ldap.component";
+import { RequestComponent } from "../../../workflows/workflow-editor/nodes/request/request.component";
+import { TransformerComponent } from "../../../workflows/workflow-editor/nodes/transformer/transformer.component";
+import { Workflow } from "../../../workflows/workflow.model";
 
 export class DrawflowManager {
 

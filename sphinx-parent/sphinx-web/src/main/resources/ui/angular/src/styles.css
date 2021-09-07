@@ -26,6 +26,11 @@ body, .p-component, .p-inputtext {
 .p-inputtext {
   padding: 0.25rem;
 }
+.page {
+  display: flex; 
+  flex-flow: column; 
+  height: 100%;
+}
 .page-title {
     font-size: 24px;
     font-weight: 400;

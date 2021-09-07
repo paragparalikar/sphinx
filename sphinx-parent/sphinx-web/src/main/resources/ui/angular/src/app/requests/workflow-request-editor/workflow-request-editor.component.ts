@@ -22,106 +22,22 @@ export const style = css`.drawflow,.drawflow .parent-node{position:relative}.par
 })
 export class WorkflowRequestEditorComponent implements OnInit {
 
-  @ViewChild('drawFlowDiv', {read: ElementRef, static: true})
-  drawFlowDiv!: ElementRef;
-  
-  drawFlow?: Drawflow;
   workflow = new Workflow();
-  domParser = new DOMParser();
   
   constructor(
-    private injector: Injector,
     private activatedRoute: ActivatedRoute,
-    private applicationRef: ApplicationRef,
     private workflowService: WorkflowService,
-    private messageService: MessageService,
-    private navigationService: NavigationService,
-    private componentFactoryResolver: ComponentFactoryResolver) {}
+    private navigationService: NavigationService) {}
 
   ngOnInit(){
-    this.startDrawflow();
     this.activatedRoute.queryParams.subscribe(
       params => {
         if(params.id){
           this.workflowService.findById(params.id).subscribe(
-            workflow => this.load(workflow)
+            workflow => this.workflow = workflow
           );
         }
       }
     );
   }
-
-  private startDrawflow(){
-    this.drawFlow = new Drawflow(this.drawFlowDiv.nativeElement);
-    this.drawFlow.reroute = true;
-    this.drawFlow.reroute_fix_curvature = true;
-    this.drawFlow.force_first_input = false;
-    this.drawFlow.start();
-  }
-
-  zoomIn(){ this.drawFlow?.zoom_in(); }
-  zoomOut() { this.drawFlow?.zoom_out(); }
-
-  private load(workflow: Workflow){
-    this.workflow = workflow;
-    this.drawFlow?.import({
-      drawflow: {
-        Home: {
-          data: workflow.data
-        }
-      }
-    });
-    this.attachComponents();
-  }
-
-  private attachComponents(){
-    nodes.forEach(item => {
-      this.drawFlow?.getNodesFromName(item.type)
-      .map(id => this.drawFlow?.getNodeFromId(id))
-      .forEach(node => {
-        const div = this.getNativeElement(node?.html);
-        this.attachComponent(node!.name, node?.data, div!);
-        this.drawFlow?.updateConnectionNodes(node!.id);
-      });
-    });
-    
-  }
-
-  private attachComponent(type: string, data: any, nativeElement: HTMLElement | null){
-    const componentFactory: ComponentFactory<DynamicNodeComponent> | undefined = this.resolveComponentFactory(type);
-    if(componentFactory){
-      const componentRef: ComponentRef<DynamicNodeComponent> = componentFactory.create(this.injector, [], nativeElement);
-      componentRef.instance.setData(data);
-      componentRef.instance.setDisabled(true);
-      this.applicationRef.attachView(componentRef.hostView);
-    }
-  }
-
-  private resolveComponentFactory(type: string): ComponentFactory<DynamicNodeComponent> | undefined {
-    switch(type){
-      case 'request' : 
-        return this.componentFactoryResolver.resolveComponentFactory(RequestComponent);
-      case 'email' : 
-        return this.componentFactoryResolver.resolveComponentFactory(EmailComponent);
-      case 'approval' : 
-        return this.componentFactoryResolver.resolveComponentFactory(ApprovalComponent);
-      case 'ldap' :
-        return this.componentFactoryResolver.resolveComponentFactory(LdapComponent);
-      case 'transformer' :
-        return this.componentFactoryResolver.resolveComponentFactory(TransformerComponent);
-      default :
-        return undefined;
-    }
-  }
-
-  private getNativeElement(html?: string){
-    if(html){
-      const htmlElement = this.domParser.parseFromString(html, 'text/html');
-      const div: HTMLDivElement = htmlElement.getElementsByTagName('div')[0];
-      const id: string | null = div.getAttribute('id');
-      return document.getElementById(id!);
-    }
-    return undefined;
-  }
-
 }
