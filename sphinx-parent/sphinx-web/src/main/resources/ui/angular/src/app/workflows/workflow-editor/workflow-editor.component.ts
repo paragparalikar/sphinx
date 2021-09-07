@@ -6,6 +6,7 @@ import {css} from "lit-element";
 import { MessageService } from 'primeng/api';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import nodes from "src/assets/workflow-nodes.json";
+import { WorkflowRendererComponent } from '../workflow-renderer/workflow-renderer.component';
 import { Workflow } from '../workflow.model';
 import { WorkflowService } from '../workflow.service';
 import { ApprovalComponent } from './nodes/approval/approval.component';
@@ -19,138 +20,37 @@ export const style = css`.drawflow,.drawflow .parent-node{position:relative}.par
 @Component({
   selector: 'app-workflow-editor',
   templateUrl: './workflow-editor.component.html',
-  styleUrls: ['./workflow-editor.component.css']
+  styleUrls: ['./workflow-editor.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class WorkflowEditorComponent implements OnInit {
+
+  @ViewChild(WorkflowRendererComponent)
+  renderer!: WorkflowRendererComponent;
  
-  @ViewChild('drawFlowDiv', {read: ElementRef, static: true})
-  drawFlowDiv!: ElementRef;
-  
-  counter: number = 0;
   nodeItems = nodes;
-  drawFlow?: Drawflow;
   workflow = new Workflow();
-  domParser = new DOMParser();
   
   constructor(
-    private injector: Injector,
     private activatedRoute: ActivatedRoute,
-    private applicationRef: ApplicationRef,
     private workflowService: WorkflowService,
     private messageService: MessageService,
-    private navigationService: NavigationService,
-    private componentFactoryResolver: ComponentFactoryResolver) {}
+    private navigationService: NavigationService) {}
 
   ngOnInit(){
-    this.startDrawflow();
     this.activatedRoute.queryParams.subscribe(
       params => {
         if(params.id){
           this.workflowService.findById(params.id).subscribe(
-            workflow => this.load(workflow)
+            workflow => this.workflow = workflow
           );
         }
       }
     );
   }
 
-  private startDrawflow(){
-    this.drawFlow = new Drawflow(this.drawFlowDiv.nativeElement);
-    this.drawFlow.reroute = true;
-    this.drawFlow.reroute_fix_curvature = true;
-    this.drawFlow.force_first_input = false;
-    this.drawFlow.start();
-  }
-
-  zoomIn(){ this.drawFlow?.zoom_in(); }
-  zoomOut() { this.drawFlow?.zoom_out(); }
-
   drag(event){
     event.dataTransfer.setData('node', event.target.getAttribute('data-node'));
-  }
-
-  drop(event){
-    event.preventDefault();
-    const nodetype = event.dataTransfer.getData('node');
-    this.addNode(nodetype, event.clientX, event.clientY);
-  }
-
-  addNode(type: string, pos_x: number, pos_y: number){
-    const editor: any = this.drawFlow;
-    const data = { type: type };
-    pos_x = pos_x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)) - (editor.precanvas.getBoundingClientRect().x * ( editor.precanvas.clientWidth / (editor.precanvas.clientWidth * editor.zoom)));
-    pos_y = pos_y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)) - (editor.precanvas.getBoundingClientRect().y * ( editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom)));
-    const nodeItem = this.nodeItems.find(item => item.type == type);
-    const id: string = 'dynamic-node-' + ++this.counter;
-    editor.addNode(type, nodeItem?.inputs, nodeItem?.outputs, pos_x, pos_y, type, data, `<div id="${id}"></div>`, false);
-    const nativeElement = document.getElementById(id);
-    this.attachComponent(type, data, nativeElement);
-  }
-
-  private load(workflow: Workflow){
-    this.workflow = workflow;
-    this.drawFlow?.import({
-      drawflow: {
-        Home: {
-          data: workflow.data
-        }
-      }
-    });
-    this.attachComponents();
-  }
-
-  private attachComponents(){
-    this.nodeItems.forEach(item => {
-      this.drawFlow?.getNodesFromName(item.type)
-      .map(id => this.drawFlow?.getNodeFromId(id))
-      .forEach(node => {
-        this.counter = this.counter < node!.id ? node!.id : this.counter;
-        const div = this.getNativeElement(node?.html);
-        this.attachComponent(node!.name, node?.data, div!);
-        this.drawFlow?.updateConnectionNodes(node!.id);
-      });
-    });
-    
-  }
-
-  private attachComponent(type: string, data: any, nativeElement: HTMLElement | null){
-    const componentFactory: ComponentFactory<DynamicNodeComponent> | undefined = this.resolveComponentFactory(type);
-    if(componentFactory){
-      const componentRef: ComponentRef<DynamicNodeComponent> = componentFactory.create(this.injector, [], nativeElement);
-      componentRef.instance.setData(data);
-      this.applicationRef.attachView(componentRef.hostView);
-    }
-  }
-
-  private resolveComponentFactory(type: string): ComponentFactory<DynamicNodeComponent> | undefined {
-    switch(type){
-      case 'request' : 
-        return this.componentFactoryResolver.resolveComponentFactory(RequestComponent);
-      case 'email' : 
-        return this.componentFactoryResolver.resolveComponentFactory(EmailComponent);
-      case 'approval' : 
-        return this.componentFactoryResolver.resolveComponentFactory(ApprovalComponent);
-      case 'ldap' :
-        return this.componentFactoryResolver.resolveComponentFactory(LdapComponent);
-      case 'transformer' :
-        return this.componentFactoryResolver.resolveComponentFactory(TransformerComponent);
-      default :
-        return undefined;
-    }
-  }
-
-  private getNativeElement(html?: string){
-    if(html){
-      const htmlElement = this.domParser.parseFromString(html, 'text/html');
-      const div: HTMLDivElement = htmlElement.getElementsByTagName('div')[0];
-      const id: string | null = div.getAttribute('id');
-      return document.getElementById(id!);
-    }
-    return undefined;
-  }
-
-  export(){
-    console.log(this.drawFlow?.export());
   }
 
   isValid(): boolean{
@@ -165,7 +65,7 @@ export class WorkflowEditorComponent implements OnInit {
 
   submit(){
     if(this.isValid()){
-      this.workflow.data = this.drawFlow!.export().drawflow.Home.data;
+      this.workflow.data = this.renderer.export().drawflow.Home.data;
       this.workflowService.save(this.workflow).subscribe(
         response => {
           this.messageService.add({

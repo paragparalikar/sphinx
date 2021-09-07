@@ -11,3 +11,13 @@
 .node-item:hover {
     background-color: #cf8c0e;
 }
+.page {
+    display: flex; 
+    flex-flow: column; 
+    height: 100%;
+}
+.node-list{
+    position: absolute;
+    right: 0;
+    top: 100px;
+}
