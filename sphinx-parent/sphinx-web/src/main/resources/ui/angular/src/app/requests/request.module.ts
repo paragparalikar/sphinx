@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormRequestEditorComponent } from './form-request-editor/form-request-editor.component';
 import { WorkflowRequestEditorComponent } from './workflow-request-editor/workflow-request-editor.component';
-import { WorkflowsModule } from '../workflows/workflows.module';
 import { DrawflowModule } from '../shared/drawflow/drawflow.module';
 
 const routes: Routes = [

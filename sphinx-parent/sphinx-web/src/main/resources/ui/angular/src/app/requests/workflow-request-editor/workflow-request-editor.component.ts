@@ -26,8 +26,7 @@ export class WorkflowRequestEditorComponent implements OnInit {
   
   constructor(
     private activatedRoute: ActivatedRoute,
-    private workflowService: WorkflowService,
-    private navigationService: NavigationService) {}
+    private workflowService: WorkflowService) {}
 
   ngOnInit(){
     this.activatedRoute.queryParams.subscribe(
