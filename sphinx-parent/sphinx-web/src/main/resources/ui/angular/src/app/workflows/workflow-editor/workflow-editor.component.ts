@@ -2,11 +2,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { RequestService } from 'src/app/requests/request.service';
 import { NavigationService } from 'src/app/shared/navigation.service';
 import nodes from "src/assets/workflow-nodes.json";
 import { DrawflowRendererComponent } from '../../shared/drawflow/drawflow-renderer/drawflow-renderer.component';
 import { Workflow } from '../workflow.model';
 import { WorkflowService } from '../workflow.service';
+import { Request } from 'src/app/requests/request.model';
 
 @Component({
   selector: 'app-workflow-editor',
@@ -21,11 +23,15 @@ export class WorkflowEditorComponent implements OnInit {
  
   nodeItems = nodes;
   workflow = new Workflow();
+  request: Request = {
+    type: 'WORKFLOW'
+  };
   
   constructor(
     private activatedRoute: ActivatedRoute,
     private workflowService: WorkflowService,
     private messageService: MessageService,
+    private requestService: RequestService,
     private navigationService: NavigationService) {}
 
   ngOnInit(){
@@ -57,15 +63,22 @@ export class WorkflowEditorComponent implements OnInit {
   submit(){
     if(this.isValid()){
       this.workflow.data = this.renderer.export().drawflow.Home.data;
-      this.workflowService.save(this.workflow).subscribe(
+      this.workflowService.validate(this.workflow).subscribe(
         response => {
-          this.messageService.add({
-            severity: "success",
-            summary: "Saved",
-            icon: "fa fa-check",
-            detail: `Request for workflow "${this.workflow.name}" has been submitted successfully`
-          });
-          this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+          this.request.name = this.workflow.name;
+          this.request.targetId = this.workflow.id;
+          this.request.payload = this.workflow;
+          this.requestService.save(this.request).subscribe(
+            response => {
+              this.messageService.add({
+                severity: "success",
+                summary: "Saved",
+                icon: "fa fa-check",
+                detail: `Request for workflow "${this.workflow.name}" has been submitted successfully`
+              });
+              this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+            }
+          );
         },
         response => {
           if(response instanceof HttpErrorResponse){

@@ -3,6 +3,8 @@ import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api'
 import { Page } from 'src/app/shared/page.model';
 import { Workflow } from '../workflow.model';
 import { WorkflowService } from '../workflow.service';
+import { Request } from 'src/app/requests/request.model';
+import { RequestService } from 'src/app/requests/request.service';
 
 @Component({
   selector: 'app-workflow-list',
@@ -17,10 +19,14 @@ export class WorkflowListComponent implements OnInit {
   };
   loading: boolean = true;
   lazyLoadEvent?: LazyLoadEvent;
+  request: Request = {
+    type: 'WORKFLOW'
+  };
 
   constructor(
     private workflowService: WorkflowService,
     private messageSerivce: MessageService, 
+    private requestService: RequestService,
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
@@ -52,7 +58,8 @@ export class WorkflowListComponent implements OnInit {
       target: event.target,
       closeOnEscape: true,
       accept: () => {
-        this.workflowService.deleteById(workflow.id!).subscribe(
+        this.request.targetId = workflow.id;
+        this.requestService.save(this.request).subscribe(
           response => {
             this.load(this.lazyLoadEvent!);
             this.messageSerivce.add({

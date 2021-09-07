@@ -91,7 +91,7 @@ export class AccessRequestEditorComponent implements OnInit {
       (submission: { data: any; }) => {
         if(requestForm.touched && requestForm.valid){
         this.request.type = 'ACCESS';
-        this.request.payload = JSON.stringify(submission.data);
+        this.request.payload = submission.data;
         this.requestService.save(this.request).subscribe(
           response => {
             this.messageService.add({

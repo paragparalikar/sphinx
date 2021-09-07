@@ -11,6 +11,7 @@ import lombok.Data;
 public class RequestDTO {
 
 	private Long id;
+	private String name;
 	private Long targetId;
 	private String targetName;
 	private RequestType type;

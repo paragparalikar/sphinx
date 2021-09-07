@@ -41,6 +41,8 @@ public abstract class Request implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	private String name;
+	
 	@NonNull
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -54,9 +56,7 @@ public abstract class Request implements Serializable {
 	private RequestStatus status = RequestStatus.NEW;
 	
 	@Lob 
-	@NonNull
-	@NotNull
-	@Basic(fetch=FetchType.LAZY, optional = false)
+	@Basic(fetch=FetchType.LAZY)
 	private String payload;
 	
 	@Column(nullable = false, insertable = true, updatable = false)
@@ -69,5 +69,5 @@ public abstract class Request implements Serializable {
 	private LocalDateTime lockTimestamp = LocalDateTime.MIN;
 	
 	public abstract NamedModel getTarget();
-
+	
 }

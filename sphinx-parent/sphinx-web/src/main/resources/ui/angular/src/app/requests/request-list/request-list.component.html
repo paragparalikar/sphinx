@@ -48,7 +48,7 @@
         <tr>
             <td>{{item.id}}</td>
             <td>
-                <a href="#" [routerLink]="item.type.toLowerCase() + '-request-editor'" [queryParams]="{id: item.id}">{{item.targetName}}</a>
+                <a href="#" [routerLink]="item.type.toLowerCase() + '-request-editor'" [queryParams]="{id: item.id}">{{item.name}}</a>
             </td>
             <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
             <td><span [class]="'type-cell type-cell-' + item.type">{{item.type}}</span></td>

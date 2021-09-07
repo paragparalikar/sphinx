@@ -32,7 +32,7 @@ export class RequestService {
   findById(id: number): Observable<Request> {
     return this.httpClient.get<Request>(`${this.url}/${id}`).pipe(
       map(request => {
-        request.payload = JSON.parse(JSON.parse(request.payload!));
+        request.payload = JSON.parse(request.payload!);
         return request;
       })
     );

@@ -1,6 +1,7 @@
 export interface Request {
 
     id?: number;
+    name?: string;
     targetId?: number;
     targetName?: string;
     status?: string;
@@ -8,6 +9,6 @@ export interface Request {
     createTimestamp?: Date;
     updateTimestamp?: Date;
 
-    payload?: string;
+    payload?: any;
 
 }

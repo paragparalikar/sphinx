@@ -26,19 +26,11 @@ export class WorkflowService {
     return this.http.post<Page<Workflow>>(`${this.url}/pages`, params, this.options);
   }
 
-  save(workflow: Workflow): Observable<Workflow> {
-    if(workflow.id){
-      return this.http.put<Workflow>(`${this.url}`, workflow);
-    } else {
-      return this.http.post<Workflow>(`${this.url}`, workflow);
-    }
+  validate(workflow: Workflow): Observable<boolean> {
+    return this.http.post<boolean>(`${this.url}?op=validate`, workflow);
   }
 
   findById(id: number): Observable<Workflow> {
     return this.http.get<Workflow>(`${this.url}/${id}`);
-  }
-
-  deleteById(id: number): Observable<any> {
-    return this.http.delete(`${this.url}/${id}`);
   }
 }
