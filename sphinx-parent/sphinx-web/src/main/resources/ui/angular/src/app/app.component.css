@@ -1,6 +1,8 @@
 .sidebar-wrapper{
     display: flex;
     align-items: stretch;
+    width: 100vw;
+    height: 100vh;
 }
 #sidebar {
     min-width: 200px;

@@ -12,12 +12,14 @@ import { ToastModule } from 'primeng/toast';
 import { LoginComponent } from './users/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpAuthInterceptor } from './users/http-auth.interceptor';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
