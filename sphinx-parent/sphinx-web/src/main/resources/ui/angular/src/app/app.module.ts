@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -9,11 +9,15 @@ import { TableModule } from 'primeng/table';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { LoginComponent } from './users/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpAuthInterceptor } from './users/http-auth.interceptor';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +27,7 @@ import { ToastModule } from 'primeng/toast';
     NgbModule,
     TableModule,
     ToastModule,
+    ReactiveFormsModule,
     ConfirmPopupModule
   ],
   exports: [
@@ -30,7 +35,8 @@ import { ToastModule } from 'primeng/toast';
   ],
   providers: [
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

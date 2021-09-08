@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JsonCredentialsAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
@@ -28,5 +28,7 @@ public class RequestBodyReaderAuthenticationFilter extends UsernamePasswordAuthe
             throw new InternalAuthenticationServiceException("Authentication error", e);
         }
     }
+	
+	
 	
 }

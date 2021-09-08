@@ -10,7 +10,7 @@ import { Workflow } from './workflow.model';
 export class WorkflowService {
 
   private url = "http://localhost:8080/workflows";
-  private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+  private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }), withCredentials: true };
 
   constructor(private http: HttpClient) { }
 

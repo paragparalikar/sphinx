@@ -19,6 +19,7 @@ public class UserDTO {
 	private String firstName;
 	private String middleName;
 	private String lastName;
+	private String email;
 	private Set<GrantedAuthority> authorities;
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
