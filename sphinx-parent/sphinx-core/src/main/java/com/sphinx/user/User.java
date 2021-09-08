@@ -1,36 +1,50 @@
 package com.sphinx.user;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.Collections;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Singular;
+import lombok.NonNull;
+import lombok.Value;
 
-@Data
-@Entity
+@Value
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+public class User implements UserDetails {
+	private static final long serialVersionUID = 4751074524523952146L;
+	
+	@NonNull 
+	private final String firstName;
+	
+	private final String middleName;
+	
+	private final String lastName;
+	
+	@NonNull 
+	private final String username;
+	
+	private final String password;
+	
+	private final String manager;
+	
+	@NonNull 
+	private final String email;
+	
+	@Builder.Default
+	private final boolean enabled = true;
+	
+	@Builder.Default
+	private final boolean accountNonExpired = true;
+	
+	@Builder.Default
+	private final boolean accountNonLocked = true;
+	
+	@Builder.Default
+	private final boolean credentialsNonExpired = true;
+	
+	@Builder.Default
+	private final Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Singular
-	@ElementCollection
-	private Set<UserIdentifier> identifiers;
-	
-	private String firstName;
-	private String middleName;
-	private String lastName;
-	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import com.sphinx.form.Form;
 
@@ -14,6 +15,7 @@ public interface FormMapper {
 	
 	FormDetailsDTO entityToDTO(Form form);
 	
+	@Mapping(target="workflow.data", ignore = true)
 	Form dtoToEntity(FormDetailsDTO dto);
 	
 	@IterableMapping(elementTargetType = FormDTO.class)

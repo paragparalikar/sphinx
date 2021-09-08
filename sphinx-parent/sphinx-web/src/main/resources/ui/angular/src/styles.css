@@ -43,7 +43,6 @@ body, .p-component, .p-inputtext {
   font-size: 16px;
   font-weight: 400;
   color: #0b5ed7;
-  text-transform: uppercase;
 }
 .p-inputgroup input:first-child,
 .p-inputgroup .p-inputtext:first-child {

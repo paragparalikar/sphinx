@@ -1,31 +1,64 @@
 package com.sphinx.user;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import javax.annotation.PostConstruct;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
+	
+	private final PasswordEncoder passwordEncoder;
+	private final Map<String, User> users = new HashMap<>();
+	
+	@PostConstruct
+	public void init() {
+		final User richard = User.builder()
+				.firstName("Richard")
+				.lastName("Barron")
+				.username("richard.barron")
+				.password(passwordEncoder.encode("test"))
+				.email("parag.paralikar@gmail.com")
+				.build();
+		final User yogesh = User.builder()
+				.firstName("Yogesh")
+				.lastName("Singh")
+				.username("ykstomar")
+				.password(passwordEncoder.encode("test"))
+				.manager("richard.barron")
+				.email("ykstomar@gmail.com")
+				.build();
+		final User parag = User.builder()
+				.firstName("Parag")
+				.middleName("Kiran")
+				.lastName("Paralikar")
+				.username("parag.paralikar")
+				.password(passwordEncoder.encode("test"))
+				.manager("ykstomar")
+				.email("parag.paralikar@gmail.com")
+				.build();
+		
+		users.put(richard.getUsername(), richard);
+		users.put(yogesh.getUsername(), yogesh);
+		users.put(parag.getUsername(), parag);
+	}
+	
+	@Override
+	public User loadUserByUsername(@NonNull final String username) throws UsernameNotFoundException {
+		return Optional.ofNullable(users.get(username))
+				.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+	}
 
-	private final UserRepository userRepository;
 	
-	public List<User> findSuggestions(final String text){
-		if(!StringUtils.hasText(text)) return Collections.emptyList();
-		final Pageable pageable = PageRequest.of(0, 10, Sort.by("lastName", "firstName", "middleName"));
-		final String lowerCasePattern = "%" + text.trim().toLowerCase() + "%";
-		return userRepository.findSuggestions(lowerCasePattern, pageable);
-	}
-	
-	public User findById(Long userId) {
-		return userRepository.findById(userId).orElse(null);
-	}
 	
 }

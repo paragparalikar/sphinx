@@ -5,16 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.sphinx.user.User;
 import com.sphinx.workflow.execution.WorkflowExecution;
 import com.sphinx.workflow.task.Task;
 
@@ -35,11 +34,10 @@ public class TaskExecution {
 	@ManyToOne(optional = false)
 	private Task task;
 	
-	@ManyToMany
-	private Set<User> assignees = new HashSet<>();
+	@ElementCollection
+	private Set<String> assignees = new HashSet<>();
 	
-	@ManyToOne
-	private User completedBy;
+	private String completedBy;
 	
 	private String decision;
 	

@@ -3,10 +3,9 @@ package com.sphinx.workflow.task.execution;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import com.sphinx.user.User;
-import com.sphinx.user.UserService;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +14,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TaskExecutionService {
 
-	private final UserService userService;
+	private final UserDetailsService userService;
 	private final TaskExecutionRepository taskExecutionRepository;
 	
 	public void complete(
 			@NonNull final Long taskExecutionId, 
-			@NonNull final Long userId, 
+			@NonNull final String username, 
 			@NonNull final String decision) {
 		
 		final TaskExecution taskExecution = taskExecutionRepository.findById(taskExecutionId)
@@ -34,16 +33,16 @@ public class TaskExecutionService {
 			throw new IllegalArgumentException("Task is not assigned to anyone");
 		}
 		
-		final User user = userService.findById(userId);
+		final UserDetails user = userService.loadUserByUsername(username);
 		if(null == user) {
-			throw new IllegalArgumentException("No user found for id " + userId);
+			throw new IllegalArgumentException("No user found for id " + username);
 		}
 		
-		if(taskExecution.getAssignees().stream().map(User::getId).anyMatch(Predicate.isEqual(userId))) {
-			throw new IllegalArgumentException("Task is not assigned to user with id " + userId);
+		if(taskExecution.getAssignees().stream().anyMatch(Predicate.isEqual(user.getUsername()))) {
+			throw new IllegalArgumentException("Task is not assigned to user with id " + username);
 		}
 		
-		taskExecution.setCompletedBy(user);
+		taskExecution.setCompletedBy(username);
 		taskExecution.setDecision(decision);
 		taskExecution.setTimestamp(LocalDateTime.now());
 		taskExecution.setStatus(TaskExecutionStatus.COMPLETED);

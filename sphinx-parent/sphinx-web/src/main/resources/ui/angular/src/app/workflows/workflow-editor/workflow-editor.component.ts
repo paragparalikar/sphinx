@@ -76,7 +76,7 @@ export class WorkflowEditorComponent implements OnInit {
                 icon: "fa fa-check",
                 detail: `Request for workflow "${this.workflow.name}" has been submitted successfully`
               });
-              this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+              this.navigationService.navigateByUrl('/requests');
             }
           );
         },
