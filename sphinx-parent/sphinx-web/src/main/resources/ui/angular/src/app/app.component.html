@@ -7,7 +7,7 @@
         <i class="fa fa-user text-gray-400" style="font-size: 100px;"></i>
       </div>
       <div class="text-center">
-        <i class="fa fa-user"></i> {{user.lastName + ", " + user.firstName + " " + user.middleName}}
+        <i class="fa fa-user"></i> {{user.lastName + ", " + user.firstName + " " + (user.middleName ? user.middleName : '')}}
       </div>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -18,7 +18,7 @@
         <li><a href="#" class="nav-link text-white" routerLink="forms" routerLinkActive="active"><i class="fa fa-file-text"></i> Forms</a></li>
         <li><a href="#" class="nav-link text-white" routerLink="workflows" routerLinkActive="active"><i class="fa fa-sitemap"></i> Workflows</a></li>
         <li><hr></li>
-        <li><a href="#" class="nav-link text-white" routerLink="singout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
+        <li><a href="#" class="nav-link text-white" (click)="logout()"><i class="fa fa-sign-out"></i> Sign Out</a></li>
       </ul>
     </div>
   </nav>

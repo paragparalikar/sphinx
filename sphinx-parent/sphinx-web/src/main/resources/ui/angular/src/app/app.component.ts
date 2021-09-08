@@ -23,4 +23,8 @@ export class AppComponent implements OnInit {
       user => this.user = user
     );
   }
+
+  logout(){
+    this.authenticationService.logout();
+  }
 }
