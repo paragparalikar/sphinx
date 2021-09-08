@@ -16,6 +16,7 @@ export class HttpAuthInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    var effectiveRequest = request;
     const token = sessionStorage.getItem('token');
     if(token){
       const authenticatedRequest = request.clone({
@@ -24,15 +25,14 @@ export class HttpAuthInterceptor implements HttpInterceptor {
           'Authorization': `Bearer ${token}`
         })
       });
-      return next.handle(authenticatedRequest);
-    } else {
-      return next.handle(request).pipe(catchError(err => {
-        if ([401, 403].indexOf(err.status) !== -1) {
-          this.authenticationService.logout();
-        }
-        const error = err.error.message || err.statusText;
-        return throwError(error);
-      }));
-    }
+      effectiveRequest = authenticatedRequest;
+    } 
+    return next.handle(effectiveRequest).pipe(catchError(err => {
+      if ([401, 403].indexOf(err.status) !== -1) {
+        this.authenticationService.logout();
+      }
+      const error = err.error.message || err.statusText;
+      return throwError(error);
+    }));
   }
 }
