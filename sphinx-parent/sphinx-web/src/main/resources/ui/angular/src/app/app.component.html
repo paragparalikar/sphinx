@@ -1,7 +1,14 @@
 <div class="sidebar-wrapper">
   <nav id="sidebar" class="flex-column p-3 text-white bg-pattern-dark" *ngIf="user">
     <div class="align-items-center mb-3 mb-md-0 me-md-auto text-white">
-      <span class="fs-4">Sphinx</span>
+      <div class="fs-4">Sphinx</div>
+      <hr>
+      <div class="text-center">
+        <i class="fa fa-user text-gray-400" style="font-size: 100px;"></i>
+      </div>
+      <div class="text-center">
+        <i class="fa fa-user"></i> {{user.lastName + ", " + user.firstName + " " + user.middleName}}
+      </div>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li><a href="#" class="nav-link text-white" routerLink="home" routerLinkActive="active"><i class="fa fa-home"></i> Home</a></li>

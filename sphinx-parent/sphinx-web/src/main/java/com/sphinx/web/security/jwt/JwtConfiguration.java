@@ -11,7 +11,7 @@ public class JwtConfiguration {
 	@Value("${sphinx.jwt.secret:sphinx}")
 	private String secret;
 	
-	@Value("${sphinx.jwt.expiry-millis:300000}")
+	@Value("${sphinx.jwt.expiry-millis:1800000}")
 	private Long expiryMillis;
 	
 	@Bean
