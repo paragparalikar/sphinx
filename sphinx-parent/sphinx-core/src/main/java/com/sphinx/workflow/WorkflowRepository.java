@@ -18,6 +18,6 @@ public interface WorkflowRepository extends JpaRepository<Workflow, Long>, JpaSp
 	
 	Boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 	
-	List<Workflow> findByNameContainingIgnoreCase(String query, Pageable pageable);
+	List<Workflow> findByRequestTypeAndNameContainingIgnoreCase(RequestType type, String query, Pageable pageable);
 	
 }

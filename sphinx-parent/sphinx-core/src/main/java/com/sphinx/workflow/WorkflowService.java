@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.sphinx.request.RequestType;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +27,7 @@ public class WorkflowService {
 	}
 	
 	public List<Workflow> findSuggestions(@NonNull String query,@NonNull Pageable pageable){
-		return workflowRepository.findByNameContainingIgnoreCase(query, pageable);
+		return workflowRepository.findByRequestTypeAndNameContainingIgnoreCase(RequestType.ACCESS, query, pageable);
 	}
 	
 	public Page<Workflow> findAll(Specification<Workflow> spec, Pageable pageable){
