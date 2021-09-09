@@ -20,6 +20,7 @@ public class UserService implements UserDetailsService {
 	
 	private final PasswordEncoder passwordEncoder;
 	private final Map<String, User> users = new HashMap<>();
+	private final Map<String, User> applicationOwners = new HashMap<>();
 	
 	@PostConstruct
 	public void init() {
@@ -51,6 +52,10 @@ public class UserService implements UserDetailsService {
 		users.put(richard.getUsername(), richard);
 		users.put(yogesh.getUsername(), yogesh);
 		users.put(parag.getUsername(), parag);
+		
+		applicationOwners.put("IAM", richard);
+		applicationOwners.put("EWH", yogesh);
+		applicationOwners.put("TYRION", parag);
 	}
 	
 	@Override
@@ -59,6 +64,9 @@ public class UserService implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 	}
 
-	
+	public User getOwnerByApplicationId(@NonNull final String applicationId) {
+		return Optional.ofNullable(applicationOwners.get(applicationId))
+				.orElseThrow(() -> new IllegalArgumentException(applicationId + " not found"));
+	}
 	
 }

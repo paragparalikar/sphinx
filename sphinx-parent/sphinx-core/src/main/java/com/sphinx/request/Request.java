@@ -23,10 +23,10 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Immutable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.sphinx.common.interfaces.NamedModel;
+import com.sphinx.request.validation.ImmutablePayloadName;
 import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.AllArgsConstructor;
@@ -36,9 +36,9 @@ import lombok.NonNull;
 
 @Data
 @Entity
-@Immutable
 @NoArgsConstructor
 @AllArgsConstructor
+@ImmutablePayloadName
 @DiscriminatorColumn(name = "type")
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

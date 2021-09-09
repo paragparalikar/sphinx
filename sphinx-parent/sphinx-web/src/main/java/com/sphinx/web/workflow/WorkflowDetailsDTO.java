@@ -14,9 +14,12 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class WorkflowDetailsDTO extends WorkflowDTO {
+	private static final long serialVersionUID = 5676731655377661839L;
 
 	@NotEmpty
 	@WorkflowConstraint
 	private Map<String,@Valid Node> data;
+	
+	private boolean nameMutable = true;
 	
 }

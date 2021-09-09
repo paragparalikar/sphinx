@@ -1,9 +1,11 @@
-package com.sphinx.workflow;
+package com.sphinx.request.resolver;
 
 import org.springframework.stereotype.Component;
 
 import com.sphinx.request.AccessRequest;
 import com.sphinx.request.Request;
+import com.sphinx.workflow.Workflow;
+import com.sphinx.workflow.WorkflowRepository;
 
 import lombok.RequiredArgsConstructor;
 

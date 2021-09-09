@@ -29,6 +29,7 @@ public class WorkflowConfiguration {
 			final WorkflowDetailsDTO dto = objectMapper.readValue(resource.getInputStream(), WorkflowDetailsDTO.class);
 			final Workflow workflow = workflowMapper.dtoToEntity(dto);
 			workflow.setName(name);
+			workflow.setNameMutable(false);
 			workflowRepository.saveAndFlush(workflow);
 		}
 	}

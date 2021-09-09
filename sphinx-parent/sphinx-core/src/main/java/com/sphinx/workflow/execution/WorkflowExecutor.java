@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
+import com.sphinx.request.Request;
 import com.sphinx.workflow.Workflow;
 import com.sphinx.workflow.node.Node;
 import com.sphinx.workflow.task.Task;
@@ -24,20 +25,23 @@ public class WorkflowExecutor {
 	private final TaskExecutorFactory taskHandlerFactory;
 	private final TaskExecutionRepository taskExecutionRepository;
 	
-	public void execute(WorkflowExecution workflowExecution, Object payload) {
+	public void execute(Request request) {
+		final WorkflowExecution workflowExecution = request.getWorkflowExecution();
 		final Workflow workflow = workflowExecution.getWorkflow();
 		final Node requestNode = workflow.getRequestNode();
-		execute(requestNode, payload, workflowExecution);
+		execute(requestNode, request);
 	}
 	
-	private void execute(Node node, Object payload, WorkflowExecution workflowExecution) {
+	private void execute(Node node, Request request) {
+		final WorkflowExecution workflowExecution = request.getWorkflowExecution();
 		final TaskExecution taskExecution = getTaskExecution(node, workflowExecution);
 		if(TaskExecutionStatus.NEW.equals(taskExecution.getStatus())) {
-			execute(taskExecution, payload);
+			execute(taskExecution, request);
 		}
 		if(TaskExecutionStatus.COMPLETED.equals(taskExecution.getStatus())) {
-			final Set<Node> nextNodes = workflowExecution.getWorkflow().getNextNodes(node, taskExecution.getDecision());
-			nextNodes.forEach(nextNode -> execute(nextNode, payload, workflowExecution));
+			final Workflow workflow = workflowExecution.getWorkflow();
+			final Set<Node> nextNodes = workflow.getNextNodes(node, taskExecution.getDecision());
+			nextNodes.forEach(nextNode -> execute(nextNode, request));
 		}
 	}
 	
@@ -54,10 +58,10 @@ public class WorkflowExecutor {
 				});
 	}
 	
-	private void execute(TaskExecution taskExecution, Object payload) {
+	private void execute(TaskExecution taskExecution, Request request) {
 		final Task task = taskExecution.getTask();
 		final TaskExecutor taskExecutor = taskHandlerFactory.getTaskHandler(task.getType());
-		final TaskExecutionStatus status = taskExecutor.execute(taskExecution, payload);
+		final TaskExecutionStatus status = taskExecutor.execute(taskExecution, request);
 		taskExecution.setStatus(status);
 		taskExecution.setTimestamp(LocalDateTime.now());
 		taskExecutionRepository.save(taskExecution);

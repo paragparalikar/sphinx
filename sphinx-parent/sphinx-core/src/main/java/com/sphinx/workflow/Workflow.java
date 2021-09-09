@@ -57,6 +57,9 @@ public class Workflow implements NamedModel {
 	@Column(nullable = false, unique = true)
 	private String name;
 	
+	@Builder.Default
+	private boolean nameMutable = true;
+	
 	@NotEmpty 
 	@Builder.Default
 	@WorkflowConstraint

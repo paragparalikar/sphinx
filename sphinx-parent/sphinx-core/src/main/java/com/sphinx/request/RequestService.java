@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.sphinx.request.resolver.WorkflowResolver;
 import com.sphinx.workflow.Workflow;
-import com.sphinx.workflow.WorkflowResolver;
 import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.NonNull;
