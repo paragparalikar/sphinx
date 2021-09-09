@@ -200,11 +200,11 @@
 		},
 		"7": {
 			"id": 7,
-			"name": "workflow",
+			"name": "form",
 			"data": {
-				"type": "workflow"
+				"type": "form"
 			},
-			"class": "workflow",
+			"class": "form",
 			"html": "<div id=\"dynamic-node-7\"></div>",
 			"typenode": false,
 			"inputs": {

@@ -28,6 +28,7 @@ import lombok.Data;
   @Type(value = ApprovalTask.class, name = "approval"),
   @Type(value = TransformerTask.class, name = "transformer"),
   @Type(value = LdapTask.class, name = "ldap"),
+  @Type(value = FormTask.class, name = "form"),
   @Type(value = WorkflowTask.class, name = "workflow")
 })
 @Entity

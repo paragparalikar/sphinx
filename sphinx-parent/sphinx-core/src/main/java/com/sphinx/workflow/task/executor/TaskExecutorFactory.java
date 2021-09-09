@@ -21,6 +21,7 @@ public class TaskExecutorFactory {
 	private final ApprovalTaskExecutor approvalTaskExecutor;
 	private final TransformerTaskExecutor transformerTaskExecutor;
 	private final LdapTaskExecutor ldapTaskExecutor;
+	private final FormTaskExecutor formTaskExecutor;
 	private final WorkflowTaskExecutor workflowTaskExecutor;
 	private final Map<TaskType, TaskExecutor> cache = new EnumMap<>(TaskType.class);
 	
@@ -31,6 +32,7 @@ public class TaskExecutorFactory {
 		cache.put(TaskType.APPROVAL, approvalTaskExecutor);
 		cache.put(TaskType.TRANSFORMER, transformerTaskExecutor);
 		cache.put(TaskType.LDAP, ldapTaskExecutor);
+		cache.put(TaskType.FORM, formTaskExecutor);
 		cache.put(TaskType.WORKFLOW, workflowTaskExecutor);
 	}
 	

@@ -19,6 +19,9 @@ public enum TaskType {
 	@JsonProperty("ldap")
 	LDAP,
 	
+	@JsonProperty("form")
+	FORM,
+	
 	@JsonProperty("workflow")
 	WORKFLOW;
 	
