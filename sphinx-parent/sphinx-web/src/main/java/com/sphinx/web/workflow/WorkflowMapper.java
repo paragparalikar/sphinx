@@ -20,6 +20,7 @@ public interface WorkflowMapper {
 		workflow.setId(dto.getId());
 		workflow.setName(dto.getName());
 		workflow.setData(dto.getData());
+		workflow.setRequestType(dto.getRequestType());
 		if(null != workflow.getData()) {
 			workflow.getData().values().forEach(node -> {
 				if(null != node.getInputs()) {
