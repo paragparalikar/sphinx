@@ -44,8 +44,8 @@ import lombok.NonNull;
 public class Workflow implements NamedModel {
 	private static final long serialVersionUID = -760095821715213633L;
 	
-	public static final String FORM = "FORM";
-	public static final String WORKFLOW = "WORKFLOW";
+	public static final String FORM = "Form Provisioning Workflow";
+	public static final String WORKFLOW = "Workflow Provisioning Workflow";
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)

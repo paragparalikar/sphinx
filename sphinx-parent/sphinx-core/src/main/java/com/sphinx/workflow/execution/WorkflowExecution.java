@@ -29,6 +29,10 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkflowExecution {
+	
+	public static WorkflowExecution of(Workflow workflow) {
+		return WorkflowExecution.builder().workflow(workflow).build();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

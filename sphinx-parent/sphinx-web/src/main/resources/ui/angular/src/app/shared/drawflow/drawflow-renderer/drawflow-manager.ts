@@ -1,5 +1,7 @@
 import { ApplicationRef, ComponentFactory, ComponentFactoryResolver, ComponentRef, ElementRef, Injector } from "@angular/core";
 import Drawflow from "drawflow";
+import { FormComponent } from "src/app/workflows/workflow-editor/nodes/form/form.component";
+import { WorkflowComponent } from "src/app/workflows/workflow-editor/nodes/workflow/workflow.component";
 import nodes from "src/assets/workflow-nodes.json";
 import { ApprovalComponent } from "../../../workflows/workflow-editor/nodes/approval/approval.component";
 import { DynamicNodeComponent } from "../../../workflows/workflow-editor/nodes/dynamic-node-component";
@@ -81,6 +83,10 @@ export class DrawflowManager {
                 return this.componentFactoryResolver.resolveComponentFactory(LdapComponent);
             case 'transformer':
                 return this.componentFactoryResolver.resolveComponentFactory(TransformerComponent);
+            case 'form':
+                return this.componentFactoryResolver.resolveComponentFactory(FormComponent);
+            case 'workflow':
+                return this.componentFactoryResolver.resolveComponentFactory(WorkflowComponent);
             default:
                 return undefined;
         }

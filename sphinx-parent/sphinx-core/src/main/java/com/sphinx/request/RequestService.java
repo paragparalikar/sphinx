@@ -5,6 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.sphinx.workflow.Workflow;
+import com.sphinx.workflow.WorkflowResolver;
+import com.sphinx.workflow.execution.WorkflowExecution;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RequestService {
 
+	private final WorkflowResolver workflowResolver;
 	private final RequestRepository accessRequestRepository;
 	
 	public Page<Request> findAllByAssignee(
@@ -34,7 +39,8 @@ public class RequestService {
 	public Request save(@NonNull Request request) {
 		if(null != request.getId()) throw new IllegalArgumentException(
 				"Request can only be created/cancelled, but can not be updated");
-		
+		final Workflow workflow = workflowResolver.resolve(request);
+		request.setWorkflowExecution(WorkflowExecution.of(workflow));
 		final Request managedRequest = accessRequestRepository.save(request); 
 		return managedRequest;
 	}

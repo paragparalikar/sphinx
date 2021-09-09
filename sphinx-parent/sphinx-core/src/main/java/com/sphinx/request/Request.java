@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -16,11 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Immutable;
 
 import com.sphinx.common.NamedModel;
+import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,12 +46,9 @@ public abstract class Request implements Serializable {
 	
 	private String name;
 	
-	/*
-	 * @NonNull
-	 * 
-	 * @OneToOne(cascade = CascadeType.ALL, optional = false) private
-	 * WorkflowExecution workflowExecution;
-	 */
+	@NonNull
+	@OneToOne(cascade = CascadeType.ALL, optional = false) 
+	private WorkflowExecution workflowExecution;
 	
 	@NonNull
 	@NotNull
