@@ -20,12 +20,12 @@
     <p-card [style.display]="formioForm ? 'block' : 'none'">
         <div #formRendererElement></div>
         <div class="mt-4 text-end">
-            <button type="button" class="btn btn-default" (click)="back()">
-                <i class="fa fa-arrow-left"></i> Back
+            <button pButton type="button" class="btn btn-default" (click)="back()">
+                <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back
             </button>
-            <button type="submit" class="btn btn-primary" (click)="submit(requestForm)"
+            <button pButton type="submit" class="btn btn-primary" (click)="submit(requestForm)"
             *ngIf="formioForm && !formioOptions.readOnly">
-                <i class="fa fa-save"></i> Submit
+                <i class="fa fa-save"></i>&nbsp;&nbsp;Submit
             </button>
         </div>   
     </p-card>

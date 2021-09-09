@@ -39,7 +39,7 @@ public class WorkflowExecutor {
 		
 		if(workflowExecution.getTaskExecutions().stream()
 				.map(TaskExecution::getStatus)
-				.allMatch(Predicate.isEqual(TaskExecutionStatus.COMPLETED))) {
+				.allMatch(Predicate.isEqual(TaskExecutionStatus.PENDING).negate())) {
 			request.setStatus(RequestStatus.COMPLETED);
 			requestRepository.saveAndFlush(request);
 		}

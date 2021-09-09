@@ -1,11 +1,11 @@
 <div class="page">
     <div class="d-flex justify-content-between">
         <span class="page-title">{{workflow.name}}</span>
-        <span *ngIf="role == 'approver'" class="mt-3">
-            <button pButton class="btn btn-success mx-4">
+        <span *ngIf="role == 'approver' && request?.status == 'PENDING'" class="mt-3">
+            <button pButton class="btn btn-success mx-4" (click)="approve($event)">
                 <i class="fa fa-check"></i>&nbsp;&nbsp;Approve
             </button>
-            <button pButton class="btn btn-danger">
+            <button pButton class="btn btn-danger" (click)="reject($event)">
                 <i class="fa fa-times"></i>&nbsp;&nbsp;Reject
             </button>
         </span>
