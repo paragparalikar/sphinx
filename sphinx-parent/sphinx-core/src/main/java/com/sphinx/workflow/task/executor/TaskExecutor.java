@@ -6,6 +6,6 @@ import com.sphinx.workflow.task.execution.TaskExecutionStatus;
 
 public interface TaskExecutor {
 
-	TaskExecutionStatus execute(TaskExecution taskExecution, Request request);
+	TaskExecutionStatus execute(TaskExecution taskExecution, Request request) throws Exception;
 	
 }

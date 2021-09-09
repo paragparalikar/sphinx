@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sphinx.request.resolver.WorkflowResolver;
 import com.sphinx.workflow.Workflow;
 import com.sphinx.workflow.execution.WorkflowExecution;
+import com.sphinx.workflow.execution.WorkflowExecutor;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class RequestService {
 
 	private final WorkflowResolver workflowResolver;
+	private final WorkflowExecutor workflowExecutor;
 	private final RequestRepository accessRequestRepository;
 	
 	public Page<Request> findAllByAssignee(
@@ -36,12 +38,13 @@ public class RequestService {
 		return accessRequestRepository.findAll(spec, pageable);
 	}
 	
-	public Request save(@NonNull Request request) {
+	public Request save(@NonNull Request request) throws Exception {
 		if(null != request.getId()) throw new IllegalArgumentException(
 				"Request can only be created/cancelled, but can not be updated");
 		final Workflow workflow = workflowResolver.resolve(request);
 		request.setWorkflowExecution(WorkflowExecution.of(workflow));
 		final Request managedRequest = accessRequestRepository.save(request); 
+		workflowExecutor.execute(managedRequest);
 		return managedRequest;
 	}
 	

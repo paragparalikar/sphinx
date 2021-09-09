@@ -33,6 +33,7 @@ import com.sphinx.workflow.validation.WorkflowConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -41,6 +42,7 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "data")
 public class Workflow implements NamedModel {
 	private static final long serialVersionUID = -760095821715213633L;
 	
@@ -64,7 +66,7 @@ public class Workflow implements NamedModel {
 	@Builder.Default
 	@WorkflowConstraint
 	@MapKey(name = "id")
-	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Map<@NotNull String, @Valid Node> data = new HashMap<>();
 	
 	public Node getRequestNode() {

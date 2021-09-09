@@ -31,6 +31,7 @@ import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -39,6 +40,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @ImmutablePayloadName
+@EqualsAndHashCode(of = "id")
 @DiscriminatorColumn(name = "type")
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

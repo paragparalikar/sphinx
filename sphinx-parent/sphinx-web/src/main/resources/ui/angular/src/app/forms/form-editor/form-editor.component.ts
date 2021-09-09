@@ -9,6 +9,8 @@ import { NavigationService } from 'src/app/shared/navigation.service';
 import { Workflow } from 'src/app/workflows/workflow.model';
 import { WorkflowService } from 'src/app/workflows/workflow.service';
 import { NgForm } from '@angular/forms';
+import { RequestService } from 'src/app/requests/request.service';
+import { Request } from 'src/app/requests/request.model';
 
 @Component({
   selector: 'app-form-editor',
@@ -31,6 +33,7 @@ export class FormEditorComponent implements OnInit {
 
   constructor(
     private formService: FormService, 
+    private requestService: RequestService,
     private activatedRoute: ActivatedRoute,
     private workflowService: WorkflowService,
     private navigationService: NavigationService,
@@ -76,7 +79,12 @@ export class FormEditorComponent implements OnInit {
         detail: "There are no components in the form to save"
       });
     } else {
-      this.formService.save(this.form).subscribe(
+      const request: Request = {
+        type: 'FORM',
+        targetId: this.form.id,
+        payload: this.form
+      };
+      this.requestService.save(request).subscribe(
         response => {
           this.messageSerivce.add({
             severity: "success",

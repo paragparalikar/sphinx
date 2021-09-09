@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
+import { RequestService } from 'src/app/requests/request.service';
 import { Page } from 'src/app/shared/page.model';
 import { Form } from '../form.model';
 import { FormService } from '../form.service';
+import { Request } from 'src/app/requests/request.model';
 
 @Component({
   selector: 'app-form-list',
@@ -20,6 +22,7 @@ export class FormListComponent implements OnInit, OnDestroy {
     
   constructor(
     private formService: FormService,
+    private requestService: RequestService,
     private messageSerivce: MessageService, 
     private confirmationService: ConfirmationService) { }
 
@@ -56,14 +59,18 @@ export class FormListComponent implements OnInit, OnDestroy {
       target: event.target,
       closeOnEscape: true,
       accept: () => {
-        this.formService.deleteById(form.id!).subscribe(
+        const request: Request = {
+          type: 'FORM',
+          targetId: form.id
+        };
+        this.requestService.save(request).subscribe(
           response => {
             this.load(this.lazyLoadEvent!);
             this.messageSerivce.add({
               severity: "success",
               summary: "Deleted",
               icon: "fa fa-check",
-              detail: `Form "${form.name}" has been deleted successfully`
+              detail: `Request for Form "${form.name}" deletion has been submitted successfully`
             });
           }
         );

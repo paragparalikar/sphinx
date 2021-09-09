@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.sphinx.request.Request;
@@ -25,14 +26,15 @@ public class WorkflowExecutor {
 	private final TaskExecutorFactory taskHandlerFactory;
 	private final TaskExecutionRepository taskExecutionRepository;
 	
-	public void execute(Request request) {
+	@Async
+	public void execute(Request request) throws Exception {
 		final WorkflowExecution workflowExecution = request.getWorkflowExecution();
 		final Workflow workflow = workflowExecution.getWorkflow();
 		final Node requestNode = workflow.getRequestNode();
 		execute(requestNode, request);
 	}
 	
-	private void execute(Node node, Request request) {
+	private void execute(Node node, Request request) throws Exception {
 		final WorkflowExecution workflowExecution = request.getWorkflowExecution();
 		final TaskExecution taskExecution = getTaskExecution(node, workflowExecution);
 		if(TaskExecutionStatus.NEW.equals(taskExecution.getStatus())) {
@@ -41,7 +43,9 @@ public class WorkflowExecutor {
 		if(TaskExecutionStatus.COMPLETED.equals(taskExecution.getStatus())) {
 			final Workflow workflow = workflowExecution.getWorkflow();
 			final Set<Node> nextNodes = workflow.getNextNodes(node, taskExecution.getDecision());
-			nextNodes.forEach(nextNode -> execute(nextNode, request));
+			for(Node nextNode : nextNodes) {
+				execute(nextNode, request);
+			}
 		}
 	}
 	
@@ -51,14 +55,13 @@ public class WorkflowExecutor {
 					final Task task = node.getData();
 					final TaskExecution newTaskExecution = new TaskExecution();
 					newTaskExecution.setTask(task);
-					newTaskExecution.setWorkflowExecution(workflowExecution);
 					final TaskExecution managedTaskExecution = taskExecutionRepository.save(newTaskExecution);
 					workflowExecution.getTaskExecutions().add(managedTaskExecution);
 					return (TaskExecution) managedTaskExecution;
 				});
 	}
 	
-	private void execute(TaskExecution taskExecution, Request request) {
+	private void execute(TaskExecution taskExecution, Request request) throws Exception {
 		final Task task = taskExecution.getTask();
 		final TaskExecutor taskExecutor = taskHandlerFactory.getTaskHandler(task.getType());
 		final TaskExecutionStatus status = taskExecutor.execute(taskExecution, request);

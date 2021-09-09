@@ -20,6 +20,7 @@ import com.sphinx.workflow.task.execution.TaskExecution;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -28,6 +29,7 @@ import lombok.NonNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "taskExecutions")
 public class WorkflowExecution {
 	
 	public static WorkflowExecution of(Workflow workflow) {

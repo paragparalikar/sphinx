@@ -1,6 +1,7 @@
 package com.sphinx.workflow.task.executor;
 
 import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,7 +15,6 @@ import com.sphinx.workflow.task.execution.TaskExecution;
 import com.sphinx.workflow.task.execution.TaskExecutionStatus;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 
 @Component
 @RequiredArgsConstructor
@@ -24,8 +24,7 @@ public class EmailTaskExecutor implements TaskExecutor {
 	private final RecipientResolver recipientResolver;
 
 	@Override
-	@SneakyThrows
-	public TaskExecutionStatus execute(TaskExecution taskExecution, Request request) {
+	public TaskExecutionStatus execute(TaskExecution taskExecution, Request request) throws MessagingException {
 		final EmailTask emailTask = EmailTask.class.cast(taskExecution.getTask());
 		final MimeMessage message = javaMailSender.createMimeMessage();
 		final User user = recipientResolver.resolve(request, emailTask.getTo(), emailTask.getApplicationId());

@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
 				.username("ykstomar")
 				.password(passwordEncoder.encode("test"))
 				.manager("richard.barron")
-				.email("ykstomar@gmail.com")
+				.email("parag.paralikar@gmail.com")
 				.build();
 		final User parag = User.builder()
 				.firstName("Parag")

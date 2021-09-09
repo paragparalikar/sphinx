@@ -9,12 +9,12 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.sphinx.workflow.execution.WorkflowExecution;
 import com.sphinx.workflow.task.Task;
 
 import lombok.AllArgsConstructor;
@@ -34,15 +34,12 @@ public class TaskExecution {
 	@ManyToOne(optional = false)
 	private Task task;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> assignees = new HashSet<>();
 	
 	private String completedBy;
 	
 	private String decision;
-	
-	@ManyToOne(optional = false)
-	private WorkflowExecution workflowExecution;
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)

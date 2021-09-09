@@ -27,15 +27,6 @@ export class FormService {
     return this.httpClient.post<Page<Form>>(`${this.url}/pages`, params, this.options);
   }
 
-  save(form: Form): Observable<Form> {
-    form.components = JSON.stringify(form.components);
-    if(form.id){
-      return this.httpClient.put(`${this.url}`, form);
-    } else {
-      return this.httpClient.post(`${this.url}`, form);
-    }
-  }
-
   findById(id: number): Observable<Form> {
     return this.httpClient.get<Form>(`${this.url}/${id}`).pipe(
       map(form => {
@@ -43,10 +34,6 @@ export class FormService {
         return form;
       })
     );
-  }
-
-  deleteById(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.url}/${id}`);
   }
 
 }

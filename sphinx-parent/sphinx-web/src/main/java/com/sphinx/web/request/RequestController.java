@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,14 +57,7 @@ public class RequestController {
 	}
 	
 	@PostMapping
-	public RequestDetailsDTO create(@RequestBody @Valid final RequestDetailsDTO dto) {
-		final Request accessRequest = requestMapper.dtoToEntity(dto);
-		final Request managedEntity = requestService.save(accessRequest);
-		return requestMapper.entityToDTO(managedEntity);
-	}
-
-	@PutMapping
-	public RequestDetailsDTO update(@RequestBody @Valid final RequestDetailsDTO dto) {
+	public RequestDetailsDTO create(@RequestBody @Valid final RequestDetailsDTO dto) throws Exception {
 		final Request accessRequest = requestMapper.dtoToEntity(dto);
 		final Request managedEntity = requestService.save(accessRequest);
 		return requestMapper.entityToDTO(managedEntity);
