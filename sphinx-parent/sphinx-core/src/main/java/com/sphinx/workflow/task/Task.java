@@ -27,7 +27,8 @@ import lombok.Data;
   @Type(value = EmailTask.class, name = "email"), 
   @Type(value = ApprovalTask.class, name = "approval"),
   @Type(value = TransformerTask.class, name = "transformer"),
-  @Type(value = LdapTask.class, name = "ldap")
+  @Type(value = LdapTask.class, name = "ldap"),
+  @Type(value = WorkflowTask.class, name = "workflow")
 })
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

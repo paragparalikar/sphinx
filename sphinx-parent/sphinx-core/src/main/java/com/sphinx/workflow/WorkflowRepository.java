@@ -10,6 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorkflowRepository extends JpaRepository<Workflow, Long>, JpaSpecificationExecutor<Workflow> {
 
+	Boolean existsByNameIgnoreCase(String name);
+	
+	Workflow findOneByNameIgnoreCase(String name);
+	
 	Boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 	
 	List<Workflow> findByNameContainingIgnoreCase(String query, Pageable pageable);

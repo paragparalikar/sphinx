@@ -1,0 +1,264 @@
+{
+	"name": "WORKFLOW",
+	"data": {
+		"1": {
+			"id": 1,
+			"name": "request",
+			"data": {
+				"type": "request"
+			},
+			"class": "request",
+			"html": "<div id=\"dynamic-node-1\"></div>",
+			"typenode": false,
+			"inputs": {},
+			"outputs": {
+				"output_1": {
+					"connections": [
+						{
+							"node": "3",
+							"output": "input_1"
+						},
+						{
+							"node": "2",
+							"output": "input_1"
+						}
+					]
+				}
+			},
+			"pos_x": -485,
+			"pos_y": 187
+		},
+		"2": {
+			"id": 2,
+			"name": "email",
+			"data": {
+				"type": "email",
+				"to": "REQUESTER",
+				"subjectTemplate": "Workflow request received",
+				"contentTemplate": "Hi, \nYour request for \"workflow\" has been received. We will keep you posted about status of this request."
+			},
+			"class": "email",
+			"html": "<div id=\"dynamic-node-2\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "1",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": []
+				}
+			},
+			"pos_x": -292,
+			"pos_y": 239
+		},
+		"3": {
+			"id": 3,
+			"name": "email",
+			"data": {
+				"type": "email",
+				"to": "MANAGER1",
+				"subjectTemplate": "Workflow request for your approval",
+				"contentTemplate": "Hi, \nYour approval is needed."
+			},
+			"class": "email",
+			"html": "<div id=\"dynamic-node-3\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "1",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": [
+						{
+							"node": "4",
+							"output": "input_1"
+						}
+					]
+				}
+			},
+			"pos_x": -288,
+			"pos_y": -49
+		},
+		"4": {
+			"id": 4,
+			"name": "approval",
+			"data": {
+				"type": "approval",
+				"approver": "MANAGER1"
+			},
+			"class": "approval",
+			"html": "<div id=\"dynamic-node-4\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "3",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": [
+						{
+							"node": "5",
+							"output": "input_1"
+						},
+						{
+							"node": "7",
+							"output": "input_1"
+						}
+					]
+				},
+				"output_2": {
+					"connections": [
+						{
+							"node": "8",
+							"output": "input_1"
+						}
+					]
+				}
+			},
+			"pos_x": -60,
+			"pos_y": 9
+		},
+		"5": {
+			"id": 5,
+			"name": "email",
+			"data": {
+				"type": "email",
+				"to": "REQUESTER",
+				"subjectTemplate": "Request approved",
+				"contentTemplate": "Your workflow request is approved"
+			},
+			"class": "email",
+			"html": "<div id=\"dynamic-node-5\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "4",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": []
+				}
+			},
+			"pos_x": 180,
+			"pos_y": -169
+		},
+		"7": {
+			"id": 7,
+			"name": "workflow",
+			"data": {
+				"type": "workflow"
+			},
+			"class": "workflow",
+			"html": "<div id=\"dynamic-node-7\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "4",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": [
+						{
+							"node": "9",
+							"output": "input_1"
+						}
+					]
+				}
+			},
+			"pos_x": 460,
+			"pos_y": -113
+		},
+		"8": {
+			"id": 8,
+			"name": "email",
+			"data": {
+				"type": "email",
+				"to": "REQUESTER",
+				"subjectTemplate": "Your request is rejected",
+				"contentTemplate": "Your workflow request is rejected"
+			},
+			"class": "email",
+			"html": "<div id=\"dynamic-node-8\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "4",
+							"input": "output_2"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": []
+				}
+			},
+			"pos_x": 180,
+			"pos_y": 155
+		},
+		"9": {
+			"id": 9,
+			"name": "email",
+			"data": {
+				"type": "email",
+				"to": "REQUESTER",
+				"subjectTemplate": "Workflow request completed",
+				"contentTemplate": "Workflow request is completed and the workflow has been provisioned"
+			},
+			"class": "email",
+			"html": "<div id=\"dynamic-node-9\"></div>",
+			"typenode": false,
+			"inputs": {
+				"input_1": {
+					"connections": [
+						{
+							"node": "7",
+							"input": "output_1"
+						}
+					]
+				}
+			},
+			"outputs": {
+				"output_1": {
+					"connections": []
+				}
+			},
+			"pos_x": 706,
+			"pos_y": -169
+		}
+	}
+}

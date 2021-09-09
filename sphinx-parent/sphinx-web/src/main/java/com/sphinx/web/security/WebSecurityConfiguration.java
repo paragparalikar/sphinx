@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -110,11 +111,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http
 			.cors().and()
+			.csrf().disable()
+			.anonymous().and()
+			.headers().frameOptions().disable().and()
+			.authorizeRequests().antMatchers("/h2/**").permitAll().and()
 			.authorizeRequests().anyRequest().authenticated().and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.addFilterBefore(jsonCredentialsuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

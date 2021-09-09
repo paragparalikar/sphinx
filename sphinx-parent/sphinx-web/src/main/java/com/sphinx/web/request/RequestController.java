@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sphinx.request.Request;
 import com.sphinx.request.RequestService;
+import com.sphinx.user.User;
 import com.sphinx.web.search.PrimengQueries;
 import com.sphinx.web.search.SearchBuilder;
 
@@ -35,8 +37,16 @@ public class RequestController {
 
 	@PostMapping("/pages")
 	public Page<RequestDTO> findAll(@RequestBody String pageRequest){
-		final PrimengQueries<Request> primengQueries = searchBuilder.process(pageRequest, Request.class, "id", "status");
+		final PrimengQueries<Request> primengQueries = searchBuilder.process(pageRequest, Request.class, "id", "name",  "type", "status");
 		final Page<Request> page = requestService.findAll(primengQueries.getSpec(), primengQueries.getPageQuery());
+		final List<RequestDTO> dtos = requestMapper.entityToDTOs(page.getContent());
+		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
+	}
+	
+	@PostMapping(value = "/pages", params = "assignee=me")
+	public Page<RequestDTO> findAll(@AuthenticationPrincipal User user, @RequestBody String pageRequest){
+		final PrimengQueries<Request> primengQueries = searchBuilder.process(pageRequest, Request.class, "id", "name",  "type", "status");
+		final Page<Request> page = requestService.findAllByAssignee(user.getUsername(), primengQueries.getSpec(), primengQueries.getPageQuery());
 		final List<RequestDTO> dtos = requestMapper.entityToDTOs(page.getContent());
 		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
 	}

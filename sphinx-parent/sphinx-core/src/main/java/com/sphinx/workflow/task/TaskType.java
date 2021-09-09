@@ -17,6 +17,9 @@ public enum TaskType {
 	TRANSFORMER, 
 	
 	@JsonProperty("ldap")
-	LDAP;
+	LDAP,
+	
+	@JsonProperty("workflow")
+	WORKFLOW;
 	
 }

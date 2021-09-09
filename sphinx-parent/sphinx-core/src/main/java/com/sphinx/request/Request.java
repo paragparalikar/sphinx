@@ -43,6 +43,13 @@ public abstract class Request implements Serializable {
 	
 	private String name;
 	
+	/*
+	 * @NonNull
+	 * 
+	 * @OneToOne(cascade = CascadeType.ALL, optional = false) private
+	 * WorkflowExecution workflowExecution;
+	 */
+	
 	@NonNull
 	@NotNull
 	@Enumerated(EnumType.STRING)

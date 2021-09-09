@@ -14,6 +14,19 @@ public class RequestService {
 
 	private final RequestRepository accessRequestRepository;
 	
+	public Page<Request> findAllByAssignee(
+			@NonNull String assignee, 
+			@NonNull Specification<Request> spec, 
+			@NonNull Pageable pageable){
+		final Specification<Request> assigneeSpec = (root, query, builder) -> {
+			return builder.isMember(assignee, root
+					.get("workflowExecution")
+					.get("taskExecutions")
+					.get("assignees"));
+		};
+ 		return findAll(spec.and(assigneeSpec), pageable);
+	}
+	
 	public Page<Request> findAll(@NonNull Specification<Request> spec, @NonNull Pageable pageable) {
 		return accessRequestRepository.findAll(spec, pageable);
 	}
@@ -21,6 +34,7 @@ public class RequestService {
 	public Request save(@NonNull Request request) {
 		if(null != request.getId()) throw new IllegalArgumentException(
 				"Request can only be created/cancelled, but can not be updated");
+		
 		final Request managedRequest = accessRequestRepository.save(request); 
 		return managedRequest;
 	}
