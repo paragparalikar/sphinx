@@ -79,10 +79,13 @@ export class FormEditorComponent implements OnInit {
         detail: "There are no components in the form to save"
       });
     } else {
+      const clone = Object.assign({}, this.form);
+      clone.components = JSON.stringify(this.form.components);
       const request: Request = {
         type: 'FORM',
+        name: this.form.name,
         targetId: this.form.id,
-        payload: this.form
+        payload: clone
       };
       this.requestService.save(request).subscribe(
         response => {
@@ -92,7 +95,7 @@ export class FormEditorComponent implements OnInit {
             icon: "fa fa-check",
             detail: `Request for form "${this.form.name}" has been submitted successfully`
           });
-          this.navigationService.navigate(['..'], {relativeTo: this.activatedRoute});
+          this.navigationService.navigateByUrl('/requests');
         }
       );
     }
