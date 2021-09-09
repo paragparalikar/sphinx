@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.node.ApproverType;
+import com.sphinx.common.enums.ApproverType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

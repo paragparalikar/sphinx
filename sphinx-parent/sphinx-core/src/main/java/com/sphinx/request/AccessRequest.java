@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.data.annotation.Immutable;
 
+import com.sphinx.common.interfaces.NamedModel;
 import com.sphinx.form.Form;
 
 import lombok.Data;
@@ -22,6 +23,11 @@ public class AccessRequest extends Request {
 	private static final long serialVersionUID = 3576360679591102449L;
 
 	@ManyToOne
-	private Form target;
+	private Form form;
+	
+	@Override
+	public NamedModel getTarget() {
+		return form;
+	}
 	
 }

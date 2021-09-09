@@ -1,4 +1,4 @@
-package com.sphinx.workflow.node;
+package com.sphinx.common.enums;
 
 public enum ApproverType {
 

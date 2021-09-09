@@ -1,4 +1,4 @@
-package com.sphinx.common;
+package com.sphinx.common.interfaces;
 
 import java.io.Serializable;
 

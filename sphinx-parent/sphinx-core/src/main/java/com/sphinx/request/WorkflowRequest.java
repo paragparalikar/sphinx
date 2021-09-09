@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.data.annotation.Immutable;
 
+import com.sphinx.common.interfaces.NamedModel;
 import com.sphinx.workflow.Workflow;
 
 import lombok.Data;
@@ -22,6 +23,11 @@ public class WorkflowRequest extends Request {
 	private static final long serialVersionUID = -8636978231439701636L;
 
 	@ManyToOne
-	private Workflow target;
+	private Workflow workflow;
+	
+	@Override
+	public NamedModel getTarget() {
+		return workflow;
+	}
 	
 }

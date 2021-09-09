@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.workflow.node.RecipientType;
+import com.sphinx.common.enums.RecipientType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

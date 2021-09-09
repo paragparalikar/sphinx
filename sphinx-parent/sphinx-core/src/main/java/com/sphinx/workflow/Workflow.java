@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.util.StringUtils;
 
-import com.sphinx.common.NamedModel;
+import com.sphinx.common.interfaces.NamedModel;
 import com.sphinx.workflow.node.Node;
 import com.sphinx.workflow.node.Output;
 import com.sphinx.workflow.node.OutputConnection;

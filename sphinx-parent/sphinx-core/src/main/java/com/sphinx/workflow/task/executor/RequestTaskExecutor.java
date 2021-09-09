@@ -10,7 +10,6 @@ public class RequestTaskExecutor implements TaskExecutor {
 
 	@Override
 	public TaskExecutionStatus execute(TaskExecution taskExecution, Object payload) {
-		System.out.println(taskExecution);
 		return TaskExecutionStatus.COMPLETED;
 	}
 

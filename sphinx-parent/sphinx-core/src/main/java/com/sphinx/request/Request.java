@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -20,9 +21,12 @@ import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Immutable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.sphinx.common.NamedModel;
+import com.sphinx.common.interfaces.NamedModel;
 import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +40,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorColumn(name = "type")
+@EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Request implements Serializable {
 	private static final long serialVersionUID = 6319659442843630209L;
@@ -66,13 +71,14 @@ public abstract class Request implements Serializable {
 	@Basic(fetch=FetchType.LAZY)
 	private String payload;
 	
-	@Column(nullable = false, insertable = true, updatable = false)
-	private LocalDateTime createTimestamp = LocalDateTime.now();
+	@CreatedBy
+	@Column(nullable = false, updatable = false)
+	private String createdBy;
 	
-	@Column(nullable = false)
-	private LocalDateTime updateTimestamp = LocalDateTime.now();
+	@CreatedDate
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createdDate = LocalDateTime.now();
 	
-	@Column(nullable = false)
 	private LocalDateTime lockTimestamp = LocalDateTime.MIN;
 	
 	public abstract NamedModel getTarget();

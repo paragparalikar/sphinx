@@ -46,7 +46,7 @@ public class RequestMapper {
 		final Form form = Optional.ofNullable(dto.getTargetId())
 				.map(formService::findById).orElse(null);
 		final FormRequest request = new FormRequest();
-		request.setTarget(form);
+		request.setForm(form);
 		map(request, dto);
 		return request;
 	}
@@ -55,7 +55,7 @@ public class RequestMapper {
 		final Form form = Optional.ofNullable(dto.getTargetId())
 				.map(formService::findById).orElse(null);
 		final AccessRequest request = new AccessRequest();
-		request.setTarget(form);
+		request.setForm(form);
 		map(request, dto);
 		return request; 
 	}
@@ -64,7 +64,7 @@ public class RequestMapper {
 		final Workflow workflow = Optional.ofNullable(dto.getTargetId())
 				.map(workflowService::findById).orElse(null);
 		final WorkflowRequest request = new WorkflowRequest();
-		request.setTarget(workflow);
+		request.setWorkflow(workflow);
 		map(request, dto);
 		return request; 
 	}
@@ -90,12 +90,10 @@ public class RequestMapper {
 	}
 	
 	private void map(RequestDTO dto, Request request) {
-		dto.setCreateTimestamp(request.getCreateTimestamp());
 		dto.setId(request.getId());
 		dto.setName(request.getName());
 		dto.setStatus(request.getStatus());
 		dto.setType(request.getType());
-		dto.setUpdateTimestamp(request.getUpdateTimestamp());
 		if(null != request.getTarget()) {
 			dto.setTargetId(request.getTarget().getId());
 			dto.setTargetName(request.getTarget().getName());

@@ -20,7 +20,7 @@ public class WorkflowResolver {
 		case WORKFLOW:
 			return workflowRepository.findOneByNameIgnoreCase(Workflow.WORKFLOW);
 		case ACCESS:
-			return AccessRequest.class.cast(request).getTarget().getWorkflow();
+			return AccessRequest.class.cast(request).getForm().getWorkflow();
 		default:
 			return null;
 		}

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.sphinx.common.NamedModel;
+import com.sphinx.common.interfaces.NamedModel;
 import com.sphinx.workflow.Workflow;
 
 import lombok.Data;
