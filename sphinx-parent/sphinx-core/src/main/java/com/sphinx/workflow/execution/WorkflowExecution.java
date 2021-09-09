@@ -3,6 +3,7 @@ package com.sphinx.workflow.execution;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,7 +34,14 @@ import lombok.NonNull;
 public class WorkflowExecution {
 	
 	public static WorkflowExecution of(Workflow workflow) {
-		return WorkflowExecution.builder().workflow(workflow).build();
+		final Set<TaskExecution> taskExecutions = workflow.getData().values().stream()
+			.map(Node::getData)
+			.map(TaskExecution::of)
+			.collect(Collectors.toSet());
+		return WorkflowExecution.builder()
+				.workflow(workflow)
+				.taskExecutions(taskExecutions)
+				.build();
 	}
 
 	@Id

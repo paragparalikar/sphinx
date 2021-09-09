@@ -7,12 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import com.sphinx.request.RequestType;
+
 @Repository
 public interface WorkflowRepository extends JpaRepository<Workflow, Long>, JpaSpecificationExecutor<Workflow> {
 
-	Boolean existsByNameIgnoreCase(String name);
+	Boolean existsByRequestType(RequestType type);
 	
-	Workflow findOneByNameIgnoreCase(String name);
+	Workflow findOneByRequestType(RequestType requestType);
 	
 	Boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 	

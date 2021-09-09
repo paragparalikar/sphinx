@@ -18,15 +18,21 @@ import javax.persistence.ManyToOne;
 import com.sphinx.workflow.task.Task;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskExecution {  
-
+	
+	public static TaskExecution of(Task task) {
+		return TaskExecution.builder().task(task).build();
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -34,6 +40,7 @@ public class TaskExecution {
 	@ManyToOne(optional = false)
 	private Task task;
 	
+	@Builder.Default
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<String> assignees = new HashSet<>();
 	
@@ -41,10 +48,12 @@ public class TaskExecution {
 	
 	private String decision;
 	
+	@Builder.Default
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TaskExecutionStatus status = TaskExecutionStatus.NEW;
 	
+	@Builder.Default
 	private LocalDateTime timestamp = LocalDateTime.now();
 	
 }

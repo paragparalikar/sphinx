@@ -20,6 +20,4 @@ public class WorkflowDetailsDTO extends WorkflowDTO {
 	@WorkflowConstraint
 	private Map<String,@Valid Node> data;
 	
-	private boolean nameMutable = true;
-	
 }

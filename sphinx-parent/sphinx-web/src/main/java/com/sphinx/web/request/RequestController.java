@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sphinx.request.Request;
@@ -35,17 +36,13 @@ public class RequestController {
 	private final RequestService requestService;
 
 	@PostMapping("/pages")
-	public Page<RequestDTO> findAll(@RequestBody String pageRequest){
+	public Page<RequestDTO> findAllByCreatedBy(
+			@RequestParam String role,
+			@AuthenticationPrincipal User user, 
+			@RequestBody String pageRequest){
 		final PrimengQueries<Request> primengQueries = searchBuilder.process(pageRequest, Request.class, "id", "name",  "type", "status");
-		final Page<Request> page = requestService.findAll(primengQueries.getSpec(), primengQueries.getPageQuery());
-		final List<RequestDTO> dtos = requestMapper.entityToDTOs(page.getContent());
-		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
-	}
-	
-	@PostMapping(value = "/pages", params = "assignee=me")
-	public Page<RequestDTO> findAll(@AuthenticationPrincipal User user, @RequestBody String pageRequest){
-		final PrimengQueries<Request> primengQueries = searchBuilder.process(pageRequest, Request.class, "id", "name",  "type", "status");
-		final Page<Request> page = requestService.findAllByAssignee(user.getUsername(), primengQueries.getSpec(), primengQueries.getPageQuery());
+		final Page<Request> page = requestService.findAllByRole(role, user.getUsername(), 
+				primengQueries.getSpec(), primengQueries.getPageQuery());
 		final List<RequestDTO> dtos = requestMapper.entityToDTOs(page.getContent());
 		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
 	}

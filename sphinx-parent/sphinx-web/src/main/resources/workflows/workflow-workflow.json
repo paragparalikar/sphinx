@@ -1,5 +1,6 @@
 {
-	"name": "WORKFLOW",
+	"name": "Workflow Provisioning Workflow",
+	"requestType": "WORKFLOW",
 	"data": {
 		"1": {
 			"id": 1,

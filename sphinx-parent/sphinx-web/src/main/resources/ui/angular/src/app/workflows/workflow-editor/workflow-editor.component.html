@@ -8,7 +8,7 @@
                 </span>
                 <input type="text" id="name" name="name" pInputText style="width: 500px;" class="importent-text"
                 [(ngModel)]="workflow!.name" #name="ngModel" required minlength="3" maxlength="255"
-                appWorkflowNameValidator [workflowId]="workflow.id" [disabled]="!workflow.nameMutable">
+                appWorkflowNameValidator [workflowId]="workflow.id" >
                 <button type="button" class="p-inputgroup-addon btn-primary" (click)="submit()">
                     <i class="fa fa-save"></i>
                 </button>

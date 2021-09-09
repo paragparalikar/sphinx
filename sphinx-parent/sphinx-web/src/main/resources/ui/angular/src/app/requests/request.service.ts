@@ -15,9 +15,9 @@ export class RequestService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(params: any): Observable<Page<Request>> {
+  findAll(role: string, params: any): Observable<Page<Request>> {
     const pageRequest = JSON.stringify(params);
-    return this.httpClient.post<Page<Request>>(`${this.url}/pages`, pageRequest, this.options);
+    return this.httpClient.post<Page<Request>>(`${this.url}/pages?role=${role}`, pageRequest, this.options);
   }
 
   save(request: Request): Observable<Request> {

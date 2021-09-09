@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,7 @@ import javax.validation.constraints.Size;
 import org.springframework.util.StringUtils;
 
 import com.sphinx.common.interfaces.NamedModel;
+import com.sphinx.request.RequestType;
 import com.sphinx.workflow.node.Node;
 import com.sphinx.workflow.node.Output;
 import com.sphinx.workflow.node.OutputConnection;
@@ -45,9 +48,6 @@ import lombok.NonNull;
 @EqualsAndHashCode(exclude = "data")
 public class Workflow implements NamedModel {
 	private static final long serialVersionUID = -760095821715213633L;
-	
-	public static final String FORM = "Form Provisioning Workflow";
-	public static final String WORKFLOW = "Workflow Provisioning Workflow";
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,8 +59,11 @@ public class Workflow implements NamedModel {
 	@Column(nullable = false, unique = true)
 	private String name;
 	
-	@Builder.Default
-	private boolean nameMutable = true;
+	@NonNull
+	@NotNull
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private RequestType requestType;
 	
 	@NotEmpty 
 	@Builder.Default

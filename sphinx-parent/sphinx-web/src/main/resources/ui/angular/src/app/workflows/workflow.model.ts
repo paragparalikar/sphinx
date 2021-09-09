@@ -2,6 +2,6 @@ export class Workflow {
     constructor(
         public id?: number, 
         public name?: string,
-        public nameMutable: boolean = true,
+        public requestType: string = 'ACCESS',
         public data?: any){}
 }

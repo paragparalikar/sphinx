@@ -1,5 +1,6 @@
 {
-	"name": "FORM",
+	"name": "Form Provisioning Workflow",
+	"requestType": "FORM",
 	"data": {
 		"1": {
 			"id": 1,

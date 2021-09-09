@@ -18,9 +18,8 @@ public class WorkflowResolver {
 	public Workflow resolve(Request request) {
 		switch (request.getType()) {
 		case FORM:
-			return workflowRepository.findOneByNameIgnoreCase(Workflow.FORM);
 		case WORKFLOW:
-			return workflowRepository.findOneByNameIgnoreCase(Workflow.WORKFLOW);
+			return workflowRepository.findOneByRequestType(request.getType());
 		case ACCESS:
 			return AccessRequest.class.cast(request).getForm().getWorkflow();
 		default:

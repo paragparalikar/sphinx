@@ -26,7 +26,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.sphinx.common.interfaces.NamedModel;
-import com.sphinx.request.validation.ImmutablePayloadName;
 import com.sphinx.workflow.execution.WorkflowExecution;
 
 import lombok.AllArgsConstructor;
@@ -39,7 +38,6 @@ import lombok.NonNull;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ImmutablePayloadName
 @EqualsAndHashCode(of = "id")
 @DiscriminatorColumn(name = "type")
 @EntityListeners(AuditingEntityListener.class)

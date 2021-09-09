@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { Page } from 'src/app/shared/page.model';
 import { Request } from '../request.model';
@@ -15,6 +16,7 @@ export class RequestListComponent implements OnInit {
     content: [],
     totalElements: 0
   };
+  role: string = 'requester';
   loading: boolean = true;
   lazyLoadEvent?: LazyLoadEvent;
   statuses = [
@@ -32,18 +34,27 @@ export class RequestListComponent implements OnInit {
 
 
   constructor(
+    private route: ActivatedRoute,
     private requestService: RequestService,
     private messageSerivce: MessageService, 
     private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        this.role = params.role ? params.role : 'requester';
+        if(this.lazyLoadEvent){
+          this.load(this.lazyLoadEvent);
+        }
+      }
+    );
   }
 
   load(event: LazyLoadEvent){
     const that = this;
     this.loading = true;
     this.lazyLoadEvent = event;
-    this.requestService.findAll(event).subscribe(
+    this.requestService.findAll(this.role, event).subscribe(
       page => {
         that.page = page;
         that.loading = false;

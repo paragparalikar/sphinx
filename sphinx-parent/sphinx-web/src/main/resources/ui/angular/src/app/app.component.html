@@ -12,8 +12,9 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li><a href="#" class="nav-link text-white" routerLink="home" routerLinkActive="active"><i class="fa fa-home"></i> Home</a></li>
-        <li><a href="#" class="nav-link text-white" routerLink="requests" routerLinkActive="active"><i class="fa fa-list"></i> My Requests</a></li>
-        <li><a href="#" class="nav-link text-white" routerLink="approvals" routerLinkActive="active"><i class="fa fa-check"></i> My Approvals</a></li>
+        <li><a href="#" class="nav-link text-white" routerLink="requests" [queryParams]="{role: 'requester'}" routerLinkActive="active"><i class="fa fa-list"></i> My Requests</a></li>
+        <li><a href="#" class="nav-link text-white" routerLink="requests" [queryParams]="{role: 'approver'}" routerLinkActive="active"><i class="fa fa-check"></i> My Approvals</a></li>
+        <li><a href="#" class="nav-link text-white" routerLink="requests" [queryParams]="{role: 'executor'}" routerLinkActive="active"><i class="fa fa-check"></i> My Tasks</a></li>
         <li><hr></li>
         <li><a href="#" class="nav-link text-white" routerLink="forms" routerLinkActive="active"><i class="fa fa-file-text"></i> Forms</a></li>
         <li><a href="#" class="nav-link text-white" routerLink="workflows" routerLinkActive="active"><i class="fa fa-sitemap"></i> Workflows</a></li>

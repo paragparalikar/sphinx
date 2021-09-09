@@ -1,9 +1,11 @@
 package com.sphinx.web.workflow;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.sphinx.common.interfaces.NamedModel;
+import com.sphinx.request.RequestType;
 
 import lombok.Data;
 
@@ -16,6 +18,8 @@ public class WorkflowDTO implements NamedModel {
 	@NotBlank
 	@Size(min = 3, max = 255)
 	private String name;
-	
+
+	@NotNull
+	private RequestType requestType;
 	
 }
