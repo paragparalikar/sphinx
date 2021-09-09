@@ -47,10 +47,18 @@ public class RequestController {
 		return new PageImpl<>(dtos, primengQueries.getPageQuery(), page.getTotalElements());
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping(value = "/{id}", params = "!decision")
 	public RequestDetailsDTO findById(@PathVariable final Long id) {
 		final Request accessRequest = requestService.findById(id);
 		return null == accessRequest ? null : requestMapper.entityToDTO(accessRequest);
+	}
+	
+	@GetMapping(value = "/{id}", params = "decision")
+	public void decide(
+			@PathVariable final Long id, 
+			@RequestParam String decision,
+			@AuthenticationPrincipal User user) throws Exception {
+		requestService.decide(id, decision, user);
 	}
 	
 	@PostMapping

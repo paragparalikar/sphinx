@@ -37,7 +37,7 @@
                 </p-columnFilter>
             </th>
             <th class="text-end p-py-1 col-2">
-                <p-button label="New Request" icon="pi pi-plus" iconPos="left" routerLink="access-request-editor"></p-button>
+                <p-button *ngIf="role == 'requester'" label="New Request" icon="pi pi-plus" iconPos="left" routerLink="access-request-editor"></p-button>
             </th>
         </tr>
     </ng-template>
@@ -45,13 +45,22 @@
         <tr>
             <td>{{item.id}}</td>
             <td>
-                <a href="#" [routerLink]="item.type.toLowerCase() + '-request-editor'" [queryParams]="{id: item.id}">{{item.name}}</a>
+                <a href="#" [routerLink]="item.type.toLowerCase() + '-request-editor'" 
+                [queryParams]="{id: item.id, role: role}">{{item.name}}</a>
             </td>
             <td><span [class]="'status-cell status-' + item.status">{{item.status}}</span></td>
             <td><span [class]="'type-cell type-cell-' + item.type">{{item.type}}</span></td>
             <td class="text-end">
-                <button *ngIf="item.status != 'CANCELLED'" class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
+                <button *ngIf="role == 'requester' && item.status != 'CANCELLED'" class="btn btn-danger btn-sm ml-2" (click)="cancel($event, item)">
                     <i class="fa fa-trash"></i>
+                </button>
+                <button *ngIf="role == 'approver' && item.status == 'PENDING'" class="btn btn-success btn-sm ml-2" 
+                    (click)="approve($event, item)">
+                    <i class="fa fa-check"></i>
+                </button>
+                <button *ngIf="role == 'approver' && item.status == 'PENDING'" class="btn btn-danger btn-sm ml-2" 
+                    (click)="reject($event, item)">
+                    <i class="fa fa-times"></i>
                 </button>
             </td>
         </tr>

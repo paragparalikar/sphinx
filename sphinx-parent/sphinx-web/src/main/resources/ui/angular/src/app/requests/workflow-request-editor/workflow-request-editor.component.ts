@@ -14,6 +14,7 @@ export class WorkflowRequestEditorComponent implements OnInit {
 
   request?: Request;
   workflow = new Workflow();
+  role: string = 'requester';
   
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,6 +23,7 @@ export class WorkflowRequestEditorComponent implements OnInit {
   ngOnInit(){
     this.activatedRoute.queryParams.subscribe(
       params => {
+        this.role = params.role ? params.role : 'requester';
         if(params.id){
           this.requestService.findById(params.id).subscribe(
             response => {

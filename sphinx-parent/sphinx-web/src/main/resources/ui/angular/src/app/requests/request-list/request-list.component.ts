@@ -62,9 +62,63 @@ export class RequestListComponent implements OnInit {
     );
   }
 
+  approve(event: any, request: Request){
+    this.confirmationService.confirm({
+      message: `Are you sure you want to approve request "${request.name}" ?`,
+      icon: "fa fa-question-circle",
+      acceptIcon: 'fa fa-check',
+      acceptLabel: "Yes",
+      acceptButtonStyleClass: 'btn btn-success',
+      rejectLabel: "No",
+      rejectIcon: "fa fa-times",
+      rejectButtonStyleClass: "btn btn-plain",  
+      target: event.target,
+      closeOnEscape: true,
+      accept: () => {
+        this.requestService.decide(request.id!, 'output_1').subscribe(
+          response => {
+            this.load(this.lazyLoadEvent!);
+            this.messageSerivce.add({
+              severity: "success",
+              summary: "Approved",
+              icon: "fa fa-check",
+              detail: `Request "${request.name}" has been approved successfully`
+            });
+          }
+        );
+      }
+    });
+  }
+
+  reject(event: any, request: Request){
+    this.confirmationService.confirm({
+      message: `Are you sure you want to reject request "${request.name}" ?`,
+      icon: "fa fa-question-circle",
+      acceptLabel: "Yes",
+      acceptButtonStyleClass: 'btn btn-danger',
+      rejectLabel: "No",
+      rejectButtonStyleClass: "btn btn-plain",  
+      target: event.target,
+      closeOnEscape: true,
+      accept: () => {
+        this.requestService.decide(request.id!, 'output_2').subscribe(
+          response => {
+            this.load(this.lazyLoadEvent!);
+            this.messageSerivce.add({
+              severity: "success",
+              summary: "Rejected",
+              icon: "fa fa-check",
+              detail: `Request "${request.name}" has been rejected successfully`
+            });
+          }
+        );
+      }
+    });
+  }
+
   cancel(event: any, request: Request) {
     this.confirmationService.confirm({
-      message: `Are you sure you want to cancel request "${request.id}" ?`,
+      message: `Are you sure you want to cancel request "${request.name}" ?`,
       icon: "pi pi-exclamation-triangle",
       acceptIcon: 'pi pi-trash',
       acceptLabel: "Yes",

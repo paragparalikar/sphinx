@@ -20,6 +20,10 @@ export class RequestService {
     return this.httpClient.post<Page<Request>>(`${this.url}/pages?role=${role}`, pageRequest, this.options);
   }
 
+  decide(id: number, decision: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.url}/${id}?decision=${decision}`);
+  }
+
   save(request: Request): Observable<Request> {
     request.payload = JSON.stringify(request.payload);
     if(request.id){

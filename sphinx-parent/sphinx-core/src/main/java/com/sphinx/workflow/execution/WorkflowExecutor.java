@@ -3,11 +3,14 @@ package com.sphinx.workflow.execution;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.sphinx.request.Request;
+import com.sphinx.request.RequestRepository;
+import com.sphinx.request.RequestStatus;
 import com.sphinx.workflow.Workflow;
 import com.sphinx.workflow.node.Node;
 import com.sphinx.workflow.task.Task;
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WorkflowExecutor {
 
+	private final RequestRepository requestRepository;
 	private final TaskExecutorFactory taskHandlerFactory;
 	private final TaskExecutionRepository taskExecutionRepository;
 	
@@ -32,6 +36,13 @@ public class WorkflowExecutor {
 		final Workflow workflow = workflowExecution.getWorkflow();
 		final Node requestNode = workflow.getRequestNode();
 		execute(requestNode, request);
+		
+		if(workflowExecution.getTaskExecutions().stream()
+				.map(TaskExecution::getStatus)
+				.allMatch(Predicate.isEqual(TaskExecutionStatus.COMPLETED))) {
+			request.setStatus(RequestStatus.COMPLETED);
+			requestRepository.saveAndFlush(request);
+		}
 	}
 	
 	private void execute(Node node, Request request) throws Exception {
@@ -40,9 +51,14 @@ public class WorkflowExecutor {
 		if(TaskExecutionStatus.NEW.equals(taskExecution.getStatus())) {
 			execute(taskExecution, request);
 		}
+		if(TaskExecutionStatus.PENDING.equals(taskExecution.getStatus()) 
+				&& !RequestStatus.PENDING.equals(request.getStatus())) {
+			request.setStatus(RequestStatus.PENDING);
+			requestRepository.saveAndFlush(request);
+		}
 		if(TaskExecutionStatus.COMPLETED.equals(taskExecution.getStatus())) {
 			final Workflow workflow = workflowExecution.getWorkflow();
-			final Set<Node> nextNodes = workflow.getNextNodes(node, taskExecution.getDecision());
+			final Set<Node> nextNodes = workflow.getNextNodes(node, taskExecution.getDecision());	
 			for(Node nextNode : nextNodes) {
 				execute(nextNode, request);
 			}
@@ -61,13 +77,14 @@ public class WorkflowExecutor {
 				});
 	}
 	
-	private void execute(TaskExecution taskExecution, Request request) throws Exception {
+	private TaskExecutionStatus execute(TaskExecution taskExecution, Request request) throws Exception {
 		final Task task = taskExecution.getTask();
 		final TaskExecutor taskExecutor = taskHandlerFactory.getTaskHandler(task.getType());
 		final TaskExecutionStatus status = taskExecutor.execute(taskExecution, request);
 		taskExecution.setStatus(status);
 		taskExecution.setTimestamp(LocalDateTime.now());
 		taskExecutionRepository.save(taskExecution);
+		return status;
 	}
 	
 }
